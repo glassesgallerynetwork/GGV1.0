@@ -1,0 +1,179 @@
+<include file="public/layout" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/font_upload/iconfont.css">
+<style>
+    span.type-virtual {
+        background-color: #3598DC;
+        line-height: 16px;
+        color: #FFF;
+        display: inline-block;
+        height: 16px;
+        padding: 1px 4px;
+        margin-right: 2px;
+        box-shadow: inset 1px 1px 0 rgba(255,255,255,0.25);
+        cursor: default;
+    }
+    .upload_file{
+      color:#fefefe;
+      background:#3b8cff;
+      border:#2980FF;
+      display:inline-table;
+      border-radius: 6px;
+      text-align: center;
+      padding: 10px 6px;
+      width: 99px;
+      margin: 10px;
+      font-size: 16px;
+      cursor:pointer;
+      position:relative;
+      margin-left:0px;
+      margin-right:2px;
+     }
+     #uploads_string{
+      padding:11px;
+      width:410px;
+      display:inline-table;
+      border:1px solid #000000;
+      border-radius:6px;
+      text-indent:6px;
+      margin:10px;
+      margin-right:8px;
+      outline:none;
+      font-size:16px;
+     }
+     #append_parent{
+      display:inline-table;
+     }
+     .uploads{margin-top:1px;}
+     #id_files{
+      position: absolute;
+      top: 0;
+      left: 1px;
+      width: 110px;
+      font-size: 25px;
+      opacity:0;
+      display: block;
+      cursor: pointer;
+     }
+    .ps{
+      font-size:12px;
+      color:#f4f4f4;
+    }
+  .upload_file_submits
+  {
+      color:#fefefe;
+      background:#3b8cff;
+      border:#2980FF;
+      display:inline-table;
+      border-radius: 6px;
+      text-align: center;
+      padding: 11px 6px;
+      width: 99px;
+      margin: 10px;
+      font-size: 16px;
+      cursor:pointer;
+      position:relative;
+      margin-left:0px;
+  }
+</style>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="logs" style="margin-left:14px"></div>
+<div class="page" style="padding-top:50px;">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="subject">
+        <h3>商品導入</h3>
+        <h5>導入商品管理欄目</h5>
+      </div>
+    </div>
+  </div>
+  <div class="uploads">
+  <form method="post" enctype="multipart/form-data" id="uploadForm" name="uploadForm">
+  <input id="uploads_string" type="text" value="請導入文件" name="files_text"/>
+  <div class="upload_file">
+    <i class="iconfont icon-shangchuan"></i>
+    <span>导入文件</span>
+    <input class="files" id="id_files" type="file" name="files" value="导入文件" accept=".csv"/>
+  </div>
+  <div class="upload_file_submits">
+    <span>確認</span>
+  </div>
+</form>
+</div>
+  <!-- 操作说明 -->
+  <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+    <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+      <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+      <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+    </div>
+    <ul>
+      <li>注:可以導入EXCEL,CSV格式文件</li>
+      <li>商品缩列图也有缓存..</li>
+    </ul>
+  </div>
+</div>
+<script>
+  /*mf.leung for 20180525 creat funtion*/
+    $(document).ready(function(){
+		  $('#id_files').change(function(even){
+        
+        var files = even.currentTarget.files[0].name;
+        
+        //checkout the files
+        var file_array = [".csv"];
+        /*checkout files length*/
+        var upload_file = files.substring(files.lastIndexOf('.'));
+        for(var i=0;i<file_array.length;i++)
+        {
+          switch(true)
+          {
+            case upload_file == file_array[0]:
+              $("#uploads_string").val(files);
+          }
+        }
+	   });
+      $('.upload_file_submits').click(function()
+      {
+        var files = document.getElementById("id_files").value;
+        var Htmlstr = "";
+        var Formdata = new FormData($('#uploadForm')[0]);
+        Formdata.append('files',$("#id_files")[0].files[0].name);
+        $.ajax({
+          async:true,
+          url:"/index.php/Admin/goods/commodity_import",
+          data:Formdata,
+          dataType:"json",
+          type:"POST",
+          cache:false,
+          processData: false,  // 不处理数据
+          contentType: false,   // 不设置内容类型
+          success:function(response){
+            if(response.status == "add")
+            {
+              layer.msg(response.msg +"\n",{icon: 1,time:3600},function(){
+                  parent.document.getElementById("workspace").src = response.datas;
+              });
+            }else if(response.status == "updates")
+            {
+              layer.msg(response.msg + "\n" +response.datas.toString() ,{icon: 1,time:3600},function(){
+                  parent.document.getElementById("workspace").src = "{:U('Admin/Goods/goodsList')}";
+              });
+              
+            }else
+            {
+              layer.msg(response.msg,{icon: 2,time:3600});
+            }
+          }
+        });
+      });
+        // 点击排序
+        function sort(field)
+        {
+           $("input[name='orderby1']").val(field);
+           var v = $("input[name='orderby2']").val() == 'desc' ? 'asc' : 'desc';             
+           $("input[name='orderby2']").val(v);
+           ajax_get_table('search-form2',cur_page);
+        }
+  });
+</script>
+ </body>
+</html>
