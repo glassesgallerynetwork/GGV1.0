@@ -25,4 +25,4 @@ array('name'=>'商城','child'=>array(<br>
  Email: MF.LEUNG@glassesgallery.com<br>
  程式純自己思維原創，請勿轉發，尊重別人版權<br>
  
-                                                                                                                        ---MF.LEUNG
+                                                                                                  ---MF.LEUNG
