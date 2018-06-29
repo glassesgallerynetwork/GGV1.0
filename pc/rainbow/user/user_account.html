@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{:widget('Cates/header')}
+<div class="page messages">
+  <div data-placeholder="messages"></div>
+  <div data-bind="scope: 'messages'">
+    <div data-bind="foreach: { data: cookieMessages, as: 'message' }" class="messages"></div>
+    <div data-bind="foreach: { data: messages().messages, as: 'message' }" class="messages"></div>
+  </div>
+</div>
+<main id="maincontent" class="page-main">
+  <a id="contentarea" tabindex="-1"></a>
+  <div class="columns">
+    <div class="column main">
+      <div class="page-title-wrapper">
+        <h1 class="page-title">
+          <font style="vertical-align: inherit;">
+            <font style="vertical-align: inherit;">欢迎:{$Request.cookie.uname}</font></font>
+        </h1>
+      </div>
+      <input name="form_key" type="hidden" value="0Ybtxn0uFVue8jLc">
+      <div id="authenticationPopup" data-bind="scope:'authenticationPopup'" style="display: none;">       
+        </div>
+      <ul id="quickaccess-container">
+        <li class="my-favourites">
+          <a href="{:U('Home/user/favourites')}" target="_self">
+            <h4 class="title">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">我最喜欢的</font></font>
+            </h4>
+            <div class="desc">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">查看您添加收藏的眼镜。</font></font>
+            </div>
+          </a>
+        </li>
+        <li class="my-profile">
+          <a href="{:U('Home/user/user_info')}" target="_self">
+            <h4 class="title">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">我的信息</font></font>
+            </h4>
+            <div class="desc">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">管理您的个人信息，发送电子邮件并更改密码。</font></font>
+            </div>
+          </a>
+        </li>
+        <li class="address-book">
+          <a href="{:U('Home/user/address_list')}" target="_self">
+            <h4 class="title">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">地址簿</font></font>
+            </h4>
+            <div class="desc">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">管理您的默认帐单地址和送货地址。</font></font>
+            </div>
+          </a>
+        </li>
+        <li class="order-history">
+          <a href="{:U('Home/user/order_history')}" target="_self">
+            <h4 class="title">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">订单历史</font></font>
+            </h4>
+            <div class="desc">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">查看您的订单状态，订购货件并在此重新订购。</font></font>
+            </div>
+          </a>
+        </li>
+        <li class="my-prescriptions">
+          <a href="{:U('Home/user/prescription')}" target="_self">
+            <h4 class="title">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">我的处方</font></font>
+            </h4>
+            <div class="desc">
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">在这里管理您的处方记录。</font></font>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+	{:widget('Cates/footer')}
+</body>
+</html>

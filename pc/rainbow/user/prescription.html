@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{:widget('Cates/header')}
+<main id="maincontent" class="page-main">
+  <a id="contentarea" tabindex="-1"></a>
+  <div class="columns">
+    <div class="column main">
+      <div class="page-title-wrapper">
+        <h1 class="page-title">
+          <span class="base" data-ui-id="page-title-wrapper">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">我的处方</font></font>
+          </span>
+        </h1>
+      </div>
+      <input name="form_key" type="hidden" value="">
+      <div id="authenticationPopup" data-bind="scope:'authenticationPopup'" style="display: none;">
+        <!-- ko template: getTemplate() -->
+        <!-- /ko --></div>
+      <form>
+        <div class="gg-empty">
+          <h3 class="gg-title">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">你还没有处方。</font></font>
+          </h3>
+        </div>
+
+        <a class="gg-button gg-button-black" href="{:U('Home/user/add_prescription')}">
+          <span>
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">添加新处方</font></font>
+          </span>
+        </a>
+      </form>
+    </div>
+    <div class="sidebar sidebar-main">
+      <div class="block account-nav custom-dropdown">
+        <div class="custom-dropdown-wrapper">
+          <div class="title custom-dropdown-title">
+            <strong>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">我的帐户</font></font>
+            </strong>
+          </div>
+          <div class="content custom-dropdown-content">
+            <nav class="account-nav">
+              <ul class="nav items">
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/wishlist/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我最喜欢的</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/customer/account/edit/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的简历</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/customer/address/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">地址簿</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/sales/order/history/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">订单历史</font></font>
+                  </a>
+                </li>
+                <li class="nav item current">
+                  <strong>
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的处方</font></font>
+                  </strong>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/rma/returns/history/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的退货</font></font>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+	{:widget('Cates/footer')}
+</body>
+</html>

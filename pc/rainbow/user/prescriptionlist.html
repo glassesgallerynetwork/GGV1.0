@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{:widget('Cates/header')}
+   <main id="maincontent" class="page-main">
+  <a id="contentarea" tabindex="-1"></a>
+  <div class="columns">
+    <div class="column main">
+      <div class="page-title-wrapper">
+        <h1 class="page-title">
+          <span class="base" data-ui-id="page-title-wrapper">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">我的处方</font></font>
+          </span>
+        </h1>
+      </div>
+      <input name="form_key" type="hidden" value="3s3WRx2N3klRWWF3">
+      <div id="authenticationPopup" data-bind="scope:'authenticationPopup'" style="display: none;">
+        <!-- ko template: getTemplate() -->
+        <!-- /ko --></div>
+      <script type="text/javascript">(function e() {
+          var e = document.createElement("script");
+          e.type = "text/javascript",
+          e.async = true,
+          e.src = "//staticw2.yotpo.com/uInlpDPMxHnVGszqmEA0bBDDub335K8bTuHAM8b4 /widget.js ";
+          var t = document.getElementsByTagName("script")[0];
+          t.parentNode.insertBefore(e, t)
+        })();</script>
+      <div>
+        <input name="form_key" type="hidden" value="3s3WRx2N3klRWWF3">
+        <ul class="prescription-list">
+          <li>
+            <div class="rx-form rx-form--readonly">
+              <div class="rx-form-title">
+                <input readonly="" type="text" name="prescription_name" value="{$rights[0]['prescription_name']}"></div>
+              <div class="rx-form-eyes">
+                <div class="rx-form-eyes-row rx-form-eyes-row--header show-on-med-and-up">
+                  <div class="rx-form-eyes-col1">&nbsp;</div>
+                  <!-- -->
+                  <div class="rx-form-eyes-sph">
+                    <span>
+                      <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">近- | 远+</font></font>
+                    </span>
+                  </div>
+                  <!-- -->
+                  <div class="rx-form-eyes-cyl">
+                    <span>
+                      <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">散光度数</font></font>
+                    </span>
+                  </div>
+                  <!-- -->
+                  <div class="rx-form-eyes-axis">
+                    <span>
+                      <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">轴位</font></font>
+                    </span>
+                  </div>
+                  <!-- -->
+                  <div class="rx-form-eyes-add">
+                    <span>
+                      <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">加法（近）</font></font>
+                    </span>
+                  </div>
+                </div>
+                <div class="rx-form-eyes-row rx-form-eyes-row--body rx-form-eyes-row--od">
+                  <div class="rx-form-eyes-col1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">右眼（OD）</font></font>
+                  </div>
+                  <!-- -->
+                  <div class="rx-form-eyes-sph">
+                    <div class="show-on-small-only">Sphere (SPH)</div>
+                    <input readonly="" type="text" name="prescription_data[od.sph]" value="{$rights[0]['SPH']}"></div>
+                  <!-- -->
+                  <div class="rx-form-eyes-cyl">
+                    <div class="show-on-small-only">Cylinder (CYL)</div>
+                    <input readonly="" type="text" name="prescription_data[od.cyl]" value="{$rights[0]['CYL']}"></div>
+                  <!-- -->
+                  <div class="rx-form-eyes-axis">
+                    <div class="show-on-small-only">Axis</div>
+                    <input readonly="" type="number" name="prescription_data[od.axis]" min="0" max="180" value="{$rights[0]['AXIS']}"></div>
+                  <!-- -->
+                  <div class="rx-form-eyes-add">
+                    <div class="show-on-small-only">Addition (Near)</div>
+                    <input readonly="" type="text" name="prescription_data[od.near]" value="{$rights[0]['ADD']}"></div>
+                </div>
+                <div class="rx-form-eyes-row rx-form-eyes-row--body rx-form-eyes-row--os">
+                  <div class="rx-form-eyes-col1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">左眼（OS）</font></font>
+                  </div>
+                  <!-- -->
+                  <div class="rx-form-eyes-sph">
+                    <div class="show-on-small-only">Sphere (SPH)</div>
+                    <input readonly="" type="text" name="prescription_data[os.sph]" value="{$lefts[0]['SPH']}"></div>
+                  <!-- -->
+                  <div class="rx-form-eyes-cyl">
+                    <div class="show-on-small-only">Cylinder (CYL)</div>
+                    <input readonly="" type="text" name="prescription_data[os.cyl]" value="{$lefts[0]['CYL']}"></div>
+                  <!-- -->
+                  <div class="rx-form-eyes-axis">
+                    <div class="show-on-small-only">Axis</div>
+                    <input readonly="" type="number" name="prescription_data[os.axis]" min="0" max="180" value="{$lefts[0]['AXIS']}"></div>
+                  <!-- -->
+                  <div class="rx-form-eyes-add">
+                    <div class="show-on-small-only">Addition (Near)</div>
+                    <input readonly="" type="text" name="prescription_data[os.near]" value="{$lefts[0]['ADD']}"></div>
+                </div>
+                <div class="rx-form-eyes-preview show-on-med-and-up" style="display: none">
+                  <div class="rx-form-eyes-preview__inner" style="background-image:url('https://www.glassesgallery.com/media/cp/')"></div>
+                </div>
+              </div>
+              <div class="rx-form-preview show-on-small-only" style="display: none">
+                <div>Uploaded Image</div>
+                <input type="checkbox" id="rx-form-preview__checkbox_185" class="rx-form-preview__toggler">
+                <label for="rx-form-preview__checkbox_185" class="rx-form-preview__toggler rx-form-preview__toggler--to-show">Show</label>
+                <label for="rx-form-preview__checkbox_185" class="rx-form-preview__toggler rx-form-preview__toggler--to-hide">Hide</label>
+                <img src="https://www.glassesgallery.com/media/cp/"></div>
+              <div class="rx-form-pd">
+                <div class="rx-form-pd-title">
+                  <span>
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">瞳距（PD）</font></font>
+                  </span>
+                </div>
+                <div class="rx-form-pd-asymm" style="display: none">
+                  <div class="rx-form-pd-left">
+                    <span>Left</span>
+                    <input readonly="" type="text" name="prescription_data[pd.left]" value="—"></div>
+                  <div class="rx-form-pd-right">
+                    <span>Right</span>
+                    <input readonly="" type="text" name="prescription_data[pd.right]" value="—"></div>
+                </div>
+                <div class="rx-form-pd-symm">
+                  <input readonly="" type="text" name="prescription_data[pd.both]" value="{$lefts[0]['PD']}"></div>
+              </div>
+            </div>
+            <div class="actions">
+              <a href="{:U('Home/user/add_prescription',array('letfid'=>$lefts[0]['prescription_id'],'rightid'=>$rights[0]['prescription_id']))}">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">编辑</font></font>
+              </a>
+              <span class="separator">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">&nbsp;&nbsp;|&nbsp;&nbsp;</font></font>
+              </span>
+              <input type="hidden" name="prescription_id" class="left_eys" value="{$lefts[0]['prescription_id']}">
+              <input type="hidden" name="prescription_id" class="right_eys" value="{$rights[0]['prescription_id']}">
+              <a href="#" class="prescription-delete" data-id="">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">删除</font></font>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="control">
+        <a class="gg-button gg-button-black" href="{:U('Home/user/add_prescription')}">
+          <span>
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">添加新处方</font></font>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div class="sidebar sidebar-main">
+      <div class="block account-nav custom-dropdown">
+        <div class="custom-dropdown-wrapper">
+          <div class="title custom-dropdown-title">
+            <strong>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">我的帐户</font></font>
+            </strong>
+          </div>
+          <div class="content custom-dropdown-content">
+            <nav class="account-nav">
+              <ul class="nav items">
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/wishlist/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我最喜欢的</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/customer/account/edit/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的简历</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/customer/address/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">地址簿</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/sales/order/history/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">订单历史</font></font>
+                  </a>
+                </li>
+                <li class="nav item current">
+                  <strong>
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的处方</font></font>
+                  </strong>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/rma/returns/history/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的退货</font></font>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+	{:widget('Cates/footer')}
+</body>
+<script type="text/javascript">
+  $(".prescription-delete").click(function(){
+    var left_eys=$(".left_eys").val();
+    var right_eys=$(".right_eys").val();
+    $.get('{:U('Home/user/del')}',{left_eys:left_eys,right_eys:right_eys},function(data){
+      if(data.status==0){
+       return layer.msg(data.msg , {icon: 2});
+      }
+      $(".prescription-list").remove();
+    },'json');
+  })
+</script>
+</html>

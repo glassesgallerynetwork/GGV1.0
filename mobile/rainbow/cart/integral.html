@@ -1,0 +1,657 @@
+<include file="public/header" title="填写订单" body="g4"/>
+<include file="public/header_nav" title="填写订单" href="{$backUrl}"/>
+<script src="__PUBLIC__/js/md5.min.js"></script>
+<style>
+    div.cuptyp {
+        box-sizing: content-box;
+        border: 2px solid transparent;
+    }
+
+    div.checked {
+        border: 2px solid #e23435;
+    }
+
+    .phoneclck {
+        /*部分手机不能点击问题*/
+        cursor: pointer
+    }
+</style>
+<form name="cart2_form" id="cart2_form" method="post">
+    <input type="hidden" id="wap_invoice_title" name="invoice_title" value="">
+    <input type="hidden" id="wap_taxpayer" name="taxpayer" value="">
+    <input type="hidden" name="goods_id" value="{$Request.param.goods_id}">
+    <input type="hidden" name="item_id" value="{$Request.param.item_id}">
+    <input type="hidden" name="goods_num" value="{$Request.param.goods_num}">
+    <input type="hidden" name="address_id" value="{$address.address_id}">
+    <input type="hidden" name="auth_code" value="{$Think.config.AUTH_CODE}"/>
+    <div class="edit_gtfix">
+        <a href="{:U('Mobile/User/address_list',array('source'=>'integral','goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id))}">
+            <div class="namephone fl">
+                <div class="top">
+                    <div class="le fl">{$address.consignee}</div>
+                    <div class="lr fl">{$address.mobile}</div>
+                </div>
+                <div class="bot">
+                    <i class="dwgp"></i>
+                    <span>{$address.address}</span>
+                </div>
+            </div>
+            <div class="fr youjter">
+                <i class="Mright"></i>
+            </div>
+            <div class="ttrebu">
+                <img src="__STATIC__/images/tt.png"/>
+            </div>
+        </a>
+    </div>
+
+    <!--商品信息-s-->
+    <div class="ord_list fill-orderlist p">
+        <div class="maleri30">
+            <div class="shopprice">
+                <div class="img_or fl"><img src="{$goods[goods_id]|goods_thum_images=100,100}"/></div>
+                <div class="fon_or fl">
+                    <h2 class="similar-product-text">{$goods[goods_name]}</h2>
+                    <div>{$specGoodsPrice[key_name]}</div>
+                </div>
+                <div class="price_or fr">
+                    <p class="red"><span>￥</span><span>{$goods_price}</span></p>
+                    <p class="ligfill">x{$goods_num}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--商品信息-e-->
+
+    <!--支持配送,发票信息-s-->
+    <div class="information_dr">
+        <div class="maleri30">
+            <script type="text/javascript">
+                function toogle(id) {
+                    condition = $(id).attr('data');
+                    //个人
+                    if (condition == 'geren') {
+                        $('#wap_invoice_title').val("个人");
+                        $('#monad').hide();
+                    }
+                    //单位
+                    if (condition == 'danwei') {
+                        invoice_title = $('#invoice_title').val();
+                        $('#wap_invoice_title').val(invoice_title);
+                        $('#monad').show();
+                    }
+
+                    invoice_title = $(id).find('input').attr('value');
+                    //不开发票
+                    if (condition == 'noincorise') {
+                        $('#wap_invoice_title').val("");
+                        $('#wap_taxpayer').val("");
+//                $('#monad,#invoice').hide();
+//                $(".invoice_title").html("不开发票");
+                    }
+                    $("input[type='radio']").each(function () {
+                        if ($(this).is(":checked")) {
+                            if ($(this).val() == '不开发票') {
+                                invoice_title = "";
+                                taxpayer = "";
+                                invoice_desc = '不开发票';
+                                str = "不开发票";
+                                return;
+                            }
+                            if ($(this).val() == "个人") {
+                                invoice_title = "个人";
+                                taxpayer = "";
+                                str = "个人";
+                            }
+                            if ($(this).val() == "单位") {
+                                invoice_title = $("#invoice_title").val();
+                                taxpayer = $("#taxpayer").val();
+                                str = "单位";
+                            }
+                            if ($(this).val() == '明细') {
+                                invoice_desc = "明细";
+                            }
+                        }
+                    });
+                    if ($("#detail").is(":checked")) {
+                        str += " - 明细";
+                    }
+                    if (str == "不开发票") {
+                        $('#wap_invoice_title').val("");
+                        $('#wap_taxpayer').val("");
+                        $(".invoice_title").html(str);
+                    } else {
+                        $('#wap_invoice_title').val(invoice_title);
+                        $('#wap_taxpayer').val(taxpayer);
+                        $(".invoice_title").html("纸质（" + str + "）");
+                    }
+                }
+
+                $(document).on("click", "input[type='radio']", function () {
+                    toogle(this);
+                });
+
+                // 校验组织机构代码
+                function orgcodevalidate(value) {
+                    if (value != "") {
+                        var part1 = value.substring(0, 8);
+                        var part2 = value.substring(value.length - 1, 1);
+                        var ws = [3, 7, 9, 10, 5, 8, 4, 2];
+                        var str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        var reg = /^([0-9A-Z]){8}$/;
+                        if (!reg.test(part1)) {
+                            return true
+                        }
+                        var sum = 0;
+                        for (var i = 0; i < 8; i++) {
+                            sum += str.indexOf(part1.charAt(i)) * ws[i];
+                        }
+                        var C9 = 11 - (sum % 11);
+                        var YC9 = part2 + '';
+                        if (C9 == 11) {
+                            C9 = '0';
+                        } else if (C9 == 10) {
+                            C9 = 'X';
+                        } else {
+                            C9 = C9 + '';
+                        }
+                        return YC9 != C9;
+                    }
+                }
+                // 校验地址码
+                function checkAddressCode(addressCode) {
+                    var provinceAndCitys = {
+                        11: "北京",
+                        12: "天津",
+                        13: "河北",
+                        14: "山西",
+                        15: "内蒙古",
+                        21: "辽宁",
+                        22: "吉林",
+                        23: "黑龙江",
+                        31: "上海",
+                        32: "江苏",
+                        33: "浙江",
+                        34: "安徽",
+                        35: "福建",
+                        36: "江西",
+                        37: "山东",
+                        41: "河南",
+                        42: "湖北",
+                        43: "湖南",
+                        44: "广东",
+                        45: "广西",
+                        46: "海南",
+                        50: "重庆",
+                        51: "四川",
+                        52: "贵州",
+                        53: "云南",
+                        54: "西藏",
+                        61: "陕西",
+                        62: "甘肃",
+                        63: "青海",
+                        64: "宁夏",
+                        65: "新疆",
+                        71: "台湾",
+                        81: "香港",
+                        82: "澳门",
+                        91: "国外"
+                    };
+                    var check = /^[1-9]\d{5}$/.test(addressCode);
+                    if (!check) return false;
+                    if (provinceAndCitys[parseInt(addressCode.substring(0, 2))]) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                }
+                function save_invoice() {
+                    var str = "";
+                    var invoice_title;
+                    var taxpayer;
+                    var invoice_desc;
+                    var res = "y";
+                    $("input[type='radio']").each(function () {
+                        if ($(this).is(":checked")) {
+                            if ($(this).val() == "个人") {
+                                invoice_title = "个人";
+                                taxpayer = "";
+                                str = "个人";
+                            }
+                            if ($(this).val() == '不开发票') {
+                                invoice_title = "个人";
+                                taxpayer = "";
+                                invoice_desc = '不开发票';
+                                str = "不开发票";
+                            }
+                            if ($(this).val() == "单位") {
+                                if (!$("#noincorises").is(":checked")) {
+                                    if ($("#invoice_title").val() == "") {
+                                        layer.open({content: '请输入单位名称', time: 2});
+                                        res = "n";
+                                        return false;
+                                    }
+                                    taxpayer = $("#taxpayer").val();
+//                                    if (taxpayer != "") {
+                                        if ((taxpayer.length == 15) || (taxpayer.length == 18) || (taxpayer.length == 20)) {
+                                        } else {
+                                            layer.open({content: "请输入正确的纳税人识别号！(核对位数)", time: 2});
+                                            res = "n";
+                                            return false;
+                                        }
+                                        var addressCode = taxpayer.substring(0, 6);
+                                        // 校验地址码
+                                        var check = checkAddressCode(addressCode);
+                                        if (!check) {
+                                            layer.open({content: "请输入正确的纳税人识别号(地址码)！", time: 2});
+                                            res = "n";
+                                            return false;
+                                        }
+                                        // 校验组织机构代码
+                                        var orgCode = taxpayer.substring(6, 9);
+                                        check = orgcodevalidate(orgCode);
+                                        if (!check) {
+                                            layer.open({content: "请输入正确的纳税人识别号(组织机构代码) ！", time: 2});
+                                            res = "n";
+                                            return false;
+                                        }
+                                        $('#wap_taxpayer').val(taxpayer);
+//                                    }
+                                    invoice_title = $("#invoice_title").val();
+                                    taxpayer = $("#taxpayer").val();
+                                    str = $("#invoice_title").val();
+                                }
+                            }
+                            if ($(this).val() == '明细') {
+                                invoice_desc = "明细";
+                            }
+                        }
+                    });
+                    if ($("#detail").is(":checked")) {
+                        str += " - 明细";
+                    }
+                    if (str == "不开发票") {
+                        $('#wap_taxpayer').val("");
+                        $('#wap_invoice_title').val("");
+                        $(".invoice_title").html(str);
+                    } else {
+                        $('#wap_taxpayer').val(taxpayer);
+                        $('#wap_invoice_title').val(invoice_title);
+                        $(".invoice_title").html("纸质（" + str + "）");
+                    }
+
+                    if (res != "n") {
+                        var data = {invoice_title: invoice_title, taxpayer: taxpayer, invoice_desc: invoice_desc};
+                        $.post("{:U('Cart/save_invoice')}", data, function (json) {
+                            var data = eval("(" + json + ")");
+                            $("#invoice").hide()
+                        });
+                    }
+
+                }
+
+                function get_invoice() {
+                    var str = "";
+                    $.get("{:U('Cart/invoice')}", function (json) {
+                        var data = eval("(" + json + ")");
+                        if (data.status > 0) {
+                            if (data.result.invoice_title == "") {
+                                $('#monad').hide();
+                            } else {
+                                $('#wap_invoice_title').val(data.result.invoice_title);
+                                $("#wap_taxpayer").val(data.result.taxpayer);
+                                $('#invoice_title').val(data.result.invoice_title);
+                                $("#invoice_desc").val(data.result.invoice_desc);
+                                $("#taxpayer").val(data.result.taxpayer);
+                                str = "纸质（" + data.result.invoice_title + "-明细）";
+                                $("#danwei").attr("checked", "checked");
+                            }
+                            if (data.result.invoice_title == "个人") {
+                                $('#wap_invoice_title').val("个人");
+                                $("#wap_taxpayer").val("");
+                                $("#geren").attr("checked", "checked");
+                                $('#invoice_title').val("");
+                                $("#invoice_desc").val("");
+                                $("#taxpayer").val("");
+                                $('#monad').hide();
+                                $(".invoice_title").html("纸质（个人-明细）");
+                                str = "纸质（个人-明细）";
+                            }
+                            if (data.result.invoice_desc == "不开发票") {
+                                $('#wap_invoice_title').val("");
+                                $('#wap_taxpaye').val("");
+                                $('#invoice_title').val("");
+                                $("#invoice_desc").val(data.result.invoice_desc);
+                                $("#taxpayer").val("");
+                                $("#noincorises").attr("checked", "checked");
+                                str = "不开发票";
+                            } else {
+//                        $('#monad,#invoice').show();
+                                $("#detail").attr("checked", "checked");
+                            }
+                            $(".invoice_title").html(str);
+
+                        } else {
+                            $("#geren").attr("checked", "checked");
+                            $('#monad').hide();
+                            $("#noincorises").attr("checked", "checked");
+                        }
+                    });
+                }
+
+
+            </script>
+
+            <div class="invoice list7">
+                <div class="myorder p">
+                    <div class="content30">
+                        <a class="invoiceclickin" href="javascript:void(0)">
+                            <div class="order">
+                                <div class="fl">
+                                    <span>发票信息</span>
+                                </div>
+                                <div class="fr">
+                                    <span class="invoice_title" style="margin-top: 0.6rem;">不开发票</span>
+                                    <i class="Mright"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="invoice" class="invoice list7" style="display: none;">
+                <div class="myorder p">
+                    <div class="content30">
+                        <div class="incorise" id="invoice_radio_title">
+                            <span>发票抬头：</span>
+                            <div class="myorder radios-choice-h">
+                                <div class="incorise">
+                                    <label><input type="radio" class="alonestyle" value="个人" name="radio_title"
+                                                  data="geren" id="geren">个人</label>
+                                    <label><input type="radio" class="alonestyle" value="单位" name="radio_title"
+                                                  data="danwei" id="danwei">单位</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="myorder p" id="monad">
+                    <div class="incorise">
+                        <input type="text" id="invoice_title" value="" placeholder="请填写单位名称"/>
+                        <input type="text" id="taxpayer" value="" placeholder="请在此填写纳税人识别号"/>
+                    </div>
+                    <span style="display: block; color:red;font-size:.512rem;line-height: .64rem; ">开企业抬头发票，请准确填写对应的“纳税人识别号”，以免影响您的发票报销.</span>
+                </div>
+
+
+                <div class="myorder p">
+                    <div class="content30">
+                        <div class="incorise">
+                            <span>发票内容：</span>
+                            <div class="myorder radios-choice-h" id="noincorise">
+                                <div class="incorise">
+                                    <label><input type="radio" class="alonestyle" value="不开发票" name="radio_cont"
+                                                  data="noincorise" id="noincorises">不开发票</label>
+                                    <label><input type="radio" class="alonestyle" value="明细" name="radio_cont"
+                                                  data="detail" id="detail">明细</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myorder p">
+                    <div class="content30">
+                        <div class="incorise">
+                            <div class="myorder p">
+                                <div class="content30">
+                                    <div class="incorise">
+                                        <!--                                <div class="submits_de bagrr phoneclck" >确认</div>-->
+                                        <a href="javascript:void(0)" onclick="save_invoice()"
+                                           class="submits_de bagrr phoneclck">确认</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="invoice list7">
+                <div class="myorder p">
+                    <div class="content30">
+                        <a class="remain" href="javascript:void(0);">
+                            <div class="order">
+                                <div class="fl">
+                                    <span>使用余额/积分</span>
+                                </div>
+                                <div class="fr">
+                                    <!--<i class="Mright"></i>-->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--使用余额、积分-s-->
+            <div id="balance-li" class="invoice list7">
+                <div class="myorder p">
+                    <div class="content30">
+                        <label>
+                            <div class="incorise">
+                                <span>使用余额：</span>
+                                <input id="user_money" name="user_money" type="text"
+                                       placeholder="可用余额为:{$user['user_money']}"
+                                       onpaste="this.value=this.value.replace(/[^\d.]/g,'')"
+                                       onkeyup="this.value=/^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''"/>
+                                <input name="validate_bonus" type="button" value="使用" onClick="wield(this);"
+                                       class="usejfye"/>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="myorder p">
+                    <div class="content30">
+                        <label>
+                            <div class="incorise">
+                                <span>使用积分：</span>
+                                <input id="pay_points" name="pay_points" value="" type="text" disabled="disabled"/>
+                                <input name="validate_bonus" type="button" value="使用" onClick="wield(this);"
+                                       class="usejfye"/>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="myorder myorder-2 p" id="paypwd_view">
+                    <div class="content30">
+                        <label>
+                            <div class="incorise">
+                                <span>支付密码：</span>
+                                <input type="hidden" name="payPwd"/>
+                                <!--解决google浏览器识别text+password,自动填充已保存的账户密码-->
+                                <input type="password" id="payPwd" placeholder="请输入支付密码"/>
+                                <if condition="empty($user['paypwd'])">
+                                    <a class="go-set-password" href="{:U('Mobile/User/paypwd')}">去设置支付密码?</a>
+                                </if>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!--使用余额、积分-e-->
+        </div>
+    </div>
+    <!--支持配送,发票信息-s-->
+
+    <!--卖家留言-s-->
+    <div class="customer-messa">
+        <div class="maleri30">
+            <p>用户备注（50字）</p>
+            <textarea class="tapassa" onkeyup="checkfilltextarea('.tapassa','50')" name="user_note" rows="" cols=""
+                      placeholder="选填"></textarea>
+            <span class="xianzd"><em id="zero">50</em>/50</span>
+        </div>
+    </div>
+    <!--卖家留言-e-->
+
+    <!--订单金额-s-->
+    <div class="information_dr ma-to-20">
+        <div class="maleri30">
+            <div class="xx-list">
+                <p class="p">
+                    <span class="fl">商品金额：</span>
+                    <span class="fr red"><span>￥</span><span>{$goods_price * $goods_num}</span>元</span>
+                </p>
+                <p class="p">
+                    <span class="fl">配送费用：</span>
+                    <span class="fr red"><span>￥</span><span id="postFee">0</span>元</span>
+                </p>
+                <p class="p">
+                    <span class="fl">使用积分：</span>
+                    <span class="fr red"><span>-￥</span><span id="pointsFee">0</span>元</span>
+                </p>
+                <p class="p">
+                    <span class="fl">使用余额：</span>
+                    <span class="fr red"><span>-￥</span><span id="balance">0</span>元</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--订单金额-e-->
+
+    <!--提交订单-s-->
+    <div class="mask-filter-div" style="display: none;"></div>
+    <div class="payit fillpay ma-to-200">
+        <div class="fr submit_price">
+            <a href="javascript:void(0)" onclick="submit_order()">提交订单</a>
+        </div>
+        <div class="fl">
+            <p><span class="pmo">应付金额：</span>￥<span id="payables"></span><span></span></p>
+        </div>
+    </div>
+    <!--提交订单-e-->
+
+</form>
+<script type="text/javascript">
+    //支付密码
+    $(document).on('blur', '#payPwd', function () {
+        var payPwd = md5($("input[name='auth_code']").val() + $.trim($('#payPwd').val()));
+        $('input[name="payPwd"]').val(payPwd);
+    })
+    $(document).ready(function () {
+        //显示隐藏支付密码
+        $(document).on('change', '#pay_points,#user_money', function () {
+            var user_money = $.trim($('#user_money').val());
+            var pay_points = $.trim($('#pay_points').val());
+            if ((user_money !== '' && user_money > 0) || (pay_points !== '' || pay_points > 0)) {
+                $('#paypwd_view').show();
+            } else {
+                $('#paypwd_view').hide();
+            }
+        });
+        //有使用余额，积分就得用密码
+        if ($('#user_money').val() > 0 || $('#pay_points').val() > 0) {
+            $('#paypwd_view').show();
+        }
+        ajax_order_price(); // 计算订单价钱
+    });
+
+    function wield(obj) {
+        if ($.trim($(obj).prev().val()) != '') {
+            showErrorMsg('正在计算金额...');
+            ajax_order_price(); // 计算订单价钱
+        }
+    }
+    // 获取订单价格
+    function ajax_order_price() {
+        $.ajax({
+            type: "POST",
+            url: "{:U('Home/Cart/integral2')}",
+            data: $('#cart2_form').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.status == -3 || data.status == -4) {
+                    showErrorMsg(data.msg);
+                    refresh_price(data);
+                    $('.submit_price a').addClass("disable");
+                } else if (data.status != 1) {
+                    //执行有误
+                    showErrorMsg(data.msg);
+                    // 登录超时
+                    if (data.status == -100) {
+                        location.href = "{:U('Mobile/User/login')}";
+                        return false;
+                    }
+                } else {
+                    $('.submit_price a').removeClass("disable");
+                    refresh_price(data);
+                }
+
+            }
+        });
+    }
+
+    function refresh_price(data) {
+        $("#balance").text(data.result.user_money);// 余额
+        $("#pointsFee").text(data.result.integral_money);// 积分支付
+        $("#postFee").text(data.result.shipping_price); // 物流费
+        $("#payables").text(data.result.order_amount);// 应付
+        $("#pay_points").val(data.result.pay_points);// 积分支付
+    }
+
+    // 提交订单
+    var ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
+    function submit_order() {
+        if ($('.submit_price a').hasClass("disable")) {
+            return;
+        }
+        if (ajax_return_status == 0)
+            return false;
+        ajax_return_status = 0;
+        layer.open({type: 2,content: '订单提交中'});
+        $.ajax({
+            type: "POST",
+            url: "{:U('Mobile/Cart/integral2')}",//+tab,
+            data: $('#cart2_form').serialize() + "&act=submit_order",// 你的formid
+            dataType: "json",
+            success: function (data) {
+            	layer.closeAll();
+                if (data.status != '1') {
+                    showErrorMsg(data.msg);  //执行有误
+                    // 登录超时
+                    if (data.status == -100)
+                        location.href = "{:U('Mobile/User/login')}";
+
+                    ajax_return_status = 1; // 上一次ajax 已经返回, 可以进行下一次 ajax请求
+
+                    return false;
+                }
+                refresh_price(data);
+                showErrorMsg('订单提交成功，跳转支付页面!');
+                location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id=" + data.result;
+            }
+        });
+    }
+
+    $(function () {
+        get_invoice();
+        $('.submits_de').click(function () {
+            $('.mask-filter-div').hide();
+            $('.losepay').hide();
+        })
+
+        //显示隐藏使用发票信息
+        $('.invoiceclickin').click(function () {
+            $('#invoice').toggle(300);
+        })
+//        //显示隐藏使用余额/积分
+//        $('.remain').click(function(){
+//            $('#balance-li').toggle(300);
+//        })
+    })
+
+</script>
+</body>
+</html>

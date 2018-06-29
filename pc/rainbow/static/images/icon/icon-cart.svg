@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44 (41411) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/Cart</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/Cart" fill="#000000">
+            <g id="Page-1" transform="translate(2.000000, 1.000000)">
+                <path d="M1,22 L20,22 L20,5 L1,5 L1,22 Z M10.5,1 C12.2464899,1 13.7663807,2.31064935 14,4 L7,4 C7.23049922,2.28337662 8.7199688,1 10.5,1 L10.5,1 Z M15.1003626,4.04703833 C14.8206298,1.73461672 12.855687,0 10.5,0 C8.18759542,0 6.18097328,1.77188153 5.90003817,4.04703833 L0,4.04703833 L0,23 L21,23 L21,4.04703833 L15.1003626,4.04703833 Z" id="Fill-1"></path>
+            </g>
+        </g>
+    </g>
+</svg>

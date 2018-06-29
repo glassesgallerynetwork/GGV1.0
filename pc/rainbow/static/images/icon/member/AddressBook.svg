@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/Member/AddressBook</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="5 0 52 0 52 67.7198816 6 67.7198816 0.155320425 70 0 4.60594783"></polygon>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/Member/AddressBook">
+            <g id="Group-2" transform="translate(19.000000, 8.000000)">
+                <g id="Rectangle-5">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <path stroke="#000000" stroke-width="1.31" d="M5.25570937,0.655 L0.655682443,4.89249681 L0.808047549,69.0422805 L5.87675923,67.0648816 L51.345,67.0648816 L51.345,0.655 L5.25570937,0.655 Z"></path>
+                </g>
+                <path d="M5.5,1.5 L5.5,68.5298441" id="Line" stroke="#000000" stroke-width="1.31" stroke-linecap="square"></path>
+                <polygon id="Path-2" stroke="#000000" stroke-width="1.32" fill="#FFFFFF" points="31 0 31 18 35.8212081 13.0919523 41 18 41 0"></polygon>
+                <path d="M50,67.1402922 L4.35970782,67.1402922 L4.35970782,67.1402922 C2.50419243,67.1402922 1,68.6444846 1,70.5 L1,70.5 L1,70.5 C1,72.3555154 2.50419243,73.8597078 4.35970782,73.8597078 L50,73.8597078 L50,67.1402922 Z" id="Combined-Shape" stroke="#000000" stroke-width="1.32" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

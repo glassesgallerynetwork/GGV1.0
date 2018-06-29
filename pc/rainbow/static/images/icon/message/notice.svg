@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/Message/Alert Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/Message/Alert-Copy">
+            <g id="Group" transform="translate(1.000000, 1.000000)" stroke-width="0.801215886" stroke="#646464">
+                <circle id="Oval" cx="9.5" cy="9.5" r="9.5"></circle>
+            </g>
+            <text id="!" font-family="FuturaPT-Medium, Futura PT" font-size="14" font-weight="400" letter-spacing="0.933333337" fill="#646464">
+                <tspan x="9" y="15">!</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

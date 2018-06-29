@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{:widget('Cates/header')}
+    <main id="maincontent" class="page-main">
+  <a id="contentarea" tabindex="-1"></a>
+  <div class="columns">
+    <div class="column main">
+      <div class="page-title-wrapper">
+        <h1 class="page-title">
+          <span class="base" data-ui-id="page-title-wrapper">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">新处方</font></font>
+          </span>
+        </h1>
+      </div>
+      <input name="form_key" type="hidden" value="OjFSjfs95AWDKLox">
+      <div id="authenticationPopup" data-bind="scope:'authenticationPopup'" style="display: none;">
+        <!-- ko template: getTemplate() -->
+        <!-- /ko --></div>
+      <form action="{:U('Home/User/doadd_prescription')}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="left_id" value="{$left_id}">
+        <input type="hidden" name="right_id" value="{$right_id}">
+
+        <input name="user_id" type="hidden" value="{$Request.cookie.user_id}">
+        <div class="intro">
+          <h4>
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">请输入您的处方</font></font>
+          </h4>
+          <a href="https://www.glassesgallery.com/prescription-info/" target="_blank">
+            <font style="vertical-align: inherit;">
+              <font style="vertical-align: inherit;">了解如何阅读您的处方</font></font>
+          </a>
+        </div>
+        <div class="rx-form">
+          <div class="rx-form-title">
+            <input required="" type="text" class="prescription_title" name="prescription_name" placeholder="请填写您的处方名字" value=""></div>
+          <div class="rx-form-eyes">
+            <div class="rx-form-eyes-row rx-form-eyes-row--header show-on-med-and-up">
+              <div class="rx-form-eyes-col1">&nbsp;</div>
+              <!-- -->
+              <div class="rx-form-eyes-sph">
+                <span>
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">球面度数</font></font>
+                </span>
+                <span style="color:red">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">*</font></font>
+                </span>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-cyl">
+                <span>
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">散光度数</font></font>
+                </span>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-axis">
+                <span>
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">散光轴度</font></font>
+                </span>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-add">
+                <span>
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">老花度数</font></font>
+                </span>
+              </div>
+            </div>
+            <div class="rx-form-eyes-row rx-form-eyes-row--body rx-form-eyes-row--od">
+              <div class="rx-form-eyes-col1">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">右眼（OD）</font></font>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-sph">
+                <div class="show-on-small-only">
+                  <span>Sphere (SPH)</span>
+                  <span style="color:red">*</span>
+                </div>
+                <select name="prescription_data[od.sph]"" class="prescription_data_sph">
+                  <option value="-17">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-17.00</font></font>
+                  </option>
+                  <option value="-16.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.75</font></font>
+                  </option>
+                  <option value="-16.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.50</font></font>
+                  </option>
+                  <option value="-16.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.25</font></font>
+                  </option>
+                  <option value="-16">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.00</font></font>
+                  </option>
+                  <option value="-15.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.75</font></font>
+                  </option>
+                  <option value="-15.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.50</font></font>
+                  </option>
+                  <option value="-15.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.25</font></font>
+                  </option>
+                  <option value="-15">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.00</font></font>
+                  </option>
+                  <option value="-14.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.75</font></font>
+                  </option>
+                  <option value="-14.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.50</font></font>
+                  </option>
+                  <option value="-14.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.25</font></font>
+                  </option>
+                  <option value="-14">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.00</font></font>
+                  </option>
+                  <option value="-13.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.75</font></font>
+                  </option>
+                  <option value="-13.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.50</font></font>
+                  </option>
+                  <option value="-13.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.25</font></font>
+                  </option>
+                  <option value="-13">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.00</font></font>
+                  </option>
+                  <option value="-12.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.75</font></font>
+                  </option>
+                  <option value="-12.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.50</font></font>
+                  </option>
+                  <option value="-12.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.25</font></font>
+                  </option>
+                  <option value="-12">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.00</font></font>
+                  </option>
+                  <option value="-11.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.75</font></font>
+                  </option>
+                  <option value="-11.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.50</font></font>
+                  </option>
+                  <option value="-11.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.25</font></font>
+                  </option>
+                  <option value="-11">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.00</font></font>
+                  </option>
+                  <option value="-10.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.75</font></font>
+                  </option>
+                  <option value="-10.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.50</font></font>
+                  </option>
+                  <option value="-10.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.25</font></font>
+                  </option>
+                  <option value="-10">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.00</font></font>
+                  </option>
+                  <option value="-9.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.75</font></font>
+                  </option>
+                  <option value="-9.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.50</font></font>
+                  </option>
+                  <option value="-9.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.25</font></font>
+                  </option>
+                  <option value="-9">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.00</font></font>
+                  </option>
+                  <option value="-8.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.75</font></font>
+                  </option>
+                  <option value="-8.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.50</font></font>
+                  </option>
+                  <option value="-8.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.25</font></font>
+                  </option>
+                  <option value="-8">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.00</font></font>
+                  </option>
+                  <option value="-7.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.75</font></font>
+                  </option>
+                  <option value="-7.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.50</font></font>
+                  </option>
+                  <option value="-7.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.25</font></font>
+                  </option>
+                  <option value="-7">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.00</font></font>
+                  </option>
+                  <option value="-6.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.75</font></font>
+                  </option>
+                  <option value="-6.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.50</font></font>
+                  </option>
+                  <option value="-6.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.25</font></font>
+                  </option>
+                  <option value="-6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.00</font></font>
+                  </option>
+                  <option value="-5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.75</font></font>
+                  </option>
+                  <option value="-5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.50</font></font>
+                  </option>
+                  <option value="-5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.25</font></font>
+                  </option>
+                  <option value="-5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.00</font></font>
+                  </option>
+                  <option value="-4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.75</font></font>
+                  </option>
+                  <option value="-4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.50</font></font>
+                  </option>
+                  <option value="-4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.25</font></font>
+                  </option>
+                  <option value="-4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.00</font></font>
+                  </option>
+                  <option value="-3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.75</font></font>
+                  </option>
+                  <option value="-3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.50</font></font>
+                  </option>
+                  <option value="-3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.25</font></font>
+                  </option>
+                  <option value="-3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.00</font></font>
+                  </option>
+                  <option value="-2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.75</font></font>
+                  </option>
+                  <option value="-2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.50</font></font>
+                  </option>
+                  <option value="-2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.25</font></font>
+                  </option>
+                  <option value="-2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.00</font></font>
+                  </option>
+                  <option value="-1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.75</font></font>
+                  </option>
+                  <option value="-1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.50</font></font>
+                  </option>
+                  <option value="-1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.25</font></font>
+                  </option>
+                  <option value="-1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.00</font></font>
+                  </option>
+                  <option value="-0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.75</font></font>
+                  </option>
+                  <option value="-0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.50</font></font>
+                  </option>
+                  <option value="-0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.25</font></font>
+                  </option>
+                  <option value="0" selected="selected">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">0.00</font></font>
+                  </option>
+                  <option value="0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.25</font></font>
+                  </option>
+                  <option value="0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.50</font></font>
+                  </option>
+                  <option value="0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.75</font></font>
+                  </option>
+                  <option value="1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.00</font></font>
+                  </option>
+                  <option value="1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.25</font></font>
+                  </option>
+                  <option value="1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.50</font></font>
+                  </option>
+                  <option value="1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.75</font></font>
+                  </option>
+                  <option value="2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.00</font></font>
+                  </option>
+                  <option value="2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.25</font></font>
+                  </option>
+                  <option value="2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.50</font></font>
+                  </option>
+                  <option value="2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.75</font></font>
+                  </option>
+                  <option value="3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.00</font></font>
+                  </option>
+                  <option value="3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.25</font></font>
+                  </option>
+                  <option value="3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.50</font></font>
+                  </option>
+                  <option value="3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.75</font></font>
+                  </option>
+                  <option value="4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.00</font></font>
+                  </option>
+                  <option value="4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.25</font></font>
+                  </option>
+                  <option value="4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.50</font></font>
+                  </option>
+                  <option value="4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.75</font></font>
+                  </option>
+                  <option value="5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.00</font></font>
+                  </option>
+                  <option value="5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.25</font></font>
+                  </option>
+                  <option value="5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.50</font></font>
+                  </option>
+                  <option value="5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.75</font></font>
+                  </option>
+                  <option value="6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+6.00</font></font>
+                  </option>
+                  <option value="6.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">6.25</font></font>
+                  </option>
+                  <option value="6.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">6.50</font></font>
+                  </option>
+                  <option value="6.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+6.75</font></font>
+                  </option>
+                  <option value="7">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.00</font></font>
+                  </option>
+                  <option value="7.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.25</font></font>
+                  </option>
+                  <option value="7.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.50</font></font>
+                  </option>
+                  <option value="7.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.75</font></font>
+                  </option>
+                  <option value="8">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.00</font></font>
+                  </option>
+                  <option value="8.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.25</font></font>
+                  </option>
+                  <option value="8.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.50</font></font>
+                  </option>
+                  <option value="8.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.75</font></font>
+                  </option>
+                  <option value="9">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">9.00</font></font>
+                  </option>
+                  <option value="9.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+ 9.25mm</font></font>
+                  </option>
+                  <option value="9.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">9.50</font></font>
+                  </option>
+                  <option value="9.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">9.75</font></font>
+                  </option>
+                  <option value="10">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+10.00</font></font>
+                  </option>
+                </select>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-cyl">
+                <div class="show-on-small-only">
+                  <span>Cylinder (CYL)</span>
+                </div>
+                <select name="prescription_data[od.cyl]" class="prescription_data_cyl">
+                  <option value="-6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.00</font></font>
+                  </option>
+                  <option value="-5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.75</font></font>
+                  </option>
+                  <option value="-5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.50</font></font>
+                  </option>
+                  <option value="-5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.25</font></font>
+                  </option>
+                  <option value="-5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.00</font></font>
+                  </option>
+                  <option value="-4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.75</font></font>
+                  </option>
+                  <option value="-4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.50</font></font>
+                  </option>
+                  <option value="-4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.25</font></font>
+                  </option>
+                  <option value="-4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.00</font></font>
+                  </option>
+                  <option value="-3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.75</font></font>
+                  </option>
+                  <option value="-3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.50</font></font>
+                  </option>
+                  <option value="-3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.25</font></font>
+                  </option>
+                  <option value="-3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.00</font></font>
+                  </option>
+                  <option value="-2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.75</font></font>
+                  </option>
+                  <option value="-2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.50</font></font>
+                  </option>
+                  <option value="-2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.25</font></font>
+                  </option>
+                  <option value="-2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.00</font></font>
+                  </option>
+                  <option value="-1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.75</font></font>
+                  </option>
+                  <option value="-1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.50</font></font>
+                  </option>
+                  <option value="-1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.25</font></font>
+                  </option>
+                  <option value="-1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.00</font></font>
+                  </option>
+                  <option value="-0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.75</font></font>
+                  </option>
+                  <option value="-0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.50</font></font>
+                  </option>
+                  <option value="-0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.25</font></font>
+                  </option>
+                  <option value="0" selected="selected">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">0.00</font></font>
+                  </option>
+                  <option value="0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.25</font></font>
+                  </option>
+                  <option value="0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.50</font></font>
+                  </option>
+                  <option value="0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.75</font></font>
+                  </option>
+                  <option value="1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.00</font></font>
+                  </option>
+                  <option value="1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.25</font></font>
+                  </option>
+                  <option value="1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.50</font></font>
+                  </option>
+                  <option value="1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.75</font></font>
+                  </option>
+                  <option value="2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.00</font></font>
+                  </option>
+                  <option value="2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.25</font></font>
+                  </option>
+                  <option value="2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.50</font></font>
+                  </option>
+                  <option value="2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.75</font></font>
+                  </option>
+                  <option value="3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.00</font></font>
+                  </option>
+                  <option value="3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.25</font></font>
+                  </option>
+                  <option value="3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.50</font></font>
+                  </option>
+                  <option value="3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.75</font></font>
+                  </option>
+                  <option value="4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.00</font></font>
+                  </option>
+                  <option value="4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.25</font></font>
+                  </option>
+                  <option value="4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.50</font></font>
+                  </option>
+                  <option value="4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.75</font></font>
+                  </option>
+                  <option value="5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.00</font></font>
+                  </option>
+                  <option value="5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.25</font></font>
+                  </option>
+                  <option value="5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.50</font></font>
+                  </option>
+                  <option value="5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.75</font></font>
+                  </option>
+                  <option value="6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+6.00</font></font>
+                  </option>
+                </select>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-axis">
+                <div class="show-on-small-only">
+                  <span>Axis</span>
+                </div>
+                <input type="number" min="0" max="180" class="left_axis" name="prescription_data[od.axis]" value=""></div>
+              <!-- -->
+              <div class="rx-form-eyes-add">
+                <div class="show-on-small-only">
+                  <span>Addition (Near)</span>
+                </div>
+                <select name="prescription_data[od.near]" class="prescription_data_near">
+                  <option value="" selected="selected">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">---</font></font>
+                  </option>
+                  <option value="0">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">0.00</font></font>
+                  </option>
+                  <option value="0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.25</font></font>
+                  </option>
+                  <option value="0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.50</font></font>
+                  </option>
+                  <option value="0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.75</font></font>
+                  </option>
+                  <option value="1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.00</font></font>
+                  </option>
+                  <option value="1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.25</font></font>
+                  </option>
+                  <option value="1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.50</font></font>
+                  </option>
+                  <option value="1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.75</font></font>
+                  </option>
+                  <option value="2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.00</font></font>
+                  </option>
+                  <option value="2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.25</font></font>
+                  </option>
+                  <option value="2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.50</font></font>
+                  </option>
+                  <option value="2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.75</font></font>
+                  </option>
+                  <option value="3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.00</font></font>
+                  </option>
+                  <option value="3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.25</font></font>
+                  </option>
+                  <option value="3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.50</font></font>
+                  </option>
+                  <option value="3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.75</font></font>
+                  </option>
+                  <option value="4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.00</font></font>
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="rx-form-eyes-row rx-form-eyes-row--body rx-form-eyes-row--os">
+              <div class="rx-form-eyes-col1">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">左眼（OS）</font></font>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-sph">
+                <div class="show-on-small-only">
+                  <span>Sphere (SPH)</span>
+                  <span style="color:red">*</span>
+                </div>
+                <select name="prescription_data[os.sph]" class="prescription_data_os_sph">
+                  <option value="-17">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-17.00</font></font>
+                  </option>
+                  <option value="-16.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.75</font></font>
+                  </option>
+                  <option value="-16.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.50</font></font>
+                  </option>
+                  <option value="-16.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.25</font></font>
+                  </option>
+                  <option value="-16">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-16.00</font></font>
+                  </option>
+                  <option value="-15.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.75</font></font>
+                  </option>
+                  <option value="-15.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.50</font></font>
+                  </option>
+                  <option value="-15.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.25</font></font>
+                  </option>
+                  <option value="-15">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-15.00</font></font>
+                  </option>
+                  <option value="-14.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.75</font></font>
+                  </option>
+                  <option value="-14.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.50</font></font>
+                  </option>
+                  <option value="-14.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.25</font></font>
+                  </option>
+                  <option value="-14">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-14.00</font></font>
+                  </option>
+                  <option value="-13.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.75</font></font>
+                  </option>
+                  <option value="-13.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.50</font></font>
+                  </option>
+                  <option value="-13.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.25</font></font>
+                  </option>
+                  <option value="-13">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-13.00</font></font>
+                  </option>
+                  <option value="-12.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.75</font></font>
+                  </option>
+                  <option value="-12.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.50</font></font>
+                  </option>
+                  <option value="-12.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.25</font></font>
+                  </option>
+                  <option value="-12">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-12.00</font></font>
+                  </option>
+                  <option value="-11.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.75</font></font>
+                  </option>
+                  <option value="-11.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.50</font></font>
+                  </option>
+                  <option value="-11.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.25</font></font>
+                  </option>
+                  <option value="-11">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-11.00</font></font>
+                  </option>
+                  <option value="-10.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.75</font></font>
+                  </option>
+                  <option value="-10.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.50</font></font>
+                  </option>
+                  <option value="-10.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.25</font></font>
+                  </option>
+                  <option value="-10">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-10.00</font></font>
+                  </option>
+                  <option value="-9.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.75</font></font>
+                  </option>
+                  <option value="-9.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.50</font></font>
+                  </option>
+                  <option value="-9.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.25</font></font>
+                  </option>
+                  <option value="-9">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-9.00</font></font>
+                  </option>
+                  <option value="-8.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.75</font></font>
+                  </option>
+                  <option value="-8.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.50</font></font>
+                  </option>
+                  <option value="-8.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.25</font></font>
+                  </option>
+                  <option value="-8">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-8.00</font></font>
+                  </option>
+                  <option value="-7.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.75</font></font>
+                  </option>
+                  <option value="-7.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.50</font></font>
+                  </option>
+                  <option value="-7.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.25</font></font>
+                  </option>
+                  <option value="-7">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-7.00</font></font>
+                  </option>
+                  <option value="-6.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.75</font></font>
+                  </option>
+                  <option value="-6.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.50</font></font>
+                  </option>
+                  <option value="-6.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.25</font></font>
+                  </option>
+                  <option value="-6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.00</font></font>
+                  </option>
+                  <option value="-5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.75</font></font>
+                  </option>
+                  <option value="-5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.50</font></font>
+                  </option>
+                  <option value="-5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.25</font></font>
+                  </option>
+                  <option value="-5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.00</font></font>
+                  </option>
+                  <option value="-4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.75</font></font>
+                  </option>
+                  <option value="-4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.50</font></font>
+                  </option>
+                  <option value="-4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.25</font></font>
+                  </option>
+                  <option value="-4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.00</font></font>
+                  </option>
+                  <option value="-3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.75</font></font>
+                  </option>
+                  <option value="-3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.50</font></font>
+                  </option>
+                  <option value="-3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.25</font></font>
+                  </option>
+                  <option value="-3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.00</font></font>
+                  </option>
+                  <option value="-2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.75</font></font>
+                  </option>
+                  <option value="-2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.50</font></font>
+                  </option>
+                  <option value="-2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.25</font></font>
+                  </option>
+                  <option value="-2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.00</font></font>
+                  </option>
+                  <option value="-1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.75</font></font>
+                  </option>
+                  <option value="-1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.50</font></font>
+                  </option>
+                  <option value="-1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.25</font></font>
+                  </option>
+                  <option value="-1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.00</font></font>
+                  </option>
+                  <option value="-0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.75</font></font>
+                  </option>
+                  <option value="-0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.50</font></font>
+                  </option>
+                  <option value="-0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.25</font></font>
+                  </option>
+                  <option value="0" selected="selected">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">0.00</font></font>
+                  </option>
+                  <option value="0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.25</font></font>
+                  </option>
+                  <option value="0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.50</font></font>
+                  </option>
+                  <option value="0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.75</font></font>
+                  </option>
+                  <option value="1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.00</font></font>
+                  </option>
+                  <option value="1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.25</font></font>
+                  </option>
+                  <option value="1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.50</font></font>
+                  </option>
+                  <option value="1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.75</font></font>
+                  </option>
+                  <option value="2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.00</font></font>
+                  </option>
+                  <option value="2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.25</font></font>
+                  </option>
+                  <option value="2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.50</font></font>
+                  </option>
+                  <option value="2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.75</font></font>
+                  </option>
+                  <option value="3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.00</font></font>
+                  </option>
+                  <option value="3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.25</font></font>
+                  </option>
+                  <option value="3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.50</font></font>
+                  </option>
+                  <option value="3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.75</font></font>
+                  </option>
+                  <option value="4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.00</font></font>
+                  </option>
+                  <option value="4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.25</font></font>
+                  </option>
+                  <option value="4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.50</font></font>
+                  </option>
+                  <option value="4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.75</font></font>
+                  </option>
+                  <option value="5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.00</font></font>
+                  </option>
+                  <option value="5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.25</font></font>
+                  </option>
+                  <option value="5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.50</font></font>
+                  </option>
+                  <option value="5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.75</font></font>
+                  </option>
+                  <option value="6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+6.00</font></font>
+                  </option>
+                  <option value="6.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">6.25</font></font>
+                  </option>
+                  <option value="6.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">6.50</font></font>
+                  </option>
+                  <option value="6.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+6.75</font></font>
+                  </option>
+                  <option value="7">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.00</font></font>
+                  </option>
+                  <option value="7.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.25</font></font>
+                  </option>
+                  <option value="7.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.50</font></font>
+                  </option>
+                  <option value="7.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">7.75</font></font>
+                  </option>
+                  <option value="8">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.00</font></font>
+                  </option>
+                  <option value="8.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.25</font></font>
+                  </option>
+                  <option value="8.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.50</font></font>
+                  </option>
+                  <option value="8.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">8.75</font></font>
+                  </option>
+                  <option value="9">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">9.00</font></font>
+                  </option>
+                  <option value="9.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+ 9.25mm</font></font>
+                  </option>
+                  <option value="9.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">9.50</font></font>
+                  </option>
+                  <option value="9.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">9.75</font></font>
+                  </option>
+                  <option value="10">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+10.00</font></font>
+                  </option>
+                </select>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-cyl">
+                <div class="show-on-small-only">
+                  <span>Cylinder (CYL)</span>
+                </div>
+                <select name="prescription_data[os.cyl]" class="prescription_data_os_cyl">
+                  <option value="-6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-6.00</font></font>
+                  </option>
+                  <option value="-5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.75</font></font>
+                  </option>
+                  <option value="-5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.50</font></font>
+                  </option>
+                  <option value="-5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.25</font></font>
+                  </option>
+                  <option value="-5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-5.00</font></font>
+                  </option>
+                  <option value="-4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.75</font></font>
+                  </option>
+                  <option value="-4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.50</font></font>
+                  </option>
+                  <option value="-4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.25</font></font>
+                  </option>
+                  <option value="-4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-4.00</font></font>
+                  </option>
+                  <option value="-3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.75</font></font>
+                  </option>
+                  <option value="-3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.50</font></font>
+                  </option>
+                  <option value="-3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.25</font></font>
+                  </option>
+                  <option value="-3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-3.00</font></font>
+                  </option>
+                  <option value="-2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.75</font></font>
+                  </option>
+                  <option value="-2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.50</font></font>
+                  </option>
+                  <option value="-2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.25</font></font>
+                  </option>
+                  <option value="-2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-2.00</font></font>
+                  </option>
+                  <option value="-1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.75</font></font>
+                  </option>
+                  <option value="-1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.50</font></font>
+                  </option>
+                  <option value="-1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.25</font></font>
+                  </option>
+                  <option value="-1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-1.00</font></font>
+                  </option>
+                  <option value="-0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.75</font></font>
+                  </option>
+                  <option value="-0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.50</font></font>
+                  </option>
+                  <option value="-0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">-0.25</font></font>
+                  </option>
+                  <option value="0" selected="selected">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">0.00</font></font>
+                  </option>
+                  <option value="0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.25</font></font>
+                  </option>
+                  <option value="0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.50</font></font>
+                  </option>
+                  <option value="0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.75</font></font>
+                  </option>
+                  <option value="1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.00</font></font>
+                  </option>
+                  <option value="1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.25</font></font>
+                  </option>
+                  <option value="1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.50</font></font>
+                  </option>
+                  <option value="1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.75</font></font>
+                  </option>
+                  <option value="2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.00</font></font>
+                  </option>
+                  <option value="2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.25</font></font>
+                  </option>
+                  <option value="2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.50</font></font>
+                  </option>
+                  <option value="2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.75</font></font>
+                  </option>
+                  <option value="3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.00</font></font>
+                  </option>
+                  <option value="3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.25</font></font>
+                  </option>
+                  <option value="3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.50</font></font>
+                  </option>
+                  <option value="3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.75</font></font>
+                  </option>
+                  <option value="4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.00</font></font>
+                  </option>
+                  <option value="4.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.25</font></font>
+                  </option>
+                  <option value="4.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.50</font></font>
+                  </option>
+                  <option value="4.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.75</font></font>
+                  </option>
+                  <option value="5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.00</font></font>
+                  </option>
+                  <option value="5.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+5.25</font></font>
+                  </option>
+                  <option value="5.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.50</font></font>
+                  </option>
+                  <option value="5.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">5.75</font></font>
+                  </option>
+                  <option value="6">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+6.00</font></font>
+                  </option>
+                </select>
+              </div>
+              <!-- -->
+              <div class="rx-form-eyes-axis">
+                <div class="show-on-small-only">
+                  <span>Axis</span>
+                </div>
+                <input type="number" min="0" max="180" class="os_axis" name="prescription_data[os.axis]" value=""></div>
+              <!-- -->
+              <div class="rx-form-eyes-add">
+                <div class="show-on-small-only">
+                  <span>Addition (Near)</span>
+                </div>
+                <select name="prescription_data[os.near]" class="os_near">
+                  <option value="" selected="selected">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">---</font></font>
+                  </option>
+                  <option value="0">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">0.00</font></font>
+                  </option>
+                  <option value="0.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.25</font></font>
+                  </option>
+                  <option value="0.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.50</font></font>
+                  </option>
+                  <option value="0.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+0.75</font></font>
+                  </option>
+                  <option value="1">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.00</font></font>
+                  </option>
+                  <option value="1.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.25</font></font>
+                  </option>
+                  <option value="1.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.50</font></font>
+                  </option>
+                  <option value="1.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+1.75</font></font>
+                  </option>
+                  <option value="2">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.00</font></font>
+                  </option>
+                  <option value="2.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.25</font></font>
+                  </option>
+                  <option value="2.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.50</font></font>
+                  </option>
+                  <option value="2.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+2.75</font></font>
+                  </option>
+                  <option value="3">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.00</font></font>
+                  </option>
+                  <option value="3.25">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.25</font></font>
+                  </option>
+                  <option value="3.5">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.50</font></font>
+                  </option>
+                  <option value="3.75">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+3.75</font></font>
+                  </option>
+                  <option value="4">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">+4.00</font></font>
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="rx-form-pd">
+            <div class="rx-form-pd-title">
+              <span>
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">瞳距（PD）</font></font>
+              </span>
+              <span style="color:red">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">*</font></font>
+              </span>
+            </div>
+            <!-- -->
+            <div class="rx-form-pd-symm">
+              <select name="prescription_data[pd.both]" class="prescription_data_pd" required="required">
+                <option value="" selected="selected">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">---</font></font>
+                </option>
+                <option value="48">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">48.00</font></font>
+                </option>
+                <option value="48.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">48.50</font></font>
+                </option>
+                <option value="49">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">49.00</font></font>
+                </option>
+                <option value="49.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">49.50</font></font>
+                </option>
+                <option value="50">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">50.00</font></font>
+                </option>
+                <option value="50.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">50.50</font></font>
+                </option>
+                <option value="51">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">51.00</font></font>
+                </option>
+                <option value="51.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">51.50</font></font>
+                </option>
+                <option value="52">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">52.00</font></font>
+                </option>
+                <option value="52.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">52.50</font></font>
+                </option>
+                <option value="53">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">53.00</font></font>
+                </option>
+                <option value="53.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">53.50</font></font>
+                </option>
+                <option value="54">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">54.00</font></font>
+                </option>
+                <option value="54.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">54.50</font></font>
+                </option>
+                <option value="55">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">55.00</font></font>
+                </option>
+                <option value="55.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">55.50</font></font>
+                </option>
+                <option value="56">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">56.00</font></font>
+                </option>
+                <option value="56.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">56.50</font></font>
+                </option>
+                <option value="57">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">57.00</font></font>
+                </option>
+                <option value="57.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">57.50</font></font>
+                </option>
+                <option value="58">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">58.00</font></font>
+                </option>
+                <option value="58.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">58.50</font></font>
+                </option>
+                <option value="59">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">59.00</font></font>
+                </option>
+                <option value="59.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">59.50</font></font>
+                </option>
+                <option value="60">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">60.00</font></font>
+                </option>
+                <option value="60.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">60.50</font></font>
+                </option>
+                <option value="61">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">61.00</font></font>
+                </option>
+                <option value="61.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">61.50</font></font>
+                </option>
+                <option value="62">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">62.00</font></font>
+                </option>
+                <option value="62.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">62.50</font></font>
+                </option>
+                <option value="63">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">63.00</font></font>
+                </option>
+                <option value="63.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">63.50</font></font>
+                </option>
+                <option value="64">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">64.00</font></font>
+                </option>
+                <option value="64.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">64.50</font></font>
+                </option>
+                <option value="65">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">65.00</font></font>
+                </option>
+                <option value="65.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">65.50</font></font>
+                </option>
+                <option value="66">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">66.00</font></font>
+                </option>
+                <option value="66.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">66.50</font></font>
+                </option>
+                <option value="67">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">67.00</font></font>
+                </option>
+                <option value="67.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">67.50</font></font>
+                </option>
+                <option value="68">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">68.00</font></font>
+                </option>
+                <option value="68.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">68.50</font></font>
+                </option>
+                <option value="69">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">69.00</font></font>
+                </option>
+                <option value="69.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">69.50</font></font>
+                </option>
+                <option value="70">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">70.00</font></font>
+                </option>
+                <option value="70.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">70.50</font></font>
+                </option>
+                <option value="71">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">71.00</font></font>
+                </option>
+                <option value="71.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">71.50</font></font>
+                </option>
+                <option value="72">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">72.00</font></font>
+                </option>
+                <option value="72.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">72.50</font></font>
+                </option>
+                <option value="73">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">73.00</font></font>
+                </option>
+                <option value="73.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">73.50</font></font>
+                </option>
+                <option value="74">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">74.00</font></font>
+                </option>
+                <option value="74.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">74.50</font></font>
+                </option>
+                <option value="75">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">75.00</font></font>
+                </option>
+                <option value="75.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">75.50</font></font>
+                </option>
+                <option value="76">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">76.00</font></font>
+                </option>
+                <option value="76.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">76.50</font></font>
+                </option>
+                <option value="77">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">77.00</font></font>
+                </option>
+                <option value="77.5">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">77.50</font></font>
+                </option>
+                <option value="78">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">78.00</font></font>
+                </option>
+              </select>
+            </div>
+            <!-- -->
+            <div class="rx-form-pd-asymm" style="display: none;">
+              <div class="rx-form-pd-left">
+                <span>Left</span>
+                <select name="prescription_data[pd.left]">
+                  <option value="" selected="selected">———</option>
+                  <option value="24">24.00</option>
+                  <option value="24.5">24.50</option>
+                  <option value="25">25.00</option>
+                  <option value="25.5">25.50</option>
+                  <option value="26">26.00</option>
+                  <option value="26.5">26.50</option>
+                  <option value="27">27.00</option>
+                  <option value="27.5">27.50</option>
+                  <option value="28">28.00</option>
+                  <option value="28.5">28.50</option>
+                  <option value="29">29.00</option>
+                  <option value="29.5">29.50</option>
+                  <option value="30">30.00</option>
+                  <option value="30.5">30.50</option>
+                  <option value="31">31.00</option>
+                  <option value="31.5">31.50</option>
+                  <option value="32">32.00</option>
+                  <option value="32.5">32.50</option>
+                  <option value="33">33.00</option>
+                  <option value="33.5">33.50</option>
+                  <option value="34">34.00</option>
+                  <option value="34.5">34.50</option>
+                  <option value="35">35.00</option>
+                  <option value="35.5">35.50</option>
+                  <option value="36">36.00</option>
+                  <option value="36.5">36.50</option>
+                  <option value="37">37.00</option>
+                  <option value="37.5">37.50</option>
+                  <option value="38">38.00</option>
+                  <option value="38.5">38.50</option>
+                  <option value="39">39.00</option></select>
+              </div>
+              <div class="rx-form-pd-right">
+                <span>Right</span>
+                <select name="prescription_data[pd.right]">
+                  <option value="" selected="selected">———</option>
+                  <option value="24">24.00</option>
+                  <option value="24.5">24.50</option>
+                  <option value="25">25.00</option>
+                  <option value="25.5">25.50</option>
+                  <option value="26">26.00</option>
+                  <option value="26.5">26.50</option>
+                  <option value="27">27.00</option>
+                  <option value="27.5">27.50</option>
+                  <option value="28">28.00</option>
+                  <option value="28.5">28.50</option>
+                  <option value="29">29.00</option>
+                  <option value="29.5">29.50</option>
+                  <option value="30">30.00</option>
+                  <option value="30.5">30.50</option>
+                  <option value="31">31.00</option>
+                  <option value="31.5">31.50</option>
+                  <option value="32">32.00</option>
+                  <option value="32.5">32.50</option>
+                  <option value="33">33.00</option>
+                  <option value="33.5">33.50</option>
+                  <option value="34">34.00</option>
+                  <option value="34.5">34.50</option>
+                  <option value="35">35.00</option>
+                  <option value="35.5">35.50</option>
+                  <option value="36">36.00</option>
+                  <option value="36.5">36.50</option>
+                  <option value="37">37.00</option>
+                  <option value="37.5">37.50</option>
+                  <option value="38">38.00</option>
+                  <option value="38.5">38.50</option>
+                  <option value="39">39.00</option></select>
+              </div>
+            </div>
+            <!-- -->
+            <div class="rx-form-pd-two-pd">
+              <label>
+                <input type="checkbox" class="rx-form-pd-two-pd-checkbox" name="prescription_data[pd.asymm]">
+                <span class="gg-icon gg-icon-normal"></span>
+                <span>
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">两个PD号码</font></font>
+                </span>
+              </label>
+            </div>
+            <!-- -->
+            <div class="rx-form-pd-check-online">
+              <button type="button" class="measure-pd-button">
+                <span class="gg-icon"></span>
+                <span>Check your PD online</span></button>
+            </div>
+          </div>
+          <div class="rx-form-extra">
+            <span>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">附加信息</font></font>
+            </span>
+            <textarea class="gg-textarea" placeholder="关于眼睛状况或矫正镜片要求的任何进一步说明" name="additional_info"></textarea>
+          </div>
+        </div>
+        <div class="control">
+          <button type="submit" class="rx-form-submit action gg-button gg-button-arrow primary">
+            <span>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">确认</font></font>
+            </span>
+          </button>
+          <button class="rx-form-submit gg-button">
+            <span>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">取消</font></font>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="sidebar sidebar-main">
+      <div class="block account-nav custom-dropdown">
+        <div class="custom-dropdown-wrapper">
+          <div class="title custom-dropdown-title">
+            <strong>
+              <font style="vertical-align: inherit;">
+                <font style="vertical-align: inherit;">我的帐户</font></font>
+            </strong>
+          </div>
+          <div class="content custom-dropdown-content">
+            <nav class="account-nav">
+              <ul class="nav items">
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/wishlist/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我最喜欢的</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/customer/account/edit/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的简历</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/customer/address/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">地址簿</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/sales/order/history/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">订单历史</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/customer/prescription/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的处方</font></font>
+                  </a>
+                </li>
+                <li class="nav item">
+                  <a href="https://www.glassesgallery.com/rma/returns/history/">
+                    <font style="vertical-align: inherit;">
+                      <font style="vertical-align: inherit;">我的退货</font></font>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+	{:widget('Cates/footer')}
+  <script type="text/javascript">
+    // var left_sph;
+    // var left_cyl;
+    // var left_axis;
+    // var left_near;
+    // var os_sph;
+    // var os_cyl;
+    // var os_axis;
+    // var os_near;
+    // var pd;
+    // var text;
+    // var title;
+    // //取左眼sph值
+    // $(".prescription_data_sph").change(function(){
+    //   left_sph=$(this).val();
+    // })
+    // //取左眼cyl值
+    // $(".prescription_data_cyl").change(function(){
+    //   left_cyl=$(this).val();
+    // })
+    // //取左眼axis值
+    // $(".left_axis").blur(function(){
+    //   left_axis=$(this).val();
+    //   if(Math.floor(left_axis)<=0){
+    //     layer.msg('散光度数必须大于0', {icon: 2});
+    //   }
+    // })
+    // //取左眼near值
+    // $(".prescription_data_near").change(function(){
+    //   left_near=$(this).val();
+    // })
+    // //取右眼sph值
+    // $(".prescription_data_os_sph").change(function(){
+    //   os_sph=$(this).val();
+    // })
+    // //取右眼cyl值
+    // $(".prescription_data_os_cyl").change(function(){
+    //   os_cyl=$(this).val();
+    // })
+    // //取右眼眼axis值
+    // $(".os_axis").blur(function(){
+    //   os_axis=$(this).val();
+    //   if(Math.floor(os_axis)<=0){
+    //     layer.msg('散光度数必须大于0', {icon: 2});
+    //   }
+    // })
+    //  //取右眼near值
+    // $(".os_near").change(function(){
+    //   os_near=$(this).val();
+    // })
+    // //瞳距
+    // $(".prescription_data_pd").change(function(){
+    //  pd=$(this).val();
+    // })
+    // //用户提交的文字内容
+    // $(".gg-textarea").blur(function(){
+    //   tetx=$(this).val();
+    // })
+    // //处方名字
+    // $(".prescription_title").blur(function(){
+    //   title=$(this).val();
+    // })
+     //确认提交到数据库
+    // $(".primary").submit(function(){
+       
+    // })
+  </script>
+</body>
+</html>

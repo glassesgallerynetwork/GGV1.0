@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44 (41411) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon_EnterArrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="18.8972 0.0001 0 0.0001 0 13.92625 18.8972 13.92625 18.8972 0.0001"></polygon>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1280px_Footer" transform="translate(-1211.000000, -85.000000)">
+            <g id="Icon_EnterArrow" transform="translate(1210.000000, 84.000000)">
+                <g id="Page-1" transform="translate(1.000000, 1.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M18.7417,6.6285 L10.99645,0.10275 C10.90695,0.0275 10.7927,-0.008 10.67695,0.0015 C10.56045,0.0115 10.45495,0.06625 10.3797,0.15575 C10.22445,0.34 10.24795,0.6165 10.43245,0.772 L17.29745,6.556 L0.4127,6.556 C0.1847,6.556 -5e-05,6.74075 -5e-05,6.9685 C-5e-05,7.19625 0.1847,7.381 0.4127,7.381 L17.2847,7.381 L10.43245,13.15425 C10.24795,13.30975 10.22445,13.58625 10.3797,13.77075 C10.4632,13.8695 10.5852,13.92625 10.7147,13.92625 C10.81745,13.92625 10.91745,13.88975 10.99645,13.8235 L18.74195,7.2975 C18.8407,7.214 18.8972,7.092 18.8972,6.963 C18.8972,6.834 18.8407,6.712 18.7417,6.6285" id="Fill-1" fill="#000000" mask="url(#mask-2)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

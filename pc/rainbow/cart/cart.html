@@ -1,0 +1,96 @@
+{:widget('Cates/header')}
+<form action="https://www.glassesgallery.com/checkout/cart/updatePost/" method="post" id="form-validate" class="form form-cart" novalidate="novalidate">
+  <input name="form_key" type="hidden" value="Nv7PrdIy9J6sWcOc">
+  <div class="cart-form__title">
+    <span>Shopping Bag</span>
+    <small>(2)</small></div>
+  <div class="cart table-wrapper">
+    <table id="shopping-cart-table" class="cart items data table">
+      <caption role="heading" aria-level="2" class="table-caption">Shopping Cart Items</caption>
+      <thead>
+        <tr>
+          <th class="col item" scope="col">
+            <span>名称</span></th>
+          <th class="col lens" scope="col">
+            <span>镜片</span></th>
+          <th class="col qty" scope="col">
+            <span>数量</span></th>
+          <th class="col subtotal" scope="col">
+            <span>价钱</span></th>
+        </tr>
+      </thead>
+      <foreach name="cart" item="val">
+        <tbody class="cart item" data-bind="scope: 'cartUpgradeItem10754_37237'">
+          <tr class="item-info">
+            <td data-th="Item" class="col item">
+              <a href="https://www.glassesgallery.com/carrera-ca5523" title="CARRERA CA5523" tabindex="-1" class="product-item-photo">
+                <img src=" https://ggstatic.azureedge.net/product-frames/carrera-ca5523eck-front.jpg"></a>
+              <div class="product-item-details">
+                <strong class="product-item-name">
+                  <a href="https://www.glassesgallery.com/carrera-ca5523">
+                    <span class="brand">名字</span>
+                    <span class="sku">{$val['sku']}</span></a>
+                </strong>
+              </div>
+            </td>
+            <td class="col lens" data-th="Lens">
+              <span class="lens_type">Progressive</span>
+              <a class="package_details" data-item-id="10754" data-sku="CA5523ECK">Package details</a></td>
+            <td class="col qty" data-th="Qty">
+              <div class="field qty">
+                <label class="label" for="cart-10754-qty">
+                  <span>Qty</span></label>
+                <div class="control qty">
+                  <span class="qty-label">1</span>
+                  <input id="cart-10754-qty" name="cart[10754][qty]" data-cart-item-id="CA5523ECK" value="1" type="hidden" size="4" title="Qty" class="input-text qty" maxlength="12" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty"></div>
+              </div>
+            </td>
+            <td class="col subtotal" data-th="Subtotal" data-bind="html: productPrice">
+              <span class="price-excluding-tax" data-label="Excl. Tax">
+                <span class="minicart-price">
+                  <span class="price">$254.00</span></span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <div class="actions-toolbar">
+                <div id="gift-options-cart-item-10754" data-bind="scope:'giftOptionsCartItem-10754'" class="gift-options-cart-item">
+                  <!-- ko template: getTemplate() -->
+                  <!-- ko if: isActive() || hasActiveOptions() -->
+                  <!-- /ko -->
+                  <!-- /ko --></div>
+                <a href="#" class="remove" id="remove-modal-remove-10754" title="Remove">
+                  <span>Remove</span></a>
+              </div>
+            </td>
+          </tr>
+          <tr class="item-promotion hide" data-itemid="10754">
+            <td colspan="4"></td>
+          </tr>
+          <tr class="item-upgrade" style="display: none;" data-bind="visible: (loaded &amp;&amp; enabled)">
+            <td colspan="4">
+              <div class="item-upgrade-list">
+                <div class="upgrade-title">YOU MAY CONSIDER</div>
+                <ul data-bind="foreach: loadedOptionItems"></ul>
+                <div style="display: none;" data-bind="visible: (loaded &amp;&amp; enabled), attr: { uname: 'update-price-btn-10754' }" uname="update-price-btn-10754">
+                  <!-- ko if: showSaveButton -->
+                  <a class="gg-button small save-upgrade" data-bind="click: confirmUpdatePrice, name : uname">Update Price</a>
+                  <a id="update-price-btn-10754" style="display:none" data-bind="click: updateFrameOptions">Update Price</a>
+                  <!-- /ko --></div>
+              </div>
+              <!-- <div>
+              <strong>Total Price:</strong>
+              <span data-bind="text: totalUpgradePrice"></span></div> -->
+            </td>
+          </tr>
+        </tbody>
+      </foreach>
+    </table>
+  </div>
+  <div class="cart main actions">
+    <a class="continue" href="https://www.glassesgallery.com/" title="Continue Shopping">
+      <span>Continue Shopping</span></a>
+    <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""></div>
+</form>
+{:widget('Cates/header')}

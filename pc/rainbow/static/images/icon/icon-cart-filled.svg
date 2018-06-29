@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="22px" viewBox="0 0 20 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/Cart/Empty</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop/Header/HasItem" transform="translate(-1212.000000, -54.000000)" fill="#000000">
+            <g id="Group-4" transform="translate(947.000000, 53.000000)">
+                <g id="Icon/Cart/HaveItems" transform="translate(264.000000, 1.000000)">
+                    <g id="Page-1" transform="translate(1.760000, 0.880000)">
+                        <path d="M9.24,0.88 C10.7769111,0.88 12.114415,2.03337143 12.32,3.52 L6.16,3.52 C6.36283931,2.00937143 7.67357254,0.88 9.24,0.88 L9.24,0.88 Z M13.2883191,3.56139373 C13.0421542,1.52646272 11.3130046,0 9.24,0 C7.20508397,0 5.43925649,1.55925575 5.19203359,3.56139373 L0,3.56139373 L0,20.24 L18.48,20.24 L18.48,3.56139373 L13.2883191,3.56139373 Z" id="Fill-1"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

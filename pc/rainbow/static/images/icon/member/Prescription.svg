@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="90px" viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon/Member/Prescription</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/Member/Prescription" stroke="#000000" stroke-width="1.31999999">
+            <g id="Page-1" transform="translate(0.000000, 29.000000)">
+                <path d="M24,32 C15.1776663,32 8,24.8223337 8,16 C8,7.17766633 15.1776663,0 24,0 C32.8223337,0 40,7.17766633 40,16 C40,24.8223337 32.8223337,32 24,32 Z" id="Stroke-1"></path>
+                <path d="M66,32 C57.1776663,32 50,24.8223337 50,16 C50,7.17766633 57.1776663,0 66,0 C74.8223337,0 82,7.17766633 82,16 C82,24.8223337 74.8223337,32 66,32 Z" id="Stroke-1-Copy"></path>
+                <path d="M79.625,7 L88.4638348,7" id="Line" stroke-linecap="square"></path>
+                <path d="M0.625,7 L9.46383476,7" id="Line-Copy" stroke-linecap="square"></path>
+                <path d="M40,6.40639269 C41.1499028,5.52340183 42.5799741,5 44.130525,5 C47.9245625,5 51,8.13387298 51,12" id="Stroke-5"></path>
+            </g>
+        </g>
+    </g>
+</svg>

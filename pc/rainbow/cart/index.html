@@ -1,0 +1,164 @@
+{:widget('Cates/header')}
+<form action="https://www.glassesgallery.com/checkout/cart/updatePost/" method="post" id="form-validate" class="form form-cart" novalidate="novalidate">
+  <input name="form_key" type="hidden" value="Nv7PrdIy9J6sWcOc">
+  <div class="cart-form__title">
+    <span>Shopping Bag</span>
+    <small>(2)</small></div>
+  <div class="cart table-wrapper">
+    <table id="shopping-cart-table" class="cart items data table">
+      <caption role="heading" aria-level="2" class="table-caption">Shopping Cart Items</caption>
+      <thead>
+        <tr>
+          <th class="col item" scope="col">
+            <span>名称</span></th>
+          <th class="col lens" scope="col">
+            <span>镜片</span></th>
+          <th class="col qty" scope="col">
+            <span>数量</span></th>
+          <th class="col subtotal" scope="col">
+            <span>价钱</span></th>
+        </tr>
+      </thead>
+      <foreach name="cart" item="val">
+        <tbody class="cart item" data-bind="scope: 'cartUpgradeItem10754_37237'">
+          <tr class="item-info">
+            <td data-th="Item" class="col item">
+              <a href="https://www.glassesgallery.com/carrera-ca5523" title="CARRERA CA5523" tabindex="-1" class="product-item-photo">
+                <img src=" https://ggstatic.azureedge.net/product-frames/carrera-ca5523eck-front.jpg"></a>
+              <div class="product-item-details">
+                <strong class="product-item-name">
+                  <a href="https://www.glassesgallery.com/carrera-ca5523">
+                    <span class="brand">名字</span>
+                    <span class="sku">{$val.sku}</span></a>
+                </strong>
+              </div>
+            </td>
+            <td class="col lens" data-th="Lens">
+              <span class="lens_type">{$val.centents}</span>
+              <a class="package_details" data-item-id="10754" data-sku="{$val.sku}">镜头细节</a></td>
+            <td class="col qty" data-th="Qty">
+              <div class="field qty">
+                <label class="label" for="cart-10754-qty">
+                  <span>Qty</span></label>
+                <div class="control qty">
+                  <span class="qty-label">{$val.num}</span>
+                  <input id="cart-10754-qty" name="cart[10754][qty]" data-cart-item-id="CA5523ECK" value="1" type="hidden" size="4" title="Qty" class="input-text qty" maxlength="12" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty"></div>
+              </div>
+            </td>
+            <td class="col subtotal" data-th="Subtotal" data-bind="html: productPrice">
+              <span class="price-excluding-tax" data-label="Excl. Tax">
+                <span class="minicart-price">
+                  <span class="price"></span></span>
+              </span>
+              <input type="hidden" class="prices" name="" value="{$val.price}">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <div class="actions-toolbar">
+                <div id="gift-options-cart-item-10754" data-bind="scope:'giftOptionsCartItem-10754'" class="gift-options-cart-item">
+                  <!-- ko template: getTemplate() -->
+                  <!-- ko if: isActive() || hasActiveOptions() -->
+                  <!-- /ko -->
+                  <!-- /ko --></div>
+                <a href="#" class="remove" id="remove-modal-remove-10754" title="Remove">
+                  <span>删除</span></a>
+              </div>
+            </td>
+          </tr>
+          <tr class="item-promotion hide" data-itemid="10754">
+            <td colspan="4"></td>
+          </tr>
+          <tr class="item-upgrade" style="display: none;" data-bind="visible: (loaded &amp;&amp; enabled)">
+            <td colspan="4">
+              <div class="item-upgrade-list">
+                <div class="upgrade-title">YOU MAY CONSIDER</div>
+                <ul data-bind="foreach: loadedOptionItems"></ul>
+                <div style="display: none;" data-bind="visible: (loaded &amp;&amp; enabled), attr: { uname: 'update-price-btn-10754' }" uname="update-price-btn-10754">
+                  <!-- ko if: showSaveButton -->
+                  <a class="gg-button small save-upgrade" data-bind="click: confirmUpdatePrice, name : uname">Update Price</a>
+                  <a id="update-price-btn-10754" style="display:none" data-bind="click: updateFrameOptions">Update Price</a>
+                  <!-- /ko --></div>
+              </div>
+              <!-- <div>
+              <strong>Total Price:</strong>
+              <span data-bind="text: totalUpgradePrice"></span></div> -->
+            </td>
+          </tr>
+        </tbody>
+        <input type="hidden" class="userid" name="id" value="{$val.id}">
+        <!-- 镜头细节 -->
+        <div id="cart-package-detail" data-reveal="" role="dialog" aria-hidden="false" data-yeti-box="cart-package-detail" data-resize="cart-package-detail" data-t="8wosvm-t" data-events="resize" tabindex="-1" style="top: 119px; display: none;">
+          <div class="package-detail-container">
+            <div class="title">
+              <span class="sku">{$val.sku}</span>
+              <span class="title"> PACKAGE DETAILS</span>
+              <button class="cross" data-close="" aria-label="Close modal" type="button">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="desc">
+                <ul class="package-items">
+                  <li><div class="key">镜头类型</div><div class="value">{$val.centents}</div></li>
+                  <li><div class="key">镜头功能</div><div class="value">{$val.func}</div></li>
+                  <li><div class="key">厚度选项</div><div class="value">{$val.store_names}</div></li>
+                  <li><div class="key">镜头颜色</div><div class="value">Grey</div></li></ul>
+                <div class="package-total">
+                    <span class="toal">镜片项总计</span>
+                    <span class="total-amount">$180.00</span>
+                </div>
+            </div>
+          </div>
+          <button class="confirm" data-close="" aria-label="Close modal" type="button">
+              <span>关闭</span>
+          </button>
+        </div>
+        <!-- 镜头细节结束 -->
+      </foreach>
+    </table>
+  </div>
+  <div class="cart main actions">
+    <a class="continue" href="{:U('Home/Index/index')}" title="Continue Shopping">
+      <span>继续购物</span></a>
+    <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""></div>
+</form>
+<script type="text/javascript">
+    num=$(".qty-label").text();
+    prices=$(".prices").val();
+    nums= +num * +prices;
+    $(".minicart-price").children('span').html('总金额¥  &nbsp&nbsp&nbsp&nbsp' +nums);
+
+    $(".remove").click(function(){
+      id=$(".userid").val();
+      $.get('{:U('Home/Cart/del')}',{id:id},function(data){
+        if(data.status==0){
+          alert(1);
+        }
+      })
+    })
+
+    var pric;
+    
+    $(".package_details").each(function(){
+     ;
+      $(this).click(function(){
+
+        sku=$(".package_details").attr('data-sku');
+         $.get('{:U('Home/Cart/pric')}',{sku:sku},function(data){            
+         pric = data.result.shop_price;
+         pric = +nums - +pric;
+          $(".total-amount").html('¥' +pric);
+          
+          },'json')
+
+        $(".total-amount").parent('div').parent('div').parent('div').parent('div').show();
+        
+      })
+    })
+
+    $(".confirm").click(function(){
+
+     $(this).parent('div').hide();
+    })
+</script>
+{:widget('Cates/header')}

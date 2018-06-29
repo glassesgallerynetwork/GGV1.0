@@ -1,0 +1,448 @@
+h2 {
+    font-size: 1.2rem;
+}
+
+.right-promo {
+    position: relative;
+    padding: 0 0 105px;
+}
+
+.right-promo.last {
+    padding: 0px;
+}
+
+.right-promo h3 {
+    font-family: 'ratiomodern', serif;
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+.right-promo .white-card {
+    background: #ffffff;
+    padding: 20px;
+    margin: -50px 36.5px 0;
+    text-align: center;
+    display: block;
+    position: absolute;
+    width: 340px;
+    box-shadow: 0 -7px 13px rgba(0, 0, 0, 0.2);
+}
+
+/* icon */
+
+.block.filter .filter-content .filter-options.shape .item.rectangle>a:hover:after {
+    background-image: url(https://glassesgallery-new.azurewebsites.net/rectangle.png);
+}
+
+.block.filter .filter-content .filter-options.shape .item.rectangle>a:after {
+    background-image: url(https://glassesgallery-new.azurewebsites.net/rectangle-grey.png);
+}
+
+.block.filter .filter-content .filter-options.shape .item.geometric>a:hover:after {
+    background-image: url(https://glassesgallery-new.azurewebsites.net/geometric.png);
+}
+
+.block.filter .filter-content .filter-options.shape .item.geometric>a:after {
+    background-image: url(https://glassesgallery-new.azurewebsites.net/geometric-grey.png);
+}
+
+.block.filter .filter-content .filter-options.shape .item.browline>a:hover:after {
+    background-image: url(https://glassesgallery-new.azurewebsites.net/browline.png);
+}
+
+.block.filter .filter-content .filter-options.shape .item.browline>a:after {
+    background-image: url(https://glassesgallery-new.azurewebsites.net/browline-grey.png);
+}
+
+/* index  */
+
+.white-border {
+    text-align: center;
+}
+
+.white-border a {
+    border: 1px solid #ffffff !important;
+    background: none !important;
+    color: #ffffff !important;
+    padding: 3px 15px !important;
+    text-transform: uppercase;
+    transition: .5s;
+}
+
+.white-border a:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.cms-index-index .image-header a:after {
+    display: none !important;
+    background: none !important;
+}
+
+.image-header-wrapper.center {
+    text-align: center;
+}
+
+.image-header-wrapper.center .image-header-inner {
+    width: 100%;
+    max-width: 100%;
+}
+
+.news-block {
+    position: relative;
+    margin: 0 0 50px 0;
+}
+
+.news-block .right {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    top: 0;
+    left: 6%;
+    width: 50%;
+    height: 100%;
+}
+
+.news-block .right h3 {
+    font-size: 28px !important;
+    position: relative;
+    font-family: 'ratiomodern', serif;
+    color: black;
+    width: 100%;
+    margin: 0;
+}
+
+.news-block.no-border {
+    padding: 0px;
+    margin: 0px;
+}
+
+h3.home-brands-title {
+    text-align: center;
+    font-size: 30px;
+    line-height: 55px;
+    text-transform: uppercase;
+    font-family: 'ratiomodern', serif;
+    color: #000000;
+}
+
+.home-brands {
+    list-style: none;
+    padding: 0 0 30px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 30px 30px 30px;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+}
+
+.home-brands div {
+    border: 1px solid #cccccc;
+    font-size: 15px;
+    justify-self: center;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.home-brands div a {
+    display: block;
+}
+
+.home-brands div.black {
+    background: black;
+    color: red;
+    border: 1px solid black;
+}
+
+.home-brands div.black a {
+    color: red;
+}
+
+.product-info-main .product-addto-links .towishlist:hover span {
+    display: block;
+    position: absolute;
+    width: 120px;
+    top: 32px;
+    left: -35px;
+}
+
+.block.filter .filter-content .block-actions {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.block.filter .filter-content .block-actions .action.filter-search {
+    margin-top: 0;
+}
+
+#filter-accordion {
+    padding-top: 60px;
+}
+
+.page-bottom--scrolled .back-to-top {
+    bottom: 10px;
+    width: 46.97px;
+    height: 46.97px;
+    right: 135px;
+}
+
+.page-banner {
+    text-align: center;
+    position: absolute;
+    width: calc(100% - 30px);
+    margin-top: -21px;
+}
+
+.youtube {
+    width: 380px;
+}
+
+.youtube iframe {
+    width: 380px;
+    min-height: 200px;
+}
+
+[ng-app] .gg-tooltip__detail {
+    left: -286px !important;
+}
+
+/* popup */
+
+.popup-coupon-code {
+    position: absolute;
+    padding: 20px;
+    right: 48px;
+    width: 50%;
+    height: 400px;
+}
+
+.popup-coupon-code p {
+    color: #000000;
+    text-align: center
+}
+
+.popup-coupon-code h2 {
+    font-size: 28px;
+    color: #000000;
+    text-align: center
+}
+
+.popup-coupon-code h3 {
+    color: #000000;
+    font-size: 21px;
+    text-align: center;
+    margin: 0;
+}
+
+.popup-coupon-code h5 {
+    font-size: 10px;
+    text-align: center
+}
+
+.popup-coupon-code #popup-subscribe {
+    text-align: center
+}
+
+.popup-coupon-code #popup-subscribe-newsletter {
+    margin: 10px 0;
+    padding: 10px 45px;
+    text-align: center
+}
+
+#popup-subscribe {
+    height: 100%;
+}
+
+#popup-subscribe-newsletter-validate-detail {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.popup-coupon-code #popup-subscribe .form.subscribe .top {
+    align-self: flex-start;
+}
+
+.popup-coupon-code #popup-subscribe .form.subscribe .bottom {
+    align-self: flex-end;
+}
+
+ul.product-info-specialty li {
+    margin-left: 0;
+    width: 100%;
+    float: none;
+}
+
+@media (max-width: 1080px) {
+    .right-promo .white-card {
+        padding: 20px 10px;
+        margin: -50px 10px 0;
+        width: calc(100% - 20px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .add-lens__left {
+        padding: 28px 10px 56px;
+    }
+}
+
+/* tablet */
+
+@media (max-width: 768px) {
+    .right-promo {
+        padding-bottom: 20px;
+    }
+    .right-promo .white-card {
+        padding: 10px;
+        margin: 0px;
+        width: 100%;
+        position: relative;
+    }
+    .right-promo .white-card h3 {
+        font-size: 20px !important;
+        margin: 0.5rem 0;
+    }
+    .right-promo .white-card p {
+        font-size: 12px !important;
+    }
+    .news-block .right h3 {
+        font-size: 18px !important;
+    }
+    .page-bottom--scrolled .back-to-top {
+        bottom: unset;
+        width: unset;
+        height: unset;
+        right: unset;
+    }
+    .add-lens__functions {
+        padding: 0 40px;
+    }
+    .add-lens__left {
+        display: none;
+    }
+    .popup.block-static-block {
+        max-width: 640px;
+    }
+}
+
+/* mobile */
+
+@media (max-width: 767px) {
+    .right-promo {
+        padding-bottom: 40px;
+    }
+    .right-promo .white-card {
+        padding: 10px;
+        margin: 0px;
+        width: 100%;
+        position: relative;
+    }
+    .right-promo .white-card h3 {
+        font-size: 22px !important;
+        margin: 0.5rem 0;
+    }
+    .right-promo .white-card p {
+        font-size: 16px !important;
+    }
+    h3.home-brands-title {
+        font-size: 24px;
+        line-height: 35px;
+    }
+    .home-brands {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 30px 30px 30px 30px;
+    }
+    .news-block {
+        overflow: hidden;
+        margin-bottom: 40px;
+    }
+    .news-block img {
+        width: 200%;
+    }
+    .news-block .right {
+        position: relative;
+        width: 100%;
+        left: 0;
+    }
+    .news-block .right h3 {
+        position: relative;
+        font-size: 20px !important;
+        top: unset;
+        right: unset;
+        left: unset;
+        width: 100%;
+        text-align: center;
+        transform: none;
+    }
+    .block.filter .filter-content .block-actions {
+        position: relative;
+        top: unset;
+        width: 100%;
+    }
+    .page-bottom--scrolled .back-to-top {
+        bottom: unset;
+        width: unset;
+        height: unset;
+        right: unset;
+    }
+    .page-banner {
+        position: relative;
+        width: 100%;
+    }
+    .add-lens.add-lens--betty {
+        display: block;
+    }
+    .add-lens.add-lens--betty .add-lens__left {
+        padding-bottom: 20px;
+    }
+    .add-lens.add-lens--betty .add-lens__right {
+        position: relative;
+    }
+    .youtube {
+        width: 100%;
+    }
+    .youtube iframe {
+        width: 100%;
+    }
+    .popup-coupon-code {
+        height: calc(100% - 40px);
+        width: calc(100% - 40px);
+        right: unset;
+    }
+    .popup-coupon-code p {
+        font-size: 12px;
+        margin: 0;
+    }
+    .popup-coupon-code h2 {
+        font-size: 22px;
+        margin: 0;
+    }
+    .popup-coupon-code h3 {
+        font-size: 16px;
+    }
+    .popup-coupon-code h5 {
+        margin: 0;
+    }
+    .popup-coupon-code #popup-subscribe {
+        height: 100%;
+    }
+    .popup-coupon-code #popup-subscribe .form.subscribe {
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .popup-coupon-code #popup-subscribe .form.subscribe .bottom {
+        align-self: flex-end;
+    }
+    .popup.block-static-block .modal-close {
+        background-image: url(https://glassesgallery-new.azurewebsites.net/icon-close-black.svg);
+        bottom: calc(100% - 42px);
+        right: 28px;
+    }
+}
