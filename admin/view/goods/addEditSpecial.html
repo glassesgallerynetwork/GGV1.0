@@ -1,0 +1,88 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;"> 
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>特色推荐 </h3>
+        <h5>编辑添加与推荐</h5>
+      </div>
+    </div>
+  </div>
+    <!--表单数据-->
+    <form method="post" id="" action="">                    
+    <div class="ncap-form-default">
+      <dl class="row">
+        <dt class="tit">
+          <label for="ac_name"><em>*</em>商品SKU</label>
+        </dt>
+        <dd class="opt">
+          <input type="text" value="" name="name"   class="input-txt"/>
+          <span id="err_name" class="err" style="color:#F00; display:none;"></span>        
+          <p class="notic"></p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+          <label for="ac_name"><em>*</em>是否显示</label>
+        </dt>
+        <dd class="opt">                 
+            <select name="status" id="type_id" class="small form-control">
+                 <option value="请选择">请选择</option>                
+                 <option value="是">是</option>
+                 <option value="否">否</option>               
+           </select>
+            <span id="err_type_id" class="err" style="color:#F00; display:none;"></span>          
+        </dd>
+      </dl>	               
+      <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+    </div>
+  </form>
+</div>
+</body>
+<script type="text/javascript">
+  var sku;
+  var res;
+  var ress=false;
+  var skus=false;
+  $(".input-txt").blur(function(){
+    sku=$(this).val();
+    $.post('{:U('Admin/goods/addEditSpecial')}',{sku:sku},function(data){
+      if(data.status==0){
+        layer.msg(data.msg , {icon: 2});
+        $("#err_name").html('请输入正确的sku');
+        $("#err_name").show();
+        skus=false;
+      }else if(data.status==1){
+        $("#err_name").empty();
+        $("#err_name").hide();
+        skus=true;
+      }
+    },'json');
+  })
+
+  $("select").change(function(){
+     res=$(this).val();
+     if(res!='请选择'){
+      ress=true;
+     }else{
+      ress=false;
+     }
+  })
+  $(".bot").click(function(){
+    $("input-txt").trigger("blur");
+    $("select").trigger("change"); 
+      if(skus==true && ress==true){
+        $.post('{:U('Admin/goods/addSpecial')}',{sku:sku,res:res},function(data){
+          if(data.status==0){
+            layer.msg(data.msg , {icon: 1});
+          }
+          if(data.status==1){
+            layer.msg(data.msg , {icon: 2});
+          }
+        },'json')
+      }
+  })
+
+</script>
+</html>

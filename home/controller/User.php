@@ -167,7 +167,7 @@ class User extends Base{
     	$res = $logic->login($username,$password);
 
     	if($res['status'] == 1){
-    		$res['url'] =  htmlspecialchars_decode(I('post.referurl'));
+    		$res['url'] =  'http://www.glassesgallery.cn/Home/Index/index.html';
     		session('user',$res['result']);
     		setcookie('user_id',$res['result']['user_id'],null,'/');
     		setcookie('is_distribut',$res['result']['is_distribut'],null,'/');
@@ -186,7 +186,34 @@ class User extends Base{
     /**
      *  注册
      */
+
+    //MF.LEUNG修改 
+    //date:20180629
     public function reg(){
+        //mf.leung 20180629修改
+        //res是首页顶部黑色导航
+            $res = Db::name('navigation')->order('sort')->where('position','top')->where('is_show',1)->where('is_new',1)->select();
+            $this->assign('res',$res);
+            //goodslist是首页分类导航
+            $goodslist=Db::name('goods_category')->where('level',2)->where('is_show',0)->where('parent_id',1)->select();
+            foreach($goodslist as $val){
+                $arr[]=Db::name('goods_category')->where('parent_id',$val['id'])->select();
+            }
+            //判断是否有用户登录,如果有登录查看购物车数据。
+            empty($_COOKIE['user_id'])?'':$user_id=$_COOKIE['user_id'];
+            if($user_id){
+                $data=Db::name('shopping_cart')->field('num')->where('user_id',$user_id)->select();
+                if(!empty($data)){
+                    foreach($data as $val){
+                        $num+=$val['num'];
+                    }
+                    $this->assign('num',$num);
+                }   
+            }
+            $this->assign('arr',$arr);
+            $this->assign('goodslist',$goodslist);
+        //mf.leung 20180629修改 end
+
     	if($this->user_id > 0){
             $this->redirect('Home/User/index');
         }
@@ -194,15 +221,33 @@ class User extends Base{
         $reg_smtp_enable = tpCache('smtp.regis_smtp_enable');
         if(IS_POST){
             $logic = new UsersLogic();
+            // Array
+            // (
+            //     [success_url] => 
+            //     [error_url] => 
+            //     [firstname] => leung
+            //     [lastname] => minfeng
+            //     [email] => mf.leung@glassesgallery.com
+            //     [password] => 12345678
+            //     [password_confirmation] => 12345678
+            //     [persistent_remember_me] => on
+            //     [captcha] => Array
+            //         (
+            //             [user_create] => T2WN
+            //         )
+
+            // )
             //验证码检验
-//            $this->verifyHandle('user_reg');
-            $username = I('post.username','');
+            //$this->verifyHandle('user_reg');
+            $firstname  = I('post.firstname');
+            $lastname  = I('post.lastname');
+            $email = I('post.email','');
             $password = I('post.password','');
-            $password2 = I('post.password2','');
-            $code = I('post.code','');
-            $scene = I('post.scene', 1);
+            $password2 = I('post.password_confirmation','');
+            $code = I('post.captcha.user_create','');
+            $persistent_remember_me = I('post.persistent_remember_me','');
             $session_id = session_id();
-            if(check_mobile($username)){
+            /*if(check_mobile($username)){
                 if($reg_sms_enable){   //是否开启注册验证码机制
                     //手机功能没关闭
                     $check_code = $logic->check_validate_code($code, $username, 'phone', $session_id, $scene);
@@ -214,25 +259,19 @@ class User extends Base{
                         $this->ajaxReturn(['status'=>-1,'msg'=>'图像验证码错误']);
                     };
                 }
-            }
-            if(check_email($username)){
+            }*/
+             
+            if(check_email($email)){
                 if($reg_smtp_enable){        //是否开启注册邮箱验证码机制
                     //邮件功能未关闭
-                    $check_code = $logic->check_validate_code($code, $username);
-                    if($check_code['status'] != 1){
-                        $this->ajaxReturn($check_code);
-                    }
                 }else{
                     if(!$this->verifyHandle('user_reg')){
                         $this->ajaxReturn(['status'=>-1,'msg'=>'图像验证码错误']);
                     };
                 }
             }
-            $invite = I('invite');
-            if(!empty($invite)){
-            	$invite = get_user_info($invite,2);//根据手机号查找邀请人
-            }
-            $data = $logic->reg($username,$password,$password2,0,$invite);
+            $data = $logic->reg($email,$password,$password2,0);
+
             if($data['status'] != 1){
                 $this->ajaxReturn($data);
             }
@@ -250,13 +289,15 @@ class User extends Base{
             $this->ajaxReturn($data);
             exit;
         }
+        $res = Db::name('navigation')->order('sort')->where('position','top')->where('is_show',1)->where('is_new',1)->select();
+        $this->assign('res',$res);
+
         $this->assign('regis_sms_enable',tpCache('sms.regis_sms_enable')); // 注册启用短信：
         $this->assign('regis_smtp_enable',tpCache('smtp.regis_smtp_enable')); // 注册启用邮箱：
         $sms_time_out = tpCache('sms.sms_time_out')>0 ? tpCache('sms.sms_time_out') : 120;
         $this->assign('sms_time_out', $sms_time_out); // 手机短信超时时间
         return $this->fetch();
     }
-
     /*
      * 用户地址列表
      */
@@ -349,9 +390,9 @@ class User extends Base{
             $address2 && Db::name('user_address')->where("address_id", $address2['address_id'])->save(array('is_default'=>1));
         }        
         if(!$row)
-            $this->error('操作失败',U('User/address_list'));
+            $this->redirect('Home/User/address_list');
         else
-            $this->success("操作成功",U('User/address_list'));
+            $this->redirect('Home/User/address_list');
     }
 
 
@@ -1211,4 +1252,143 @@ class User extends Base{
         }
     }
 
+    //用户个人中心
+    public function user_account(){      
+        return $this->fetch();
+    }
+    //Ajax添加收藏
+    public function ajaxCollect(){
+    
+    }
+    //我的收藏
+    public function collect(){
+
+    }
+    //我的个人信息
+    public function user_info(){
+
+    }
+    //添加个人信息
+    public function add_user_info(){
+
+    }
+    //地址信息
+    public function address_info(){
+
+    }
+    // //添加地址
+    // public function add_address(){
+
+    // }
+    //订单历史
+    public function order_history(){
+
+    }
+    //-----------------------------------------------------------我的处方------------------------------------------------
+    //我的处方列表
+    public function prescriptionlist(){
+        $lefts=Db::name('prescription')->where(['user_id'=>$this->user_id,'status'=>0])->select();//左眼处方
+        $rights=Db::name('prescription')->where(['user_id'=>$this->user_id,'status'=>1])->select();//右眼处方
+        $this->assign('lefts',$lefts);
+        $this->assign('rights',$rights);
+        return $this->fetch();
+    }
+    //我的处方状态
+    public function prescription(){
+        if($this->user_id){
+            $res=Db::name('prescription')->where('user_id',$this->user_id)->find();
+
+            if($res){
+                return $this->redirect('Home/User/prescriptionlist');
+            }else{
+                return $this->fetch();
+            }
+        }
+    }
+    //处方添加
+    public function add_prescription(){
+        $left=request()->param('letfid');
+        $right=request()->param('rightid');
+        $this->assign('left_id',$left);
+        $this->assign('right_id',$right);
+        return $this->fetch();
+    }
+    public function doadd_prescription(){
+    //判断提交过来的数据是否有左右眼的id，如果有就是修改没有就添加      
+        if(I('left_id')!='' && I('right_id')!=''){
+            $left_id=I('left_id');
+            $right_id=I('right_id');
+            $data['user_id']=I('user_id');
+            $data['prescription_name']=I('prescription_name');
+            $data=request()->param();
+            $prescription_data= $data[prescription_data];
+            $PD=$prescription_data['pd.both'];
+            $right=array('user_id'=>$data['user_id'],'prescription_name'=>$data['prescription_name'],'SPH'=>$prescription_data['od.sph'],'PD'=>$PD,'CYL'=>$prescription_data['od.cyl'],'AXIS'=>$prescription_data['od.axis'],'ADD'=>$prescription_data['od.near'],'status'=>1);
+            $left=array('user_id'=>$data['user_id'],'prescription_name'=>$data['prescription_name'],'SPH'=>$prescription_data['os.sph'],'PD'=>$PD,'CYL'=>$prescription_data['os.cyl'],'AXIS'=>$prescription_data['os.axis'],'ADD'=>$prescription_data['os.near'],'status'=>0);
+            $right_eye=Db::name('prescription')->where('prescription_id',$right_id)->update($right);
+            $left_eye=Db::name('prescription')->where('prescription_id',$left_id)->update($left);
+            if($right_eye==1 && $left_eye==1){
+                return $this->redirect('Home/User/prescriptionlist');
+            }else{
+                return $this->error('请重新修改您的处方');
+            }
+        }else{
+            $data['user_id']=I('user_id');
+            $data['prescription_name']=I('prescription_name');
+            $data=request()->param();
+            $prescription_data= $data[prescription_data];
+            $PD=$prescription_data['pd.both'];
+            $right=array('user_id'=>$data['user_id'],'prescription_name'=>$data['prescription_name'],'SPH'=>$prescription_data['od.sph'],'PD'=>$PD,'CYL'=>$prescription_data['od.cyl'],'AXIS'=>$prescription_data['od.axis'],'ADD'=>$prescription_data['od.near'],'status'=>1);
+            $left=array('user_id'=>$data['user_id'],'prescription_name'=>$data['prescription_name'],'SPH'=>$prescription_data['os.sph'],'PD'=>$PD,'CYL'=>$prescription_data['os.cyl'],'AXIS'=>$prescription_data['os.axis'],'ADD'=>$prescription_data['os.near'],'status'=>0);
+            $right_eye=Db::name('prescription')->insert($right);//插入右眼数据
+            $left_eye=Db::name('prescription')->insert($left);//插入左眼数据
+            // if($reght_eye || $left_eye)
+            if($right_eye==1 && $left_eye==1){
+                return $this->redirect('Home/User/prescriptionlist');
+            }else{
+                return $this->error('请重新添加您的处方');
+            }
+        }
+    }
+    //修改个人处方
+    public function updata_prescription(){
+
+    }
+    //删除个人处方
+    public function del(){
+        $request=request();
+        $right_eys=$request->param('right_eys');
+        $left_eys=$request->param('left_eys');
+        $res=Db::name('prescription')->where('prescription_id',$right_eys)->delete();
+        $ress=Db::name('prescription')->where('prescription_id',$left_eys)->delete();
+        if($res==1 && $ress==1){
+             $this->AjaxReturn(['status'=>1,'msg'=>'']);
+        }else{
+             $this->AjaxReturn(['status'=>0,'msg'=>'请刷新重试']);
+        }
+    }
+
+    //用户收藏
+    public function favourites(){
+       $result=Db::name('goods_collect')->where('user_id',$this->user_id)->select();
+       if(!empty($result)){
+        $res=Db::name('goods')->where('sku',$result[0]['sku'])->select();
+        $this->assign('res',$res);
+        // echo "<pre>";
+        // var_dump($res);exit;
+        return $this->fetch();
+       }else{
+        return $this->fetch();
+       }
+    }
+    public function del_favour(){
+        $request=request();
+        if($request->isAjax()){
+            $sku=$request->param('sku');
+            $res=Db::name('goods_collect')->where('sku',$sku)->delete();
+            if($res){
+                $this->AjaxReturn(1);
+            }
+        }
+    }
 }

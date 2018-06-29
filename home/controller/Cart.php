@@ -27,6 +27,8 @@ use app\common\model\SpecGoodsPrice;
 use app\common\model\Goods;
 use app\common\util\TpshopException;
 use think\Db;
+use think\session\driver\Redis;
+use think\Cache;
 class Cart extends Base {
 
     public $cartLogic; // 购物车逻辑操作类
@@ -57,15 +59,40 @@ class Cart extends Base {
             }
         }
     }
-
+    //购物车详情
     public function index(){
-        $cartLogic = new CartLogic();
-        $cartLogic->setUserId($this->user_id);
-        $cartList = $cartLogic->getCartList();//用户购物车
-        $userCartGoodsTypeNum = $cartLogic->getUserCartGoodsTypeNum();//获取用户购物车商品总数
-        $this->assign('userCartGoodsTypeNum', $userCartGoodsTypeNum);
-        $this->assign('cartList', $cartList);//购物车列表
+        $user_id= $_COOKIE["user_id"];
+        $cart=Db::name('shopping_cart')->where('user_id',$user_id)->select();
+       
+        $this->assign('cart',$cart);
+
         return $this->fetch();
+        // $cartLogic = new CartLogic();
+        // $cartLogic->setUserId($this->user_id);
+        // $cartList = $cartLogic->getCartList();//用户购物车
+        // $userCartGoodsTypeNum = $cartLogic->getUserCartGoodsTypeNum();//获取用户购物车商品总数
+        // $this->assign('userCartGoodsTypeNum', $userCartGoodsTypeNum);
+        // $this->assign('cartList', $cartList);//购物车列表
+        
+    }
+
+    public function pric(){
+        $request=request();
+        $sku=$request->param('sku');
+        $sku=Db::name('goods')->field('shop_price')->where('sku',$sku)->find();
+        if($sku){
+            $this->ajaxReturn(['status' => 0, 'msg' => '', 'result' => $sku]);
+        }
+    }
+
+    //删除购物车
+    public function del(){
+        $request=request();
+        $id=$request->param('id');
+        $res=Db::name('shopping_cart')->where('id',$id)->delete();
+        if($res){
+           return json_encode($res);
+        }
     }
 
     /**
@@ -97,10 +124,12 @@ class Cart extends Base {
      * 删除购物车商品
      */
     public function delete(){
+
         $cart_ids = input('cart_ids/a',[]);
         $cartLogic = new CartLogic();
         $cartLogic->setUserId($this->user_id);
         $result = $cartLogic->delete($cart_ids);
+
         if($result !== false){
             $this->ajaxReturn(['status'=>1,'msg'=>'删除成功','result'=>$result]);
         }else{
@@ -138,27 +167,84 @@ class Cart extends Base {
      */
     function ajaxAddCart()
     {
-        $goods_id = I("goods_id/d"); // 商品id
-        $goods_num = I("goods_num/d");// 商品数量
-        $item_id = I("item_id/d"); // 商品规格id
-        if(empty($goods_id)){
+        
+        $data['user_id'] = $_COOKIE["user_id"];
+        $data['goods_id']=I('id');
+        $data['sku']=I('sku');
+        $data['centents']=I('centents');
+        $data['func']=I('func');
+        $data['store_names']=I('store_names');
+        $data['price']=I('price');
+        if(empty($data['user_id'] )){
+            $this->ajaxReturn(['status'=>0,'msg'=>'请先登录','result'=>'']);
+            return;
+        }
+        if(empty($data['goods_id'])){
             $this->ajaxReturn(['status'=>0,'msg'=>'请选择要购买的商品','result'=>'']);
+            return;
         }
-        if(empty($goods_num)){
-            $this->ajaxReturn(['status'=>0,'msg'=>'购买商品数量不能为0','result'=>'']);
+        if(empty($data['sku'])){
+            $this->ajaxReturn(['status'=>0,'msg'=>'请刷新重试','result'=>'']);
+            return;
         }
-        if($goods_num > 200){
-            $this->ajaxReturn(['status'=>0,'msg'=>'购买商品数量大于200','result'=>'']);
+        if(empty($data['centents'])){
+            $this->ajaxReturn(['status'=>0,'msg'=>'请选择镜头类别类型','result'=>'']);
+            return;
         }
-        $cartLogic = new CartLogic();
-        $cartLogic->setUserId($this->user_id);
-        $cartLogic->setGoodsModel($goods_id);
-        if($item_id){
-            $cartLogic->setSpecGoodsPriceModel($item_id);
+        if(empty($data['func'])){
+            $this->ajaxReturn(['status'=>0,'msg'=>'请选择镜头功能类型','result'=>'']);
+            return;
         }
-        $cartLogic->setGoodsBuyNum($goods_num);
-        $result = $cartLogic->addGoodsToCart();
-        $this->ajaxReturn($result);
+        if(empty($data['store_names'])){
+            $this->ajaxReturn(['status'=>0,'msg'=>'请选择镜头厚度类型','result'=>'']);
+            return;
+        }
+        if(empty($data['price'])){
+            $this->ajaxReturn(['status'=>0,'msg'=>'请刷新重试','result'=>'']);
+            return;
+        }
+        $sku=$data['sku'];
+        $centents=$data['centents'];
+        $func=$data['func'];
+        $store_names=$data['store_names'];
+        $price=$data['price'];
+        $result=Db::name('shopping_cart')->where('sku',$sku)->find();
+        //条件都成立的时候就让数量加1；不成立就再插入一条
+        if($sku==$result['sku'] && $centents==$result['centents'] && $func==$result['func'] && $store_names==$result['store_names'] && $price==$result['price'] ){
+            $data['num']=$result['num']+=1;
+            Db::name('shopping_cart')->where('sku',$sku)->update($data);
+        }else{
+            $data['num']=1;
+            $res=Db::name('shopping_cart')->insert($data);
+        }
+       
+        if($res !== ture){
+            $this->ajaxReturn(['status'=>0,'msg'=>'添加成功','result'=>'']);
+        }else{
+            $this->ajaxReturn(['status'=>1,'msg'=>'添加失败','result'=>'']);
+        }
+
+        // $goods_id = I("goods_id/d"); // 商品id
+        // $goods_num = I("goods_num/d");// 商品数量
+        // $item_id = I("item_id/d"); // 商品规格id
+        // if(empty($goods_id)){
+        //     $this->ajaxReturn(['status'=>0,'msg'=>'请选择要购买的商品','result'=>'']);
+        // }
+        // if(empty($goods_num)){
+        //     $this->ajaxReturn(['status'=>0,'msg'=>'购买商品数量不能为0','result'=>'']);
+        // }
+        // if($goods_num > 200){
+        //     $this->ajaxReturn(['status'=>0,'msg'=>'购买商品数量大于200','result'=>'']);
+        // }
+        // $cartLogic = new CartLogic();
+        // $cartLogic->setUserId($this->user_id);
+        // $cartLogic->setGoodsModel($goods_id);
+        // if($item_id){
+        //     $cartLogic->setSpecGoodsPriceModel($item_id);
+        // }
+        // $cartLogic->setGoodsBuyNum($goods_num);
+        // $result = $cartLogic->addGoodsToCart();
+        // $this->ajaxReturn($result);
     }
 
     /**
@@ -686,5 +772,28 @@ class Cart extends Base {
         $couponLogic = new CouponLogic;
         $return = $couponLogic->exchangeCoupon($this->user_id, $coupon_code);
         $this->ajaxReturn($return);
+    }
+
+    //收藏商品
+    public function Collection(){
+        $request=request();
+        if($request->isAjax()){
+            $data['user_id']=$this->user_id;
+            if(!$data['user_id']){
+                $this->ajaxReturn(['status'=>2,'msg'=>'请先登录,谢谢']);
+            }
+            $data['sku']=$request->param('sku');
+            $data['add_time']=time();
+            if(Db::name('goods_collect')->where(['sku'=>$data['sku'],'user_id'=>$data['user_id']])->find()){
+                $this->ajaxReturn(['status'=>3,'msg'=>'亲,您已经收藏过了']);
+            }else{
+                if(Db::name('goods_collect')->insert($data)){
+                        $this->ajaxReturn(['status'=>0,'msg'=>'收藏成功,请前往收藏夹查看']);
+                }else{
+                    $this->ajaxReturn(['status'=>1,'msg'=>'请稍后再试']);
+                }               
+            }
+
+        }
     }
 }

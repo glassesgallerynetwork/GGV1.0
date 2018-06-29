@@ -114,7 +114,7 @@
 <script>
   /*mf.leung for 20180525 creat funtion*/
     $(document).ready(function(){
-		  $('#id_files').change(function(even){
+      $('#id_files').change(function(even){
         
         var files = even.currentTarget.files[0].name;
         
@@ -130,7 +130,7 @@
               $("#uploads_string").val(files);
           }
         }
-	   });
+     });
       $('.upload_file_submits').click(function()
       {
         var files = document.getElementById("id_files").value;

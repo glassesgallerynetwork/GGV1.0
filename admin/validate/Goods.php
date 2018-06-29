@@ -45,6 +45,15 @@ class Goods extends Validate
         'is_free_shipping.require' => '请选择商品是否包邮',
     ];
 
+    protected $scene =[
+        'banner'=>['cat_id.require' => '三级分类不能为空',
+        'desc.require'=>'请填写横幅图片描述',
+        'logo.require'=>'图片不能为空',
+        'name.min'=>'名称长度至少3个字符',
+        'alts.require'=>'关键词不能为空',
+    ],
+    ];
+
 
     /**
      * 检查积分兑换

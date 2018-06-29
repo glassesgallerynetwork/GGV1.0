@@ -1057,4 +1057,10 @@ class GoodsLogic extends Model
 
         return $categoryList;
     }
+
+    function getLenese(){
+        
+    }
+
+
 }

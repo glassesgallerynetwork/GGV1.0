@@ -3,6 +3,7 @@ return	array(
 	'system'=>array('name'=>'系统','child'=>array(
 				array('name' => '设置','child' => array(
 						array('name'=>'商城设置','act'=>'index','op'=>'System'),
+						array('name'=>'门店管理','act'=>'index','op'=>'Store'),
 						//array('name'=>'支付方式','act'=>'index1','op'=>'System'),
 						array('name'=>'地区&配送','act'=>'region','op'=>'Tools'),
 						array('name'=>'短信模板','act'=>'index','op'=>'SmsTemplate'),
@@ -64,6 +65,7 @@ return	array(
 				    array('name' => '商品列表', 'act'=>'goodsList', 'op'=>'Goods'),
 				    array('name' => '淘宝导入', 'act'=>'index', 'op'=>'Import'),
 					array('name' => '商品分类', 'act'=>'categoryList', 'op'=>'Goods'),
+					array('name' => '分类横幅', 'act'=>'bannersList', 'op'=>'Goods'),
 					array('name' => '库存日志', 'act'=>'stock_list', 'op'=>'Goods'),
 					array('name' => '商品模型', 'act'=>'goodsTypeList', 'op'=>'Goods'),
 					array('name' => '商品规格', 'act' =>'specList', 'op' => 'Goods'),
@@ -72,6 +74,7 @@ return	array(
 					array('name' => '评论列表', 'act'=>'index', 'op'=>'Comment'),
 					array('name' => '商品咨询', 'act'=>'ask_list', 'op'=>'Comment'),
 					array('name' => '商品导入', 'act'=>'commodity_import','op'=>'Goods'),
+					array('name' => '特色眼镜', 'act'=>'special_eye','op'=>'Goods'),
 			)),
 			array('name' => '订单','child'=>array(
 					array('name' => '订单列表', 'act'=>'index', 'op'=>'Order'),
@@ -93,7 +96,6 @@ return	array(
 					array('name' => '优惠券','act'=>'index', 'op'=>'Coupon'),
 					array('name' => '预售管理','act'=>'pre_sell_list', 'op'=>'Promotion'),
 					array('name' => '拼团管理','act'=>'index', 'op'=>'Team'),
-					array('name' => '顶部导航','act'=>'index', 'op'=>'Top'),
 			)),
 			
 			array('name' => '分销','child' => array(
