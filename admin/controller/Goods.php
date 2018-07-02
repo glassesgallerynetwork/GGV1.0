@@ -53,10 +53,10 @@ class Goods extends Base {
                 
                 $all_type = M('goods_category')->where("level<3")->getField('id,name,parent_id');//上级分类数据集，限制3级分类，那么只拿前两级作为上级选择
                 if(!empty($all_type)){
-                	$parent_id = empty($goods_category_info) ? I('parent_id',0) : $goods_category_info['parent_id'];
-                	$all_type = $GoodsLogic->getCatTree($all_type);
-                	$cat_select = $GoodsLogic->exportTree($all_type,0,$parent_id);
-                	$this->assign('cat_select',$cat_select);
+                    $parent_id = empty($goods_category_info) ? I('parent_id',0) : $goods_category_info['parent_id'];
+                    $all_type = $GoodsLogic->getCatTree($all_type);
+                    $cat_select = $GoodsLogic->exportTree($all_type,0,$parent_id);
+                    $this->assign('cat_select',$cat_select);
                 }
                 
                 //$cat_list = M('goods_category')->where("parent_id = 0")->select(); 
@@ -231,35 +231,35 @@ class Goods extends Base {
     
     
     public function stock_list(){
-    	$model = M('stock_log');
-    	$map = array();
-    	$mtype = I('mtype');
-    	if($mtype == 1){
-    		$map['stock'] = array('gt',0);
-    	}
-    	if($mtype == -1){
-    		$map['stock'] = array('lt',0);
-    	}
-    	$goods_name = I('goods_name');
-    	if($goods_name){
-    		$map['goods_name'] = array('like',"%$goods_name%");
-    	}
-    	$ctime = urldecode(I('ctime'));
-    	if($ctime){
-    		$gap = explode(' - ', $ctime);
-    		$this->assign('start_time',$gap[0]);
-    		$this->assign('end_time',$gap[1]);
-    		$this->assign('ctime',$gap[0].' - '.$gap[1]);
-    		$map['ctime'] = array(array('gt',strtotime($gap[0])),array('lt',strtotime($gap[1])));
-    	}
-    	$count = $model->where($map)->count();
-    	$Page  = new Page($count,20);
-    	$show = $Page->show();
-    	$this->assign('pager',$Page);
-    	$this->assign('page',$show);// 赋值分页输出
-    	$stock_list = $model->where($map)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
-    	$this->assign('stock_list',$stock_list);
-    	return $this->fetch();
+        $model = M('stock_log');
+        $map = array();
+        $mtype = I('mtype');
+        if($mtype == 1){
+            $map['stock'] = array('gt',0);
+        }
+        if($mtype == -1){
+            $map['stock'] = array('lt',0);
+        }
+        $goods_name = I('goods_name');
+        if($goods_name){
+            $map['goods_name'] = array('like',"%$goods_name%");
+        }
+        $ctime = urldecode(I('ctime'));
+        if($ctime){
+            $gap = explode(' - ', $ctime);
+            $this->assign('start_time',$gap[0]);
+            $this->assign('end_time',$gap[1]);
+            $this->assign('ctime',$gap[0].' - '.$gap[1]);
+            $map['ctime'] = array(array('gt',strtotime($gap[0])),array('lt',strtotime($gap[1])));
+        }
+        $count = $model->where($map)->count();
+        $Page  = new Page($count,20);
+        $show = $Page->show();
+        $this->assign('pager',$Page);
+        $this->assign('page',$show);// 赋值分页输出
+        $stock_list = $model->where($map)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('stock_list',$stock_list);
+        return $this->fetch();
     }
 
     /**
@@ -327,13 +327,13 @@ class Goods extends Base {
             } else {
                 $Goods->price_ladder = '';
             }
-			
+            
             $spec_item = I('item/a');
             if ($type == 2) {
-            	$goods_stock = M('goods')->where(array('goods_id'=>$goods_id))->getField('store_count');
-            	if(empty($spec_item) && $goods_stock != I('store_count')){
-            		update_stock_log(session('admin_id'),I('store_count')-$goods_stock,array('goods_id'=>$goods_id,'goods_name'=>I('goods_name')));//库存日志
-            	}
+                $goods_stock = M('goods')->where(array('goods_id'=>$goods_id))->getField('store_count');
+                if(empty($spec_item) && $goods_stock != I('store_count')){
+                    update_stock_log(session('admin_id'),I('store_count')-$goods_stock,array('goods_id'=>$goods_id,'goods_name'=>I('goods_name')));//库存日志
+                }
                 $Goods->isUpdate(true)->save(); // 写入数据到数据库
                 // 修改商品后购物车的商品价格也修改一下
                 M('cart')->where("goods_id = $goods_id and spec_key = ''")->save(array(
@@ -345,7 +345,7 @@ class Goods extends Base {
                 $Goods->save(); // 写入数据到数据库
                 $goods_id = $insert_id = $Goods->getLastInsID();
                 if(empty($spec_item)){
-                	update_stock_log(session('admin_id'),I('store_count'),array('goods_id'=>$goods_id,'goods_name'=>I('goods_name')));//库存日志
+                    update_stock_log(session('admin_id'),I('store_count'),array('goods_id'=>$goods_id,'goods_name'=>I('goods_name')));//库存日志
                 }
             }
             $Goods->afterSave($goods_id);
@@ -523,7 +523,7 @@ class Goods extends Base {
                 'goods_category' => 'id',
                 'brand' => 'id',            
                 'goods_attribute' => 'attr_id',
-        		'ad' =>'ad_id',            
+                'ad' =>'ad_id',            
         );        
         $model = D($_POST['table']);
         $model->$primary[$_POST['table']] = $_POST['id'];
@@ -667,14 +667,14 @@ class Goods extends Base {
             $id = I('id');            
             if(IS_POST)
             {
-               	$data = I('post.');
+                $data = I('post.');
                 $brandVilidate = Loader::validate('Brand');
                 if(!$brandVilidate->batch()->check($data)){
                     $return = ['status'=>0,'msg'=>'操作失败','result'=>$brandVilidate->getError()];
                     $this->ajaxReturn($return);
                 }
                 if($id){
-                	Db::name("Brand")->update($data);
+                    Db::name("Brand")->update($data);
                 }else{
                     Db::name("Brand")->insert($data);
                 }
@@ -978,46 +978,41 @@ class Goods extends Base {
             $defaults = ["name"=>"glasses","mobile_name"=>"glasses","parent_id"=>"0","parent_id_path"=>$parent_id_path,"level"=>"1","sort_order"=>"1","is_show"=>"0","image"=>"","is_hot"=>"0","commission_rate"=>"1"];                    
             $condition["name"] = $defaults["name"];
             $condition["mobile_name"] = $defaults["mobile_name"];                    
-            $search_classes = Db::table('tp_goods_category')->where($condition)->where("parent_id",0)->find();                    
+            $search_classes = Db::table('tp_goods_category')->where("parent_id",0)->order("id","asc")->find();                    
             $search_son_id = Db::table('tp_goods_category')->where("parent_id",$search_classes["id"])->select();                    
             $counts = Db::table('tp_goods_category')->where("parent_id",$search_classes["id"])->count("id");
             $counts == 1 ? $limits = 1:$limits = ''.($counts -1).',1';                   
             $search = "SELECT * FROM `tp_goods_category` WHERE parent_id = ".$search_classes['id']."  ORDER BY id ASC limit  ".$limits;
-
             if(Db::query($search)){
                 $int = Db::query($search);
-                $glasses = "glasses".$int[0]['id'];
-                $glasses2 = ("glasses".($int[0]['id'] + 1));
+                // print_r($int);
+                $glasses = "glasses".($int[0]['id'] + 1);
+                $glasses2 = ("glasses".($int[0]['id'] + 2));
                 $mobiles_name = "glasses".($int[0]['id'] + 1);
-                $mobiles_name2 = "glasses".($int[0]['id'] + 2);
+                $mobiles_name2 = ("glasses".($int[0]['id'] + 2));
                 $parent_id = $int[0]['id'];
                 $parent_id2 = ($int[0]['id'] + 1);
                 $parent_id_path = '0'.'_'.''.$search_classes['id'].''.'_'.''.($int[0]['id']+1).'';
                 $parent_id_path2 = '0'.'_'.''.$parent_id2.''.'_'.''.($int[0]['id']+2).'';
-                
                 $datas = [["name"=>$glasses,"mobile_name"=>$mobiles_name,"parent_id"=>$search_classes['id'],"parent_id_path"=>$parent_id_path,"level"=>"2","sort_order"=>"1","is_show"=>"0","image"=>"","is_hot"=>"0","commission_rate"=>"1"],
                 ["name"=>$glasses2,"mobile_name"=>$mobiles_name2,"parent_id"=>$parent_id2,"parent_id_path"=>$parent_id_path2,"level"=>"3","sort_order"=>"1","is_show"=>"0","image"=>"","is_hot"=>"0","commission_rate"=>"1"]];
-                
+                // print_r($datas);
                 array_unshift($save_array[0],$datas[1]['name']);
                 foreach($result_datas as $return_sku){
                     $where['sku'] = $return_sku["sku"];
                     $sql = M("goods")->where($where)->getField("goods_name");
                     if($sql){
 
-
                      }else{
                         foreach($save_array[0] as $value){
                             $where1["name"] = $value;
-                            //print_r($where1);
                             $MYSQL1 = M("goods_category")->where($where1)->getField("name");
                             //print_r($MYSQL1);
                             if(!$MYSQL1){
                                Db::name('goods_category')->insertAll($datas); 
                                /*print_r($value);*/
                             }
-
                         }
-
                     }
                 }
                   
@@ -1143,8 +1138,6 @@ class Goods extends Base {
                         "market_price"=>$Market_price,
                         "is_free_shipping"=>1,
                         "sku"=>$sku];
-
-
                     $goods_id = $Goods->getLastInsID();
                     update_stock_log(session('admin_id'),$store_count,array('goods_id'=>$goods_id,'goods_name'=>$goods_name));//库存日志
                     Db::name("goods")->where('goods_id',$id)->update($datas);
@@ -1160,28 +1153,49 @@ class Goods extends Base {
             $category1 = Db::name('goods_category')->column("mobile_name");
             $parent_id_path = '0_1';
             $defaults = ["name"=>"glasses","mobile_name"=>"glasses","parent_id"=>"0","parent_id_path"=>$parent_id_path,"level"=>"1","sort_order"=>"1","is_show"=>"0","image"=>"","is_hot"=>"0","commission_rate"=>"1"];
-
             //檢查數數據庫沒有這條數據 return array
             if(!in_array($defaults["name"],$category) || !in_array($defaults["mobile_name"],$category1))
             {
-                //寫入數據
-                 $datas = [
+                if(empty($category)){
+                    $datas = [
                     ["name"=>"glasses","mobile_name"=>"glasses","parent_id"=>"0","parent_id_path"=>$parent_id_path,"level"=>"1","sort_order"=>"1","is_show"=>"0","image"=>"","is_hot"=>"0","commission_rate"=>"1"],
                     ["name" =>"glasses1","mobile_name"=>"glasses2","parent_id" => "1","parent_id_path" => $parent_id_path."_1","level" => "2","sort_order" => "1","is_show" => "0","image" => "","is_hot" => "0","commission_rate" => "1"],
-                    ["name" =>"glasses12","mobile_name" => "glasses22","parent_id" => "2","parent_id_path" => $parent_id_path."_2","level" => "3","sort_order" => "1","is_show" => "0","image" => "","is_hot" => "0","commission_rate" => "1"]
-                ];
-                Db::name('goods_category')->insertAll($datas,true);
+                    ["name" =>"glasses12","mobile_name" => "glasses22","parent_id" => "2","parent_id_path" => $parent_id_path."_2","level" => "3","sort_order" => "1","is_show" => "0","image" => "","is_hot" => "0","commission_rate" => "1"]];
+                    Db::name('goods_category')->insertAll($datas,true);
+                    //寫入數據
+                }
+
+                
+                
             }
             else{
+                //echo "匹配到數據";
+                $count = Db::query("SELECT count(id) FROM tp_goods_category");
+                if($count[0]["count(id)"] == 1)
+                {
+                    //如果數據篩選出總和返回列表1條數據
+                    $count = 1;
+                }else{
 
+                    // 如果數據篩選列表超出一條數據
+                    // 例如6條數據選擇最後1條
+                    // 按照ASC的排序選中
+                    $count = ($count[0]['count(id)']-1).',1';
+                }
+                $mysql1 = Db::query("SELECT * FROM tp_goods_category ORDER BY id ASC limit ".$count);
+                $glasses = 'glasses'.($mysql1[0]["id"]+1);
+                $mobile_name = 'glasses'.($mysql1[0]["id"]+1);
+                $parent_id_path = ('0'.'_'.($mysql1[0]["id"] + 1));
+                $datas = ["name"=>$glasses,"mobile_name"=>$mobile_name,"parent_id"=>"0","parent_id_path"=>$parent_id_path,"level"=>"1","sort_order"=>"1","is_show"=>"0","image"=>"","is_hot"=>"0","commission_rate"=>"1"];
+                Db::name('goods_category')->insert($datas,true);
                 //checkout mysql
-                $mysql = "SELECT`name`,`id`,`mobile_name`,`parent_id_path` FROM tp_goods_category WHERE
-                         tp_goods_category.`name` = '".$defaults["name"]."' AND tp_goods_category.mobile_name = '".$defaults["mobile_name"]."'";
+                $mysql = "SELECT`name`,`id`,`mobile_name`,`parent_id`,`parent_id_path` FROM tp_goods_category WHERE
+                         tp_goods_category.`name` = '".$glasses."' AND tp_goods_category.mobile_name = '".$mobile_name."'";
 
                 $mysql = Db::query($mysql);
-                //查詢是否能有二級列表
+               //查詢是否能有二級列表
                 if($mysql){
-                    $count = Db::query("SELECT count(id) FROM tp_goods_category WHERE parent_id =".$mysql[0]["id"]."");
+                    $count = Db::query("SELECT count(id) FROM tp_goods_category WHERE parent_id = ".$mysql[0]["parent_id"]." AND id=".$mysql[0]["id"]."");
                     if($count[0]["count(id)"] == 1)
                     {
                         //如果數據篩選出總和返回列表1條數據
@@ -1191,39 +1205,30 @@ class Goods extends Base {
                         // 如果數據篩選列表超出一條數據
                         // 例如6條數據選擇最後1條
                         // 按照ASC的排序選中
-                        
                         $count = ($count[0]['count(id)']-1).',1';
                     }
+                    $mysql1 = "SELECT * FROM tp_goods_category where id = ".$mysql[0]['id']." ORDER BY id ASC limit ".$count;
+                    $mysql1 = Db::query($mysql1);
 
-                    $mysql1 = "SELECT * FROM tp_goods_category WHERE parent_id = ".$mysql[0]["id"]." AND level = 2 order by id asc limit ".$count;
-                    //設置二級菜單，若母ID下已有子ID 繼續添加
-                    $mysql1 = Db::query($mysql1);         
-                    $glasses = "glasses".($mysql1[0]["id"] + 1); //glasses1
-                    $glasses1 = "glasses".($mysql1[0]["id"]+ 1)."1"; //glasses21
-                    
-                    //三級分類
-                    $glasses2 = "glasses".($mysql1[0]["id"] + 2); //glasses1
-                    $glasses21 = "glasses".($mysql1[0]["id"]+ 2)."1"; //glasses21
-                    
-                    $mysql3 = Db::name("goods_category")->where("id",$mysql1[0]["id"])->find();
-                    // Return parent_path_id id
-                    //母ID標識(PARENT_ID)
-                    //兒子ID(childs ID)
-                    $parent_id = $mysql3['parent_id'];
+                    //設置二級菜單   
+                    $glasses1 = 'glasses'.($mysql1[0]["id"] + 1);
+                    $mobile_name1 = 'glasses'.($mysql1[0]["id"] + 1);
+                    $parent_id_path1 = ('0'.'_'.''.($mysql1[0]["id"]).''.'_'.''.($mysql1[0]["id"] + 1).'');
+                    $parent_id1 = ($mysql1[0]["id"]);
+                    //設置三級菜單
+                    $glasses2 = 'glasses'.($mysql1[0]["id"] + 2);
+                    $mobile_name2 = 'glasses'.($mysql1[0]["id"] + 2);
+                    $parent_id_path2 = ('0'.'_'.''.($mysql1[0]["id"] + 1).''.'_'.''.($mysql1[0]["id"] + 2).'');
+                    $parent_id2 = ($mysql1[0]["id"] + 1); 
 
-                    $parent_id_path = $mysql[0]['parent_id_path'].'_'.($mysql1[0]["id"]+1);
-                    $parent_id_path2 = $mysql1[0]['parent_id_path']."_".$mysql3['id'];
                     $datas = [
-                        ["name" => $glasses,"mobile_name" => $glasses1,"parent_id" => $parent_id,"parent_id_path" => $parent_id_path,"level" => "2","sort_order" => "1","is_show" => "0","image" => "","is_hot" => "0","commission_rate" => "1"],
-                        ["name" => $glasses2,"mobile_name" => $glasses21,"parent_id" => $parent_id+1,"parent_id_path" => $parent_id_path2,"level" => "3","sort_order" => "1","is_show" => "0","image" => "","is_hot" => "0","commission_rate" => "1"]
-                    ];
+                        ["name" => $glasses1,"mobile_name" => $mobile_name1,"parent_id" => $parent_id1,"parent_id_path" => $parent_id_path1,"level" => "2","sort_order" => "1","is_show" => "0","image" => "","is_hot" => "0","commission_rate" => "1"],
+                        ["name" => $glasses2,"mobile_name" => $mobile_name2,"parent_id" => $parent_id2,"parent_id_path" => $parent_id_path2,"level" => "3","sort_order" => "1","is_show" => "0","image" => "","is_hot" => "0","commission_rate" => "1"]];
                     Db::name('goods_category')->insertAll($datas,true);
                 }
                 /*default datas 三級欄目創建END*/
 
             }
-
-
             // 設置或獲得品牌
             //默認取第一個分類
             //Return brands name
@@ -1233,6 +1238,7 @@ class Goods extends Base {
             $brand_update = [];
             $datas1 = [];
             $level1 =  Db::table("tp_goods_category")->where(["name"=>"glasses","mobile_name"=>"glasses"])->find();
+            $level2 =  Db::table("tp_goods_category")->where("parent_id",$level1["id"])->limit(1)->find();
             if(!is_null($level1))
             {
                 if(empty($opt_brands))
@@ -1248,7 +1254,7 @@ class Goods extends Base {
                     for($j=0;$j < count($values);$j++){
                         $datas = ["name" => $values[$j],
                                  "parent_cat_id"=>$level1['id'],
-                                 "cat_id"=>'2',
+                                 "cat_id"=>$level2["id"],
                                  "sort"=>'1'];
                         Db::name("brand")->data($datas)->insert();
                         $datas1[] = $datas['name'];
@@ -1260,19 +1266,20 @@ class Goods extends Base {
                     $level1 =  Db::table("tp_goods_category")->where(["name"=>"glasses","mobile_name"=>"glasses"])->find();
                     $level2 = Db::table("tp_goods_category")->where("parent_id",$level1['id'])->select();
                     foreach($level2 as $brand_item)
-                    {    
+                    {   
+                        
                         $brand_name = Db::table("tp_brand")->where(["parent_cat_id"=>$level1['id'],"cat_id"=>$brand_item['id']])->column("name");
                         $count = Db::table("tp_brand")->where(["parent_cat_id"=>$level1['id'],"cat_id"=>$brand_item['id']])->count("id");
                         if($count > 0){
-                            foreach($result_datas as $brand_item){   
-                                $data_brand[] = $brand_item['brand'];
+                            foreach($result_datas as $brand_item1){   
+                                $data_brand[] = $brand_item1['brand'];
                             }
                             /*更新數據庫要先過濾重複的值*/
                             foreach(array_unique($data_brand) as $values0)
                             {
                                 $datas = ["name" => $values0,
                                          "parent_cat_id"=>$level1['id'],
-                                         "cat_id"=>'2',
+                                         "cat_id"=>$brand_item['id'],
                                          "sort"=>'1'];
                                  $brand_update[] = $datas["name"];
                                 if(!in_array($values0,$brand_name)){
@@ -1297,6 +1304,7 @@ class Goods extends Base {
 
                         }
                     }
+
                 }
             }
             //品牌結束END
@@ -1315,6 +1323,7 @@ class Goods extends Base {
                $sku = $results["sku"];//商品SKU碼
                $level1 =  Db::table("tp_goods_category")->where(["name" => "glasses","mobile_name"=>"glasses"])->find();
                $level2 = Db::table("tp_goods_category")->where("parent_id",$level1['id'])->select();
+
                foreach($level2 as $level_id)
                {
                  if(Db::table("tp_goods_category")->where("parent_id",$level_id['id'])->find())
@@ -1334,7 +1343,7 @@ class Goods extends Base {
                        $post_brands1[] = $request_brands["name"];
                        // $brands_all_datas[] = $request_brands; 
                     }
-                    
+
                  }
 
                  // 獲得品牌對應的二級分類ID
@@ -1357,7 +1366,6 @@ class Goods extends Base {
                 $Market_price = "1.00";//市場價
                 $goods_content = $results['short_description'];
                 $store_count = 1;
-
                 $datas = [
                     "cat_id"=>$cat_id,
                     "extend_cat_id"=>$extends_id,
@@ -1371,7 +1379,6 @@ class Goods extends Base {
                     "market_price"=>$Market_price,
                     "is_free_shipping"=>1,
                     "sku"=>$sku];
-
                 $goods_id = $Goods->getLastInsID();
                 update_stock_log(session('admin_id'),$store_count,array('goods_id'=>$goods_id,'goods_name'=>$goods_name));//库存日志
                 Db::name("goods")->data($datas)->insert();
