@@ -37,7 +37,6 @@ class Goods extends Base {
         //C('TOKEN_ON',true);        
         $goodsLogic = new GoodsLogic();
         $goods_id = I("get.id/d");
-        
         //镜片属性
         $cat=Db::name('goods')->field('cat_id')->where('goods_id',$goods_id)->select();
         $cat_id=$cat[0]['cat_id'];
@@ -79,7 +78,12 @@ class Goods extends Base {
                         break;
                 }
             }
-                    //分配到前台
+        //分配到前台
+        
+        $Models = new \app\home\widget\Cates();
+        $Models->header();
+        $Models->footer();
+        
         $this->assign('results',$arr);
         $Goods = new \app\common\model\Goods();
         $goods = $Goods::get($goods_id);
@@ -90,6 +94,8 @@ class Goods extends Base {
             $goodsLogic->add_visit_log(cookie('user_id'), $goods);
         }
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
+        $goods_image_id = ["images_item","images_item1","images_item2"];
+        $goods_image_id1 = ["images","images1","images2"];
         $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
         $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表
 	    $filter_spec = $goodsLogic->get_spec($goods_id);
@@ -98,17 +104,25 @@ class Goods extends Base {
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count'=>$goods['click_count']+1 )); //统计点击数
         $commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
         $point_rate = tpCache('shopping.point_rate');
+        $SEO_titles = M('Goods')->where("goods_id", $goods_id)->field('keywords,goods_remark')->find();
+        $goods_names = M('Goods')->where("goods_id", $goods_id)->field('*')->find();
+        // print_r($goods_names);
+        // return;
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price,true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods',navigate_goods($goods_id,1));// 面包屑导航
+        $this->assign('goods_names',$goods_names);
+        $this->assign('goods_image_id',$goods_image_id);
         $this->assign('commentStatistics',$commentStatistics);//评论概览
         $this->assign('goods_attribute',$goods_attribute);//属性值     
         $this->assign('goods_attr_list',$goods_attr_list);//属性列表
         $this->assign('filter_spec',$filter_spec);//规格参数
         $this->assign('goods_images_list',$goods_images_list);//商品缩略图
         $this->assign('siblings_cate',$goodsLogic->get_siblings_cate($goods['cat_id']));//相关分类
-        $this->assign('look_see',$goodsLogic->get_look_see($goods));//看了又看      
+        $this->assign('look_see',$goodsLogic->get_look_see($goods));//看了又看
         $this->assign('goods',$goods);
+        $this->assign('SEO_titles',$SEO_titles);
+        $this->assign("goods_image_id1",$goods_image_id1);
         //构建手机端URL
         $ShareLink = urlencode("http://{$_SERVER['HTTP_HOST']}/index.php?m=Mobile&c=Goods&a=goodsInfo&id={$goods['goods_id']}");
         $this->assign('ShareLink',$ShareLink);
@@ -176,6 +190,7 @@ class Goods extends Base {
         
         $filter_param = array(); // 帅选数组                        
         $id = I('get.id/d',1); // 当前分类id
+        print_r($id);
         $brand_id = I('get.brand_id',0);
         $spec = I('get.spec',0); // 规格 
         $attr = I('get.attr',''); // 属性        
@@ -242,6 +257,7 @@ class Goods extends Base {
 
         $this->assign('goods_list',$goods_list);
         $this->assign('navigate_cat',$navigate_cat);
+
         $this->assign('goods_category',$goods_category);                
         $this->assign('goods_images',$goods_images);  // 相册图片
         $this->assign('filter_menu',$filter_menu);  // 帅选菜单
@@ -591,9 +607,26 @@ class Goods extends Base {
         // M('goods_images')->alias('i')->field('i.image_url')->join('goods g','i.goods_id = g.goods_id','LEFT')->where('i.goods_id',$ids)->select(); 
         // }
         $bann=Db::name('banner')->where('cat_id',$id)->find();
-        $res=Db::query("SELECT t.original_img, t.goods_id, t.goods_name,t.shop_price,t.market_price FROM tp_goods as t,tp_goods_category as c where c.id=t.cat_id  and c.id=t.cat_id and c.id={$id}");
-               $this->assign('res',$res);
-               $this->assign('bann',$bann);
+        $res=Db::query("SELECT t.brand_id, t.sku, t.goods_id, t.goods_name,t.shop_price,t.market_price FROM tp_goods as t,tp_goods_category as c where c.id=t.cat_id and c.id={$id}");
+        foreach($res as $val){
+            $brand_id=$val['brand_id'];
+            $result=Db::name('brand')->field('name')->where(id,$brand_id)->find();
+            $brand=strtolower($result['name']);//转换为小写
+            $sku=strtolower($val['sku']);
+            $goods_id=$val['goods_id'];
+            $shop_price=$val['shop_price'];
+            $market_price=$val['market_price'];
+             $data[]=Array('brand'=>$brand,'sku'=>$sku,'goods_id'=>$goods_id,'shop_price'=>$shop_price,'market_price'=>$market_price);
+            
+        }
+        $count = M("goods")->where("cat_id = ".$id."")->count(); //分页
+        $navigate_cat = navigate_goods($id); // 面包屑导航
+        $Page  = new Page($count,1);// 实例化分页类 传入总记录数和每页显示的记录数
+        $show  = $Page->custom_made_show();// 分页显示输出
+        $this->assign('page',$show);// 赋值分页输出
+        $this->assign('navigate_cat',$navigate_cat);
+        $this->assign('data',$data);
+        $this->assign('bann',$bann);
         return $this->fetch('goods/goodslist');
 
 
@@ -612,7 +645,7 @@ class Goods extends Base {
 
 
     //用户镜片选择
-    public function lenses(){
+    public function lenses_back(){
         $color=new Color();
         $arr=Array();
         $request=request();
@@ -627,101 +660,190 @@ class Goods extends Base {
                 switch($name){
                     case '眼镜':
                     $name='Eyeglasses';
+                    switch($cent)
+                    {
+                        case '仅限框架':
+                        
+                        break;
+
+                        case '单一视觉':
+                        $cent='single_vision';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                            foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'clear':
+                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                    break;
+
+                                    case 'computer':
+                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                    break;
+
+                                    case 'transitions':
+                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                    break;
+
+                                    case 'drivewear':
+                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+
+                        case '双光':
+                        $cent='bifocal';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                        foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'clear':
+                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                    break;
+
+                                    case 'computer':
+                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                    break;
+
+                                    case 'transitions':
+                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                    break;
+
+                                    case 'drivewear':
+                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+
+                        case '进步':
+                        $cent='progressive';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                         foreach($res as $val){
+                                switch($val['lens_func']){
+                                    case 'clear':
+                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                    break;
+
+                                    case 'computer':
+                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                    break;
+
+                                    case 'transitions':
+                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                    break;
+
+                                    case 'drivewear':
+                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                    break;
+                                }
+                            }            
+                           return json_encode($arr);
+                        break;
+                    }
                     break;
 
                     case '墨镜':
                     $name='Sunglasses';
+                    switch($cent)
+                    {
+                        case '仅限框架':
+                        
+                        break;
+
+                        case '单一视觉':
+                        $cent='single_vision';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                            foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'sun_color':
+                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                    break;
+
+                                    case 'sun_mirror':
+                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                    break;
+
+                                    case 'nupolar_polarized':
+                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                    break;
+
+                                    case 'nupolar_polarized_mirror':
+                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+
+                        case '进步':
+                        $cent='progressive';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                         foreach($res as $val){
+                                switch($val['lens_func']){
+                                    case 'sun_color':
+                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                    break;
+
+                                    case 'sun_mirror':
+                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                    break;
+
+                                    case 'nupolar_polarized':
+                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                    break;
+
+                                    case 'nupolar_polarized_mirror':
+                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥960');
+                                    break;
+                                }
+                            }            
+                           return json_encode($arr);
+                        break;
+                    }
                     break;
 
                     case '运动':
                     $name='Sports';
+                    switch($cent)
+                    {
+                        case '仅限框架':
+                        
+                        break;
+
+                        case '单一视觉':
+                        $cent='single_vision';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                            foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'sun_color':
+                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                    break;
+
+                                    case 'sun_mirror':
+                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                    break;
+
+                                    case 'nupolar_polarized':
+                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                    break;
+
+                                    case 'nupolar_polarized_mirror':
+                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+                    }
                     break;
                 }
                 
-                switch($cent)
-                {
-                    case '仅限框架':
-                    
-                    break;
-
-                    case '单一视觉':
-                    $cent='single_vision';
-                    $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
-                        foreach($res as $val){
-
-                            switch($val['lens_func']){
-                                case 'clear':
-                                    $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
-                                break;
-
-                                case 'computer':
-                                    $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
-                                break;
-
-                                case 'transitions':
-                                    $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
-                                break;
-
-                                case 'drivewear':
-                                    $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
-                                break;
-                            }
-                       }
-                      return json_encode($arr);
-                    break;
-
-                    case '双光':
-                    $cent='bifocal';
-                    $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
-                    foreach($res as $val){
-
-                            switch($val['lens_func']){
-                                case 'clear':
-                                    $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
-                                break;
-
-                                case 'computer':
-                                    $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
-                                break;
-
-                                case 'transitions':
-                                    $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
-                                break;
-
-                                case 'drivewear':
-                                    $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
-                                break;
-                            }
-                       }
-                      return json_encode($arr);
-                    break;
-
-                    case '进步':
-                    $cent='progressive';
-                    $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
-                     foreach($res as $val){
-
-                            switch($val['lens_func']){
-                                case 'clear':
-                                    $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
-                                break;
-
-                                case 'computer':
-                                    $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
-                                break;
-
-                                case 'transitions':
-                                    $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
-                                break;
-
-                                case 'drivewear':
-                                    $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
-                                break;
-                            }
-                       }            
-                       return json_encode($arr);
-                    break;
-                }
+                
             }else{
                 $func=$request->param('func');
                 $id=$request->param('id');
@@ -731,20 +853,12 @@ class Goods extends Base {
                 $result=Db::name('goods_category')->field('name')->where('id',$cat_id)->select();
                 $name=$result[0]['name'];
 
-                switch($name){
+                switch($name)
+                {
                     case '眼镜':
                     $name='Eyeglasses';
-                    break;
-
-                    case '墨镜':
-                    $name='Sunglasses';
-                    break;
-
-                    case '运动':
-                    $name='Sports';
-                    break;
-                }
-                switch($cent){
+                    switch($cent)
+                    {
                     case '单一视觉';
                     $cent='single_vision';
                     break;
@@ -754,66 +868,46 @@ class Goods extends Base {
                     case '进步';
                     $cent='progressive';
                     break;
-                }
-                switch($func)
-                {
-                    case '专业行驶':
-                    $func='drivewear';
-                        $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
-                        foreach($ress as $val){
-                            if($val['lens_pkg']=='standard'){
-                                $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
-                            }
-                        }                   
-                    break;
-
-                    case '转变':
-                    $func='transitions';
-                         $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
-                         foreach($ress as $val){
-                            switch($val['lens_pkg']){
-                                case 'standard';
+                    }
+                    switch($func)
+                    {
+                        case '专业行驶':
+                        $func='drivewear';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                            foreach($ress as $val){
+                                if($val['lens_pkg']=='standard'){
                                     $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
-                                break;
+                                }
+                            }                   
+                        break;
 
-                                case 'thin';
-                                    $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥314.00');
-                                break;
+                        case '转变':
+                        $func='transitions';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
 
-                                case 'thinner';
-                                    $arr[]=array('image'=>'supreme','name'=>'更薄','centent'=>'使用1.67索引镜片增强您的视觉体验，即使在比标准镜片薄30％的较高处方能力下，也能确保最小的失真。','price'=>'¥384.00');
-                                break;
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥314.00');
+                                    break;
 
-                                case 'super_thin';
-                                    $arr[]=array('image'=>'prestige','name'=>'超薄','centent'=>'使用1.74索引镜片获得最佳的光学体验，这是目前最轻，最薄的精密镜片，比标准镜片薄35％','price'=>'¥640.00');
-                                break;
-                            }
-                         }
-                    break;
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'supreme','name'=>'更薄','centent'=>'使用1.67索引镜片增强您的视觉体验，即使在比标准镜片薄30％的较高处方能力下，也能确保最小的失真。','price'=>'¥384.00');
+                                    break;
 
-                    case '数字涂层':
-                    $func='computer';
-                         $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
-                         foreach($ress as $val){
-                            switch($val['lens_pkg']){
-                                case 'standard';
-                                    $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
-                                break;
+                                    case 'super_thin';
+                                        $arr[]=array('image'=>'prestige','name'=>'超薄','centent'=>'使用1.74索引镜片获得最佳的光学体验，这是目前最轻，最薄的精密镜片，比标准镜片薄35％','price'=>'¥640.00');
+                                    break;
+                                }
+                             }
+                        break;
 
-                                case 'thinner';
-                                    $arr[]=array('image'=>'supreme','name'=>'更薄','centent'=>'使用1.67索引镜片增强您的视觉体验，即使在比标准镜片薄30％的较高处方能力下，也能确保最小的失真。','price'=>'¥384.00');
-                                break;
-
-                                case 'super_thin';
-                                    $arr[]=array('image'=>'prestige','name'=>'超薄','centent'=>'使用1.74索引镜片获得最佳的光学体验，这是目前最轻，最薄的精密镜片，比标准镜片薄35％','price'=>'¥640.00');
-                                break;
-                            }
-                         }
-                    break;
-
-                    case '清楚的':
-                    $func='clear';
-                        $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                        case '数字涂层':
+                        $func='computer';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
                              foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                     case 'standard';
@@ -829,8 +923,233 @@ class Goods extends Base {
                                     break;
                                 }
                              }
+                        break;
+
+                        case '清楚的':
+                        $func='clear';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                                 foreach($ress as $val){
+                                    switch($val['lens_pkg']){
+                                        case 'standard';
+                                            $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                        break;
+
+                                        case 'thinner';
+                                            $arr[]=array('image'=>'supreme','name'=>'更薄','centent'=>'使用1.67索引镜片增强您的视觉体验，即使在比标准镜片薄30％的较高处方能力下，也能确保最小的失真。','price'=>'¥384.00');
+                                        break;
+
+                                        case 'super_thin';
+                                            $arr[]=array('image'=>'prestige','name'=>'超薄','centent'=>'使用1.74索引镜片获得最佳的光学体验，这是目前最轻，最薄的精密镜片，比标准镜片薄35％','price'=>'¥640.00');
+                                        break;
+                                    }
+                                 }
+                        break;
+                    }
+                    break;
+
+                    case '墨镜':
+                    $name='Sunglasses';
+                    switch($cent)
+                    {
+                    case '单一视觉';
+                    $cent='single_vision';
+                    break;
+                    break;
+                    case '进步';
+                    $cent='progressive';
+                    break;
+                    }
+                    switch($func)
+                    {
+                        case '偏振':
+                        $func='nupolar_polarized';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                            foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                            }                   
+                        break;
+
+                        case '偏光镜':
+                        $func='nupolar_polarized_mirror';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+
+                                }
+                             }
+                        break;
+
+                        case '彩色镜片':
+                        $func='sun_color';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                   case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                             }
+                        break;
+
+                        case '彩色镜子':
+                        $func='sun_mirror';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                                 foreach($ress as $val){
+                                    switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                    }
+                                 }
+                        break;
+                    }
+                    break;
+
+                    case '运动':
+                    $name='Sports';
+                     switch($cent)
+                    {
+                    case '单一视觉';
+                    $cent='single_vision';
+                    break;
+                    break;
+                    case '进步';
+                    $cent='progressive';
+                    break;
+                    }
+                    switch($func)
+                    {
+                        case '偏振':
+                        $func='nupolar_polarized';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                            foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                            }                   
+                        break;
+
+                        case '偏光镜':
+                        $func='nupolar_polarized_mirror';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+
+                                }
+                             }
+                        break;
+
+                        case '彩色镜片':
+                        $func='sun_color';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                   case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                             }
+                        break;
+
+                        case '彩色镜子':
+                        $func='sun_mirror';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                                 foreach($ress as $val){
+                                    switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                    }
+                                 }
+                        break;
+                    }
                     break;
                 }
+                
                 return json_encode($arr);
             }
        }else{
@@ -881,6 +1200,18 @@ class Goods extends Base {
                     case '清楚的':
                     $func='clear';
                     break;
+                    case '偏振':
+                    $func='nupolar_polarized';
+                    break;
+                    case '偏光镜':
+                    $func='nupolar_polarized_mirror';
+                    break;
+                    case '彩色镜片':
+                    $func='sun_color';
+                    break;
+                    case '彩色镜子':
+                    $func='sun_mirror';
+                    break;
                 }
                 switch($store)
                 {
@@ -896,6 +1227,15 @@ class Goods extends Base {
 
                     case '瘦身':
                     $store='thin';
+                    $res=Db::name('lenses')->Distinct(true)->field('lens_color')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->where('lens_pkg',$store)->select();
+                    foreach($res as $val){
+                    $res=$val['lens_color'];
+                    $arr[]=$color->color($res);
+                    }
+                    break;
+
+                    case '舒适合身':
+                    $store='thinner';
                     $res=Db::name('lenses')->Distinct(true)->field('lens_color')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->where('lens_pkg',$store)->select();
                     foreach($res as $val){
                     $res=$val['lens_color'];
@@ -925,19 +1265,23 @@ class Goods extends Base {
        }
     }
 
-    //镜头颜色联动
-    public function overlay(){
-        $request=request();
-        $src=$request->param('src');
-        $name=$request->param('name');
-        $sku=$request->param('sku');
-        $res=substr($src,49);//截取字符串
-        $color=new Color();
-        $result=$color->overlay_image($res);
-        $data="{$name}-{$sku}{$result}";//拼接路径
-        $datas=strtolower($data);//转为小写
-        return $datas;
-    }
+        //镜头颜色联动
+        public function overlay(){
+            $request=request();
+            $src=$request->param('src');
+            $names=$request->param('name');
+            $sku=$request->param('sku');
+            $length=mb_strlen($sku, 'GBK');
+            $nam=substr($names,0,(0-$length)-1);
+            $name=str_replace(" ","-","$nam");
+            $res=substr($src,49);//截取字符串
+            $color=new Color();
+            $result=$color->overlay_image($res);
+            $data="{$name}-{$sku}{$result}";//拼接路径
+            $datas=strtolower($data);//转为小写
+            return $datas;
+        }
+
 
      public function nav(){
         $request=request();
@@ -946,6 +1290,627 @@ class Goods extends Base {
         $id=$res['id'];
         $result=Db::name('goods_category')->where('parent_id',$id)->select();
         return json_encode($result);
-    }  
+    }
+
+
+    public function lenses(){
+        $color=new Color();
+        $arr=Array();
+        $request=request();
+        if(empty($request->param('store'))){
+            if(empty($request->param('func'))){
+                $cent=$request->param('centents');
+                $id=$request->param('id');
+                $cat=Db::name('goods')->field('cat_id')->where('goods_id',$id)->select();
+                $cat_id=$cat[0]['cat_id'];
+                $result=Db::name('goods_category')->field('name')->where('id',$cat_id)->select();
+                switch($name){
+                    case '眼镜':
+                    $name='Eyeglasses';
+                    switch($cent)
+                    {
+                        case '仅限框架':
+                        
+                        break;
+
+                        case '单一视觉':
+                        $cent='single_vision';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                            foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'clear':
+                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                    break;
+
+                                    case 'computer':
+                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                    break;
+
+                                    case 'transitions':
+                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                    break;
+
+                                    case 'drivewear':
+                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+
+                        case '双光':
+                        $cent='bifocal';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                        foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'clear':
+                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                    break;
+
+                                    case 'computer':
+                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                    break;
+
+                                    case 'transitions':
+                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                    break;
+
+                                    case 'drivewear':
+                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+
+                        case '进步':
+                        $cent='progressive';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                         foreach($res as $val){
+                                switch($val['lens_func']){
+                                    case 'clear':
+                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                    break;
+
+                                    case 'computer':
+                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                    break;
+
+                                    case 'transitions':
+                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                    break;
+
+                                    case 'drivewear':
+                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                    break;
+                                }
+                            }            
+                           return json_encode($arr);
+                        break;
+                    }
+                    break;
+
+                    case '墨镜':
+                    $name='Sunglasses';
+                    switch($cent)
+                    {
+                        case '仅限框架':
+                        
+                        break;
+
+                        case '单一视觉':
+                        $cent='single_vision';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                            foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'sun_color':
+                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                    break;
+
+                                    case 'sun_mirror':
+                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                    break;
+
+                                    case 'nupolar_polarized':
+                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                    break;
+
+                                    case 'nupolar_polarized_mirror':
+                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+
+                        case '进步':
+                        $cent='progressive';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                         foreach($res as $val){
+                                switch($val['lens_func']){
+                                    case 'sun_color':
+                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                    break;
+
+                                    case 'sun_mirror':
+                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                    break;
+
+                                    case 'nupolar_polarized':
+                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                    break;
+
+                                    case 'nupolar_polarized_mirror':
+                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥960');
+                                    break;
+                                }
+                            }            
+                           return json_encode($arr);
+                        break;
+                    }
+                    break;
+
+                    case '运动':
+                    $name='Sports';
+                    switch($cent)
+                    {
+                        case '仅限框架':
+                        
+                        break;
+
+                        case '单一视觉':
+                        $cent='single_vision';
+                        $res=Db::name('lenses')->Distinct(true)->field('lens_func')->where('lens_type',$cent)->where('eyewear_type',$name)->select();
+                            foreach($res as $val){
+
+                                switch($val['lens_func']){
+                                    case 'sun_color':
+                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                    break;
+
+                                    case 'sun_mirror':
+                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                    break;
+
+                                    case 'nupolar_polarized':
+                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                    break;
+
+                                    case 'nupolar_polarized_mirror':
+                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993');
+                                    break;
+                                }
+                           }
+                          return json_encode($arr);
+                        break;
+                    }
+                    break;
+                }
+                
+                
+            }else{
+                $func=$request->param('func');
+                $id=$request->param('id');
+                $cent=$request->param('centents');
+                $cat=Db::name('goods')->field('cat_id')->where('goods_id',$id)->select();
+                $cat_id=$cat[0]['cat_id'];
+                $result=Db::name('goods_category')->field('name')->where('id',$cat_id)->select();
+                $name=$result[0]['name'];
+
+                switch($name)
+                {
+                    case '眼镜':
+                    $name='Eyeglasses';
+                    switch($cent)
+                    {
+                    case '单一视觉';
+                    $cent='single_vision';
+                    break;
+                    case '双光';
+                    $cent='bifocal';
+                    break;
+                    case '进步';
+                    $cent='progressive';
+                    break;
+                    }
+                    switch($func)
+                    {
+                        case '专业行驶':
+                        $func='drivewear';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                            foreach($ress as $val){
+                                if($val['lens_pkg']=='standard'){
+                                    $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                }
+                            }                   
+                        break;
+
+                        case '转变':
+                        $func='transitions';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥314.00');
+                                    break;
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'supreme','name'=>'更薄','centent'=>'使用1.67索引镜片增强您的视觉体验，即使在比标准镜片薄30％的较高处方能力下，也能确保最小的失真。','price'=>'¥384.00');
+                                    break;
+
+                                    case 'super_thin';
+                                        $arr[]=array('image'=>'prestige','name'=>'超薄','centent'=>'使用1.74索引镜片获得最佳的光学体验，这是目前最轻，最薄的精密镜片，比标准镜片薄35％','price'=>'¥640.00');
+                                    break;
+                                }
+                             }
+                        break;
+
+                        case '数字涂层':
+                        $func='computer';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'supreme','name'=>'更薄','centent'=>'使用1.67索引镜片增强您的视觉体验，即使在比标准镜片薄30％的较高处方能力下，也能确保最小的失真。','price'=>'¥384.00');
+                                    break;
+
+                                    case 'super_thin';
+                                        $arr[]=array('image'=>'prestige','name'=>'超薄','centent'=>'使用1.74索引镜片获得最佳的光学体验，这是目前最轻，最薄的精密镜片，比标准镜片薄35％','price'=>'¥640.00');
+                                    break;
+                                }
+                             }
+                        break;
+
+                        case '清楚的':
+                        $func='clear';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                                 foreach($ress as $val){
+                                    switch($val['lens_pkg']){
+                                        case 'standard';
+                                            $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                        break;
+
+                                        case 'thinner';
+                                            $arr[]=array('image'=>'supreme','name'=>'更薄','centent'=>'使用1.67索引镜片增强您的视觉体验，即使在比标准镜片薄30％的较高处方能力下，也能确保最小的失真。','price'=>'¥384.00');
+                                        break;
+
+                                        case 'super_thin';
+                                            $arr[]=array('image'=>'prestige','name'=>'超薄','centent'=>'使用1.74索引镜片获得最佳的光学体验，这是目前最轻，最薄的精密镜片，比标准镜片薄35％','price'=>'¥640.00');
+                                        break;
+                                    }
+                                 }
+                        break;
+                    }
+                    break;
+
+                    case '墨镜':
+                    $name='Sunglasses';
+                    switch($cent)
+                    {
+                    case '单一视觉';
+                    $cent='single_vision';
+                    break;
+                    break;
+                    case '进步';
+                    $cent='progressive';
+                    break;
+                    }
+                    switch($func)
+                    {
+                        case '偏振':
+                        $func='nupolar_polarized';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                            foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                            }                   
+                        break;
+
+                        case '偏光镜':
+                        $func='nupolar_polarized_mirror';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+
+                                }
+                             }
+                        break;
+
+                        case '彩色镜片':
+                        $func='sun_color';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                   case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                             }
+                        break;
+
+                        case '彩色镜子':
+                        $func='sun_mirror';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                                 foreach($ress as $val){
+                                    switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                    }
+                                 }
+                        break;
+                    }
+                    break;
+
+                    case '运动':
+                    $name='Sports';
+                     switch($cent)
+                    {
+                    case '单一视觉';
+                    $cent='single_vision';
+                    break;
+                    break;
+                    case '进步';
+                    $cent='progressive';
+                    break;
+                    }
+                    switch($func)
+                    {
+                        case '偏振':
+                        $func='nupolar_polarized';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                            foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                            }                   
+                        break;
+
+                        case '偏光镜':
+                        $func='nupolar_polarized_mirror';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+
+                                }
+                             }
+                        break;
+
+                        case '彩色镜片':
+                        $func='sun_color';
+                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                             foreach($ress as $val){
+                                switch($val['lens_pkg']){
+                                   case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                }
+                             }
+                        break;
+
+                        case '彩色镜子':
+                        $func='sun_mirror';
+                            $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
+                                 foreach($ress as $val){
+                                    switch($val['lens_pkg']){
+                                    case 'standard';
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                    break;
+
+                                    case 'thin';
+                                        $arr[]=array('image'=>'supreme','name'=>'瘦身','centent'=>'我们的1.61指数镜头比标准镜头薄25％，不会在功耗和美观之间妥协。','price'=>'¥199.00');
+                                    break;
+
+
+                                    case 'thinner';
+                                        $arr[]=array('image'=>'prestige','name'=>'舒适合身','centent'=>'1.67指数镜片可增强您的视觉体验，即使处方能力比标准镜片薄30％，也能确保最小的失真。','price'=>'¥200.00');
+                                    break;
+                                    }
+                                 }
+                        break;
+                    }
+                    break;
+                }
+                
+                return json_encode($arr);
+            }
+       }else{
+            $store=$request->param('store');
+            $func=$request->param('func');
+            $id=$request->param('id');
+            $cent=$request->param('centents');
+            $cat=Db::name('goods')->field('cat_id')->where('goods_id',$id)->select();
+            $cat_id=$cat[0]['cat_id'];
+            $result=Db::name('goods_category')->field('name')->where('id',$cat_id)->select();
+            $name=$result[0]['name'];
+
+                switch($name){
+                    case '眼镜':
+                    $name='Eyeglasses';
+                    break;
+
+                    case '墨镜':
+                    $name='Sunglasses';
+                    break;
+
+                    case '运动':
+                    $name='Sports';
+                    break;
+                }
+                switch($cent){
+                    case '单一视觉':
+                    $cent='single_vision';
+                    break;
+                    case '双光':
+                    $cent='bifocal';
+                    break;
+                    case '进步':
+                    $cent='progressive';
+                    break;
+                }
+                
+                switch($func){
+                    case '专业行驶':
+                    $func='drivewear';
+                    break;
+                    case '转变':
+                    $func='transitions';
+                    break;
+                    case '数字涂层':
+                    $func='computer';
+                    break;
+                    case '清楚的':
+                    $func='clear';
+                    break;
+                    case '偏振':
+                    $func='nupolar_polarized';
+                    break;
+                    case '偏光镜':
+                    $func='nupolar_polarized_mirror';
+                    break;
+                    case '彩色镜片':
+                    $func='sun_color';
+                    break;
+                    case '彩色镜子':
+                    $func='sun_mirror';
+                    break;
+                }
+                switch($store)
+                {
+                    case '标准':
+                    $store='standard';
+                    $res=Db::name('lenses')->Distinct(true)->field('lens_color')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->where('lens_pkg',$store)->select();
+                    foreach($res as $val){
+                    $res=$val['lens_color'];
+                    $arr[]=$color->color($res);
+
+                    }
+                    break;
+
+                    case '瘦身':
+                    $store='thin';
+                    $res=Db::name('lenses')->Distinct(true)->field('lens_color')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->where('lens_pkg',$store)->select();
+                    foreach($res as $val){
+                    $res=$val['lens_color'];
+                    $arr[]=$color->color($res);
+                    }
+                    break;
+
+                    case '舒适合身':
+                    $store='thinner';
+                    $res=Db::name('lenses')->Distinct(true)->field('lens_color')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->where('lens_pkg',$store)->select();
+                    foreach($res as $val){
+                    $res=$val['lens_color'];
+                    $arr[]=$color->color($res);
+                    }
+                    break;
+
+                    case '更薄':
+                    $store='thinner';
+                    $res=Db::name('lenses')->Distinct(true)->field('lens_color')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->where('lens_pkg',$store)->select();
+                    foreach($res as $val){
+                    $res=$val['lens_color'];
+                    $arr[]=$color->color($res);
+                    }
+                    break;
+
+                    case '超薄':
+                    $store='super_thin';
+                    $res=Db::name('lenses')->Distinct(true)->field('lens_color')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->where('lens_pkg',$store)->select();
+                    foreach($res as $val){
+                    $res=$val['lens_color'];
+                    $arr[]=$color->color($res);
+                    }
+                    break;
+                }
+                return json_encode($arr);
+       }
+    }
+  
 }
        
