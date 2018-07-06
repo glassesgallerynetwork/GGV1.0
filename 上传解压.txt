@@ -1,0 +1,4 @@
+压缩除了 public 目录 全部压缩成 .zip 文件上传到 web 根目录  然后执行
+unzip -o  压缩包名字 直接覆盖原来的文件, 之后修改 application/database.php 的配置 参考备份文件 databases2.php
+然后 chown -Rf nginx:nginx wwwroot
+然后删除多余的模板
