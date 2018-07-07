@@ -1,164 +1,626 @@
-{:widget('Cates/header')}
-<form action="https://www.glassesgallery.com/checkout/cart/updatePost/" method="post" id="form-validate" class="form form-cart" novalidate="novalidate">
-  <input name="form_key" type="hidden" value="Nv7PrdIy9J6sWcOc">
-  <div class="cart-form__title">
-    <span>Shopping Bag</span>
-    <small>(2)</small></div>
-  <div class="cart table-wrapper">
-    <table id="shopping-cart-table" class="cart items data table">
-      <caption role="heading" aria-level="2" class="table-caption">Shopping Cart Items</caption>
-      <thead>
-        <tr>
-          <th class="col item" scope="col">
-            <span>名称</span></th>
-          <th class="col lens" scope="col">
-            <span>镜片</span></th>
-          <th class="col qty" scope="col">
-            <span>数量</span></th>
-          <th class="col subtotal" scope="col">
-            <span>价钱</span></th>
-        </tr>
-      </thead>
-      <foreach name="cart" item="val">
-        <tbody class="cart item" data-bind="scope: 'cartUpgradeItem10754_37237'">
-          <tr class="item-info">
-            <td data-th="Item" class="col item">
-              <a href="https://www.glassesgallery.com/carrera-ca5523" title="CARRERA CA5523" tabindex="-1" class="product-item-photo">
-                <img src=" https://ggstatic.azureedge.net/product-frames/carrera-ca5523eck-front.jpg"></a>
-              <div class="product-item-details">
-                <strong class="product-item-name">
-                  <a href="https://www.glassesgallery.com/carrera-ca5523">
-                    <span class="brand">名字</span>
-                    <span class="sku">{$val.sku}</span></a>
-                </strong>
+<include file="public/header_carts" />
+<div class="page messages"><div data-placeholder="messages"></div>
+<div data-bind="scope: 'messages'">
+    <div data-bind="foreach: { data: cookieMessages, as: 'message' }" class="messages"></div>
+    <div data-bind="foreach: { data: messages().messages, as: 'message' }" class="messages"></div>
+</div>
+</div>
+<main id="maincontent" class="page-main"><a id="contentarea" tabindex="-1"></a>
+<div class="columns">
+  <div class="column main">
+    <input name="form_key" type="hidden" value="4S2yylGXileucCJc">
+    <div id="authenticationPopup" data-bind="scope:'authenticationPopup'" style="display:none">
+      <script>window.authenticationPopup={customerRegisterUrl:"https://www.glassesgallery.com/customer/account/create/",customerForgotPasswordUrl:"https://www.glassesgallery.com/customer/account/forgotpassword/",baseUrl:"https://www.glassesgallery.com/",translation:{buy_now_as_guest:"Buy now as guest",can_we_help_you:"Can we help you?",can_we_help_you_text1:"One of our opticians style advisors will contact you for a personalized buying experience, exclusive to you. (hint. ask about our promotions)",can_we_help_you_placeholder:"Enter your email address",can_we_help_you_submit:"Proceed",can_we_help_you_text2:"You do not need any help and want to wait until checking out to give us your email address?",can_we_help_you_text3:"No problem! Click here to continue.",register:"Register"}};</script>
+    </div>
+    <script type="text/javascript">!function t(){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="//staticw2.yotpo.com/uInlpDPMxHnVGszqmEA0bBDDub335K8bTuHAM8b4 /widget.js ";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();</script>
+    <div class="cart-container">
+      <div class="cart-form">
+        <form action="https://www.glassesgallery.com/checkout/cart/updatePost/" method="post" id="form-validate" class="form form-cart" novalidate>
+          <input name="form_key" type="hidden" value="4S2yylGXileucCJc">
+          <div class="cart-form__title">
+            <span><font style="vertical-align:inherit"><font style="vertical-align:inherit">购物袋</font></font></span><small><font style="vertical-align:inherit"><font style="vertical-align:inherit">（1）</font></font></small>
+          </div>
+          <foreach name="cart" item="val">
+          <div class="cart table-wrapper">
+            <table id="shopping-cart-table" class="cart items data table">
+            <caption role="heading" aria-level="2" class="table-caption"><font style="vertical-align:inherit"><font style="vertical-align:inherit">购物车项目</font></font></caption>
+            <thead>
+            <tr>
+              <th class="col item" scope="col">
+                <span><font style="vertical-align:inherit"><font style="vertical-align:inherit">名称</font></font></span>
+              </th>
+              <th class="col lens" scope="col">
+                <span><font style="vertical-align:inherit"><font style="vertical-align:inherit">镜片</font></font></span>
+              </th>
+              <th class="col qty" scope="col">
+                <span><font style="vertical-align:inherit"><font style="vertical-align:inherit">数量</font></font></span>
+              </th>
+              <th class="col subtotal" scope="col">
+                <span><font style="vertical-align:inherit"><font style="vertical-align:inherit">价钱</font></font></span>
+              </th>
+            </tr>
+            </thead>
+              <tbody class="cart item" data-bind="scope: 'cartUpgradeItem7525_36934'">
+              <tr class="item-info">
+                <td data-th="Item" class="col item" style="width:375px;">
+                  <a href="#" title="IQ One I-6009" tabindex="-1" class="product-item-photo"><img src="https://ggstatic.azureedge.net/product-frames/{$val.brand_name}-{$val.sku}-front.jpg"></a>
+                  <div class="product-item-details">
+                    <strong class="product-item-name"><a href="#"><span class="brand"><font style="vertical-align:inherit"><font style="vertical-align:inherit">{$val.brand_name}</font></font></span><span class="sku"><font style="vertical-align:inherit"><font style="vertical-align:inherit">{$val.sku}</font></font></span></a></strong>
+                  </div>
+                </td>
+                <td class="col lens" data-th="Lens">
+                  <span class="lens_type"><font style="vertical-align:inherit"><font style="vertical-align:inherit">{$val.centents}</font></font></span><a class="package_details" data-item-id="7525" data-sku="{$val.sku}"><font style="vertical-align:inherit"><font style="vertical-align:inherit">套餐详情</font></font></a>
+                </td>
+                <td class="col qty" data-th="Qty">
+                  <div class="field qty">
+                    <label class="label" for="cart-7525-qty"><span><font style="vertical-align:inherit"><font style="vertical-align:inherit">数量</font></font></span></label>
+                    <div class="control qty">
+                      <span class="qty-label"><font style="vertical-align:inherit"><font style="vertical-align:inherit">{$val.num}</font></font></span><input id="cart-7525-qty" name="cart[7525][qty]" data-cart-item-id="I6009C5" value="1" type="hidden" size="4" title="Qty" class="input-text qty" maxlength="12" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
+                    </div>
+                  </div>
+                </td>
+                <td class="col subtotal" data-th="Subtotal" data-bind="html: productPrice">
+                  <span class="price-excluding-tax" data-label="Excl. Tax"><span class="minicart-price"><span class="price"><font style="vertical-align:inherit"><font style="vertical-align:inherit">￥ {$val.price}</font></font></span></span></span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <div class="actions-toolbar">
+                    <div id="gift-options-cart-item-7525" data-bind="scope:'giftOptionsCartItem-7525'" class="gift-options-cart-item">
+                    </div>
+                    <a id="move-modal-favourites-7525" class="move-to-favorites" data-modal="modal-favourites-7525"><font style="vertical-align:inherit"><font style="vertical-align:inherit">移至收藏夹</font></font></a><font style="vertical-align:inherit"><a href="#" class="remove" id="remove-modal-remove-7525" title="去掉"><span><font style="vertical-align:inherit">删除</font></span></a></font>
+                  </div>
+                </td>
+              </tr>
+              <tr class="item-promotion hide" data-itemid="7525">
+                <td colspan="4">
+                </td>
+              </tr>
+              <tr class="item-upgrade" style="display:none" data-bind="visible: (loaded &amp;&amp; enabled)">
+                <td colspan="4">
+                  <div class="item-upgrade-list">
+                    <div class="upgrade-title">
+                      YOU MAY CONSIDER
+                    </div>
+                    <ul data-bind="foreach: loadedOptionItems">
+                    </ul>
+                    <div style="display:none" data-bind="visible: (loaded &amp;&amp; enabled), attr: { uname: 'update-price-btn-7525' }" uname="update-price-btn-7525">
+                      <a class="gg-button small save-upgrade" data-bind="click: confirmUpdatePrice, name : uname">Update Price</a><a id="update-price-btn-7525" style="display:none" data-bind="click: updateFrameOptions">Update Price</a>
+                    </div>
+                  </div>
+                  <script language="javascript">require(["uiComponent","jquery","ko","domReady!","foundationApp"],function(o,t,e){e.utils.domNodeDisposal.cleanExternalData=function(){},t("a#modal-update-price-confirm-7525").on("click",function(o){o.preventDefault(),o.stopPropagation(),o.stopImmediatePropagation(),t("#update-price-btn-7525").trigger("click",!1)})});</script>
+                </td>
+              </tr>
+              </tbody>
+              </table>
+            </div>
+                    <!-- 镜头细节 -->
+            <div id="cart-package-detail" data-reveal="" role="dialog" aria-hidden="false" data-yeti-box="cart-package-detail" data-resize="cart-package-detail" data-t="8wosvm-t" data-events="resize" tabindex="-1" style="top: 119px; display: none;">
+              <div class="package-detail-container">
+                <div class="title">
+                  <span class="sku">{$val.sku}</span>
+                  <span class="title"> PACKAGE DETAILS</span>
+                  <button class="cross" data-close="" aria-label="Close modal" type="button">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="desc">
+                    <ul class="package-items">
+                      <li><div class="key">镜头类型</div><div class="value">{$val.centents}</div></li>
+                      <li><div class="key">镜头功能</div><div class="value">{$val.func}</div></li>
+                      <li><div class="key">厚度选项</div><div class="value">{$val.store_names}</div></li>
+                      <li><div class="key">镜头颜色</div><div class="value">Grey</div></li></ul>
+                    <div class="package-total">
+                        <span class="toal">镜片项总计</span>
+                        <span class="total-amount">{$val.LensPrice}</span>
+                    </div>
+                </div>
               </div>
-            </td>
-            <td class="col lens" data-th="Lens">
-              <span class="lens_type">{$val.centents}</span>
-              <a class="package_details" data-item-id="10754" data-sku="{$val.sku}">镜头细节</a></td>
-            <td class="col qty" data-th="Qty">
-              <div class="field qty">
-                <label class="label" for="cart-10754-qty">
-                  <span>Qty</span></label>
-                <div class="control qty">
-                  <span class="qty-label">{$val.num}</span>
-                  <input id="cart-10754-qty" name="cart[10754][qty]" data-cart-item-id="CA5523ECK" value="1" type="hidden" size="4" title="Qty" class="input-text qty" maxlength="12" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty"></div>
-              </div>
-            </td>
-            <td class="col subtotal" data-th="Subtotal" data-bind="html: productPrice">
-              <span class="price-excluding-tax" data-label="Excl. Tax">
-                <span class="minicart-price">
-                  <span class="price"></span></span>
-              </span>
-              <input type="hidden" class="prices" name="" value="{$val.price}">
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4">
-              <div class="actions-toolbar">
-                <div id="gift-options-cart-item-10754" data-bind="scope:'giftOptionsCartItem-10754'" class="gift-options-cart-item">
-                  <!-- ko template: getTemplate() -->
-                  <!-- ko if: isActive() || hasActiveOptions() -->
-                  <!-- /ko -->
-                  <!-- /ko --></div>
-                <a href="#" class="remove" id="remove-modal-remove-10754" title="Remove">
-                  <span>删除</span></a>
-              </div>
-            </td>
-          </tr>
-          <tr class="item-promotion hide" data-itemid="10754">
-            <td colspan="4"></td>
-          </tr>
-          <tr class="item-upgrade" style="display: none;" data-bind="visible: (loaded &amp;&amp; enabled)">
-            <td colspan="4">
-              <div class="item-upgrade-list">
-                <div class="upgrade-title">YOU MAY CONSIDER</div>
-                <ul data-bind="foreach: loadedOptionItems"></ul>
-                <div style="display: none;" data-bind="visible: (loaded &amp;&amp; enabled), attr: { uname: 'update-price-btn-10754' }" uname="update-price-btn-10754">
-                  <!-- ko if: showSaveButton -->
-                  <a class="gg-button small save-upgrade" data-bind="click: confirmUpdatePrice, name : uname">Update Price</a>
-                  <a id="update-price-btn-10754" style="display:none" data-bind="click: updateFrameOptions">Update Price</a>
-                  <!-- /ko --></div>
-              </div>
-              <!-- <div>
-              <strong>Total Price:</strong>
-              <span data-bind="text: totalUpgradePrice"></span></div> -->
-            </td>
-          </tr>
-        </tbody>
-        <input type="hidden" class="userid" name="id" value="{$val.id}">
-        <!-- 镜头细节 -->
-        <div id="cart-package-detail" data-reveal="" role="dialog" aria-hidden="false" data-yeti-box="cart-package-detail" data-resize="cart-package-detail" data-t="8wosvm-t" data-events="resize" tabindex="-1" style="top: 119px; display: none;">
-          <div class="package-detail-container">
-            <div class="title">
-              <span class="sku">{$val.sku}</span>
-              <span class="title"> PACKAGE DETAILS</span>
-              <button class="cross" data-close="" aria-label="Close modal" type="button">
-                <span aria-hidden="true">×</span>
+              <button class="confirm" data-close="" aria-label="Close modal" type="button">
+                  <span>关闭</span>
               </button>
             </div>
-            <div class="desc">
-                <ul class="package-items">
-                  <li><div class="key">镜头类型</div><div class="value">{$val.centents}</div></li>
-                  <li><div class="key">镜头功能</div><div class="value">{$val.func}</div></li>
-                  <li><div class="key">厚度选项</div><div class="value">{$val.store_names}</div></li>
-                  <li><div class="key">镜头颜色</div><div class="value">Grey</div></li></ul>
-                <div class="package-total">
-                    <span class="toal">镜片项总计</span>
-                    <span class="total-amount">$180.00</span>
-                </div>
-            </div>
-          </div>
-          <button class="confirm" data-close="" aria-label="Close modal" type="button">
-              <span>关闭</span>
-          </button>
-        </div>
         <!-- 镜头细节结束 -->
-      </foreach>
-    </table>
+          </foreach>
+          <div class="cart main actions">
+            <a class="continue" href="{:U('Home/index/index')}" title="继续购物"><span><font style="vertical-align:inherit"><font style="vertical-align:inherit">继续购物</font></font></span></a><input type="hidden" value="" id="update_cart_action_container" data-cart-item-update="">
+          </div>
+        </form>
+        <div id="gift-options-cart" data-bind="scope:'giftOptionsCart'">
+        </div>
+      </div>
+      <div class="cart-summary" style="top:0">
+        <strong class="summary title"><font style="vertical-align:inherit"><font style="vertical-align:inherit">概要</font></font></strong>
+        <div id="block-shipping" class="block shipping" data-collapsible="true" role="tablist">
+          <div class="title" data-role="title" aria-controls="block-summary" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">
+            <strong id="block-shipping-heading" role="heading" aria-level="2">Estimate Shipping and Tax</strong>
+          </div>
+          <div id="block-summary" data-bind="scope:'block-summary'" class="content" data-role="content" aria-labelledby="block-shipping-heading" role="tabpanel" aria-hidden="true" style="display:none">
+            <form method="post" id="shipping-zip-form">
+              <fieldset class="fieldset estimate">
+                <legend class="legend"><span data-bind="text: isVirtual ? $t('Estimate Tax') : $t('Estimate Shipping and Tax') ">Estimate Shipping and Tax</span></legend><br>
+                <p class="field note" data-bind="text: isVirtual ? $t('Enter your billing address to get a tax estimate.') : $t('Enter your destination to get a shipping estimate.')">
+                  Enter your destination to get a shipping estimate.
+                </p>
+                <div class="field" data-bind="visible: visible, attr: {'name': element.dataScope}, css: additionalClasses" name="shippingAddress.country_id">
+                  <label class="label" data-bind="attr: { for: element.uid }" for="ED96LOB"><span data-bind="text: element.label">Country</span></label>
+                  <div class="control" data-bind="css: {'_with-tooltip': element.tooltip}">
+                    <select class="select" data-bind=" attr: { name: inputname, id: uid, disabled: disabled, 'aria-describedby': noticeid, placeholder: placeholder }, hasfocus: focused, optgroup: options, value: value, optionscaption: caption, optionsvalue: 'value', optionstext: 'label', optionsafterrender: function(option, item) { if (item &amp;&amp; item.disabled) { ko.applybindingstonode(option, {attr: {disabled: true}}, item); } }" name="country_id" id="ED96LOB" aria-describedby="notice-ED96LOB" placeholder="">
+                      <option value=""></option>
+                      <option data-title="" value=""></option>
+                      <option data-title="Afghanistan" value="AF">Afghanistan</option>
+                      <option data-title="Åland Islands" value="AX">Åland Islands</option>
+                      <option data-title="Albania" value="AL">Albania</option>
+                      <option data-title="Algeria" value="DZ">Algeria</option>
+                      <option data-title="American Samoa" value="AS">American Samoa</option>
+                      <option data-title="Andorra" value="AD">Andorra</option>
+                      <option data-title="Angola" value="AO">Angola</option>
+                      <option data-title="Anguilla" value="AI">Anguilla</option>
+                      <option data-title="Antarctica" value="AQ">Antarctica</option>
+                      <option data-title="Antigua and Barbuda" value="AG">Antigua and Barbuda</option>
+                      <option data-title="Argentina" value="AR">Argentina</option>
+                      <option data-title="Armenia" value="AM">Armenia</option>
+                      <option data-title="Aruba" value="AW">Aruba</option>
+                      <option data-title="Australia" value="AU">Australia</option>
+                      <option data-title="Austria" value="AT">Austria</option>
+                      <option data-title="Azerbaijan" value="AZ">Azerbaijan</option>
+                      <option data-title="Bahamas" value="BS">Bahamas</option>
+                      <option data-title="Bahrain" value="BH">Bahrain</option>
+                      <option data-title="Bangladesh" value="BD">Bangladesh</option>
+                      <option data-title="Barbados" value="BB">Barbados</option>
+                      <option data-title="Belarus" value="BY">Belarus</option>
+                      <option data-title="Belgium" value="BE">Belgium</option>
+                      <option data-title="Belize" value="BZ">Belize</option>
+                      <option data-title="Benin" value="BJ">Benin</option>
+                      <option data-title="Bermuda" value="BM">Bermuda</option>
+                      <option data-title="Bhutan" value="BT">Bhutan</option>
+                      <option data-title="Bolivia" value="BO">Bolivia</option>
+                      <option data-title="Bosnia and Herzegovina" value="BA">Bosnia and Herzegovina</option>
+                      <option data-title="Botswana" value="BW">Botswana</option>
+                      <option data-title="Bouvet Island" value="BV">Bouvet Island</option>
+                      <option data-title="Brazil" value="BR">Brazil</option>
+                      <option data-title="British Indian Ocean Territory" value="IO">British Indian Ocean Territory</option>
+                      <option data-title="British Virgin Islands" value="VG">British Virgin Islands</option>
+                      <option data-title="Brunei" value="BN">Brunei</option>
+                      <option data-title="Bulgaria" value="BG">Bulgaria</option>
+                      <option data-title="Burkina Faso" value="BF">Burkina Faso</option>
+                      <option data-title="Burundi" value="BI">Burundi</option>
+                      <option data-title="Cambodia" value="KH">Cambodia</option>
+                      <option data-title="Cameroon" value="CM">Cameroon</option>
+                      <option data-title="Canada" value="CA">Canada</option>
+                      <option data-title="Cape Verde" value="CV">Cape Verde</option>
+                      <option data-title="Cayman Islands" value="KY">Cayman Islands</option>
+                      <option data-title="Central African Republic" value="CF">Central African Republic</option>
+                      <option data-title="Chad" value="TD">Chad</option>
+                      <option data-title="Chile" value="CL">Chile</option>
+                      <option data-title="China" value="CN">China</option>
+                      <option data-title="Christmas Island" value="CX">Christmas Island</option>
+                      <option data-title="Cocos (Keeling) Islands" value="CC">Cocos (Keeling) Islands</option>
+                      <option data-title="Colombia" value="CO">Colombia</option>
+                      <option data-title="Comoros" value="KM">Comoros</option>
+                      <option data-title="Congo - Brazzaville" value="CG">Congo - Brazzaville</option>
+                      <option data-title="Congo - Kinshasa" value="CD">Congo - Kinshasa</option>
+                      <option data-title="Cook Islands" value="CK">Cook Islands</option>
+                      <option data-title="Costa Rica" value="CR">Costa Rica</option>
+                      <option data-title="Côte d’Ivoire" value="CI">Côte d’Ivoire</option>
+                      <option data-title="Croatia" value="HR">Croatia</option>
+                      <option data-title="Cuba" value="CU">Cuba</option>
+                      <option data-title="Cyprus" value="CY">Cyprus</option>
+                      <option data-title="Czech Republic" value="CZ">Czech Republic</option>
+                      <option data-title="Denmark" value="DK">Denmark</option>
+                      <option data-title="Djibouti" value="DJ">Djibouti</option>
+                      <option data-title="Dominica" value="DM">Dominica</option>
+                      <option data-title="Dominican Republic" value="DO">Dominican Republic</option>
+                      <option data-title="Ecuador" value="EC">Ecuador</option>
+                      <option data-title="Egypt" value="EG">Egypt</option>
+                      <option data-title="El Salvador" value="SV">El Salvador</option>
+                      <option data-title="Equatorial Guinea" value="GQ">Equatorial Guinea</option>
+                      <option data-title="Eritrea" value="ER">Eritrea</option>
+                      <option data-title="Estonia" value="EE">Estonia</option>
+                      <option data-title="Ethiopia" value="ET">Ethiopia</option>
+                      <option data-title="Falkland Islands" value="FK">Falkland Islands</option>
+                      <option data-title="Faroe Islands" value="FO">Faroe Islands</option>
+                      <option data-title="Fiji" value="FJ">Fiji</option>
+                      <option data-title="Finland" value="FI">Finland</option>
+                      <option data-title="France" value="FR">France</option>
+                      <option data-title="French Guiana" value="GF">French Guiana</option>
+                      <option data-title="French Polynesia" value="PF">French Polynesia</option>
+                      <option data-title="French Southern Territories" value="TF">French Southern Territories</option>
+                      <option data-title="Gabon" value="GA">Gabon</option>
+                      <option data-title="Gambia" value="GM">Gambia</option>
+                      <option data-title="Georgia" value="GE">Georgia</option>
+                      <option data-title="Germany" value="DE">Germany</option>
+                      <option data-title="Ghana" value="GH">Ghana</option>
+                      <option data-title="Gibraltar" value="GI">Gibraltar</option>
+                      <option data-title="Greece" value="GR">Greece</option>
+                      <option data-title="Greenland" value="GL">Greenland</option>
+                      <option data-title="Grenada" value="GD">Grenada</option>
+                      <option data-title="Guadeloupe" value="GP">Guadeloupe</option>
+                      <option data-title="Guam" value="GU">Guam</option>
+                      <option data-title="Guatemala" value="GT">Guatemala</option>
+                      <option data-title="Guernsey" value="GG">Guernsey</option>
+                      <option data-title="Guinea" value="GN">Guinea</option>
+                      <option data-title="Guinea-Bissau" value="GW">Guinea-Bissau</option>
+                      <option data-title="Guyana" value="GY">Guyana</option>
+                      <option data-title="Haiti" value="HT">Haiti</option>
+                      <option data-title="Heard &amp; McDonald Islands" value="HM">Heard &amp; McDonald Islands</option>
+                      <option data-title="Honduras" value="HN">Honduras</option>
+                      <option data-title="Hong Kong SAR China" value="HK">Hong Kong SAR China</option>
+                      <option data-title="Hungary" value="HU">Hungary</option>
+                      <option data-title="Iceland" value="IS">Iceland</option>
+                      <option data-title="India" value="IN">India</option>
+                      <option data-title="Indonesia" value="ID">Indonesia</option>
+                      <option data-title="Iran" value="IR">Iran</option>
+                      <option data-title="Iraq" value="IQ">Iraq</option>
+                      <option data-title="Ireland" value="IE">Ireland</option>
+                      <option data-title="Isle of Man" value="IM">Isle of Man</option>
+                      <option data-title="Israel" value="IL">Israel</option>
+                      <option data-title="Italy" value="IT">Italy</option>
+                      <option data-title="Jamaica" value="JM">Jamaica</option>
+                      <option data-title="Japan" value="JP">Japan</option>
+                      <option data-title="Jersey" value="JE">Jersey</option>
+                      <option data-title="Jordan" value="JO">Jordan</option>
+                      <option data-title="Kazakhstan" value="KZ">Kazakhstan</option>
+                      <option data-title="Kenya" value="KE">Kenya</option>
+                      <option data-title="Kiribati" value="KI">Kiribati</option>
+                      <option data-title="Kuwait" value="KW">Kuwait</option>
+                      <option data-title="Kyrgyzstan" value="KG">Kyrgyzstan</option>
+                      <option data-title="Laos" value="LA">Laos</option>
+                      <option data-title="Latvia" value="LV">Latvia</option>
+                      <option data-title="Lebanon" value="LB">Lebanon</option>
+                      <option data-title="Lesotho" value="LS">Lesotho</option>
+                      <option data-title="Liberia" value="LR">Liberia</option>
+                      <option data-title="Libya" value="LY">Libya</option>
+                      <option data-title="Liechtenstein" value="LI">Liechtenstein</option>
+                      <option data-title="Lithuania" value="LT">Lithuania</option>
+                      <option data-title="Luxembourg" value="LU">Luxembourg</option>
+                      <option data-title="Macau SAR China" value="MO">Macau SAR China</option>
+                      <option data-title="Macedonia" value="MK">Macedonia</option>
+                      <option data-title="Madagascar" value="MG">Madagascar</option>
+                      <option data-title="Malawi" value="MW">Malawi</option>
+                      <option data-title="Malaysia" value="MY">Malaysia</option>
+                      <option data-title="Maldives" value="MV">Maldives</option>
+                      <option data-title="Mali" value="ML">Mali</option>
+                      <option data-title="Malta" value="MT">Malta</option>
+                      <option data-title="Marshall Islands" value="MH">Marshall Islands</option>
+                      <option data-title="Martinique" value="MQ">Martinique</option>
+                      <option data-title="Mauritania" value="MR">Mauritania</option>
+                      <option data-title="Mauritius" value="MU">Mauritius</option>
+                      <option data-title="Mayotte" value="YT">Mayotte</option>
+                      <option data-title="Mexico" value="MX">Mexico</option>
+                      <option data-title="Micronesia" value="FM">Micronesia</option>
+                      <option data-title="Moldova" value="MD">Moldova</option>
+                      <option data-title="Monaco" value="MC">Monaco</option>
+                      <option data-title="Mongolia" value="MN">Mongolia</option>
+                      <option data-title="Montenegro" value="ME">Montenegro</option>
+                      <option data-title="Montserrat" value="MS">Montserrat</option>
+                      <option data-title="Morocco" value="MA">Morocco</option>
+                      <option data-title="Mozambique" value="MZ">Mozambique</option>
+                      <option data-title="Myanmar (Burma)" value="MM">Myanmar (Burma)</option>
+                      <option data-title="Namibia" value="NA">Namibia</option>
+                      <option data-title="Nauru" value="NR">Nauru</option>
+                      <option data-title="Nepal" value="NP">Nepal</option>
+                      <option data-title="Netherlands" value="NL">Netherlands</option>
+                      <option data-title="Netherlands Antilles" value="AN">Netherlands Antilles</option>
+                      <option data-title="New Caledonia" value="NC">New Caledonia</option>
+                      <option data-title="New Zealand" value="NZ">New Zealand</option>
+                      <option data-title="Nicaragua" value="NI">Nicaragua</option>
+                      <option data-title="Niger" value="NE">Niger</option>
+                      <option data-title="Nigeria" value="NG">Nigeria</option>
+                      <option data-title="Niue" value="NU">Niue</option>
+                      <option data-title="Norfolk Island" value="NF">Norfolk Island</option>
+                      <option data-title="Northern Mariana Islands" value="MP">Northern Mariana Islands</option>
+                      <option data-title="North Korea" value="KP">North Korea</option>
+                      <option data-title="Norway" value="NO">Norway</option>
+                      <option data-title="Oman" value="OM">Oman</option>
+                      <option data-title="Pakistan" value="PK">Pakistan</option>
+                      <option data-title="Palau" value="PW">Palau</option>
+                      <option data-title="Palestinian Territories" value="PS">Palestinian Territories</option>
+                      <option data-title="Panama" value="PA">Panama</option>
+                      <option data-title="Papua New Guinea" value="PG">Papua New Guinea</option>
+                      <option data-title="Paraguay" value="PY">Paraguay</option>
+                      <option data-title="Peru" value="PE">Peru</option>
+                      <option data-title="Philippines" value="PH">Philippines</option>
+                      <option data-title="Pitcairn Islands" value="PN">Pitcairn Islands</option>
+                      <option data-title="Poland" value="PL">Poland</option>
+                      <option data-title="Portugal" value="PT">Portugal</option>
+                      <option data-title="Qatar" value="QA">Qatar</option>
+                      <option data-title="Réunion" value="RE">Réunion</option>
+                      <option data-title="Romania" value="RO">Romania</option>
+                      <option data-title="Russia" value="RU">Russia</option>
+                      <option data-title="Rwanda" value="RW">Rwanda</option>
+                      <option data-title="Saint Barthélemy" value="BL">Saint Barthélemy</option>
+                      <option data-title="Saint Helena" value="SH">Saint Helena</option>
+                      <option data-title="Saint Kitts and Nevis" value="KN">Saint Kitts and Nevis</option>
+                      <option data-title="Saint Lucia" value="LC">Saint Lucia</option>
+                      <option data-title="Saint Martin" value="MF">Saint Martin</option>
+                      <option data-title="Saint Pierre and Miquelon" value="PM">Saint Pierre and Miquelon</option>
+                      <option data-title="Samoa" value="WS">Samoa</option>
+                      <option data-title="San Marino" value="SM">San Marino</option>
+                      <option data-title="São Tomé and Príncipe" value="ST">São Tomé and Príncipe</option>
+                      <option data-title="Saudi Arabia" value="SA">Saudi Arabia</option>
+                      <option data-title="Senegal" value="SN">Senegal</option>
+                      <option data-title="Serbia" value="RS">Serbia</option>
+                      <option data-title="Seychelles" value="SC">Seychelles</option>
+                      <option data-title="Sierra Leone" value="SL">Sierra Leone</option>
+                      <option data-title="Singapore" value="SG">Singapore</option>
+                      <option data-title="Slovakia" value="SK">Slovakia</option>
+                      <option data-title="Slovenia" value="SI">Slovenia</option>
+                      <option data-title="Solomon Islands" value="SB">Solomon Islands</option>
+                      <option data-title="Somalia" value="SO">Somalia</option>
+                      <option data-title="South Africa" value="ZA">South Africa</option>
+                      <option data-title="South Georgia &amp; South Sandwich Islands" value="GS">South Georgia &amp; South Sandwich Islands</option>
+                      <option data-title="South Korea" value="KR">South Korea</option>
+                      <option data-title="Spain" value="ES">Spain</option>
+                      <option data-title="Sri Lanka" value="LK">Sri Lanka</option>
+                      <option data-title="St. Vincent &amp; Grenadines" value="VC">St. Vincent &amp; Grenadines</option>
+                      <option data-title="Sudan" value="SD">Sudan</option>
+                      <option data-title="Suriname" value="SR">Suriname</option>
+                      <option data-title="Svalbard and Jan Mayen" value="SJ">Svalbard and Jan Mayen</option>
+                      <option data-title="Swaziland" value="SZ">Swaziland</option>
+                      <option data-title="Sweden" value="SE">Sweden</option>
+                      <option data-title="Switzerland" value="CH">Switzerland</option>
+                      <option data-title="Syria" value="SY">Syria</option>
+                      <option data-title="Taiwan" value="TW">Taiwan</option>
+                      <option data-title="Tajikistan" value="TJ">Tajikistan</option>
+                      <option data-title="Tanzania" value="TZ">Tanzania</option>
+                      <option data-title="Thailand" value="TH">Thailand</option>
+                      <option data-title="Timor-Leste" value="TL">Timor-Leste</option>
+                      <option data-title="Togo" value="TG">Togo</option>
+                      <option data-title="Tokelau" value="TK">Tokelau</option>
+                      <option data-title="Tonga" value="TO">Tonga</option>
+                      <option data-title="Trinidad and Tobago" value="TT">Trinidad and Tobago</option>
+                      <option data-title="Tunisia" value="TN">Tunisia</option>
+                      <option data-title="Turkey" value="TR">Turkey</option>
+                      <option data-title="Turkmenistan" value="TM">Turkmenistan</option>
+                      <option data-title="Turks and Caicos Islands" value="TC">Turks and Caicos Islands</option>
+                      <option data-title="Tuvalu" value="TV">Tuvalu</option>
+                      <option data-title="Uganda" value="UG">Uganda</option>
+                      <option data-title="Ukraine" value="UA">Ukraine</option>
+                      <option data-title="United Arab Emirates" value="AE">United Arab Emirates</option>
+                      <option data-title="United Kingdom" value="GB">United Kingdom</option>
+                      <option data-title="United States" value="US">United States</option>
+                      <option data-title="Uruguay" value="UY">Uruguay</option>
+                      <option data-title="U.S. Outlying Islands" value="UM">U.S. Outlying Islands</option>
+                      <option data-title="U.S. Virgin Islands" value="VI">U.S. Virgin Islands</option>
+                      <option data-title="Uzbekistan" value="UZ">Uzbekistan</option>
+                      <option data-title="Vanuatu" value="VU">Vanuatu</option>
+                      <option data-title="Vatican City" value="VA">Vatican City</option>
+                      <option data-title="Venezuela" value="VE">Venezuela</option>
+                      <option data-title="Vietnam" value="VN">Vietnam</option>
+                      <option data-title="Wallis and Futuna" value="WF">Wallis and Futuna</option>
+                      <option data-title="Western Sahara" value="EH">Western Sahara</option>
+                      <option data-title="Yemen" value="YE">Yemen</option>
+                      <option data-title="Zambia" value="ZM">Zambia</option>
+                      <option data-title="Zimbabwe" value="ZW">Zimbabwe</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field" data-bind="visible: visible, attr: {'name': element.dataScope}, css: additionalClasses" name="shippingAddress.region_id">
+                  <label class="label" data-bind="attr: { for: element.uid }" for="LRX4CJS"><span data-bind="text: element.label">State/Province</span></label>
+                  <div class="control" data-bind="css: {'_with-tooltip': element.tooltip}">
+                    <select class="select" data-bind=" attr: { name: inputname, id: uid, disabled: disabled, 'aria-describedby': noticeid, placeholder: placeholder }, hasfocus: focused, optgroup: options, value: value, optionscaption: caption, optionsvalue: 'value', optionstext: 'label', optionsafterrender: function(option, item) { if (item &amp;&amp; item.disabled) { ko.applybindingstonode(option, {attr: {disabled: true}}, item); } }" name="region_id" id="LRX4CJS" aria-describedby="notice-LRX4CJS" placeholder="">
+                      <option value="">Please select a region, state or province.</option>
+                      <option data-title="Alabama" value="5">Alabama</option>
+                      <option data-title="Alaska" value="8">Alaska</option>
+                      <option data-title="American Samoa" value="11">American Samoa</option>
+                      <option data-title="Arizona" value="14">Arizona</option>
+                      <option data-title="Arkansas" value="17">Arkansas</option>
+                      <option data-title="Armed Forces Africa" value="20">Armed Forces Africa</option>
+                      <option data-title="Armed Forces Americas" value="23">Armed Forces Americas</option>
+                      <option data-title="Armed Forces Canada" value="26">Armed Forces Canada</option>
+                      <option data-title="Armed Forces Europe" value="29">Armed Forces Europe</option>
+                      <option data-title="Armed Forces Middle East" value="32">Armed Forces Middle East</option>
+                      <option data-title="Armed Forces Pacific" value="35">Armed Forces Pacific</option>
+                      <option data-title="California" value="38">California</option>
+                      <option data-title="Colorado" value="41">Colorado</option>
+                      <option data-title="Connecticut" value="44">Connecticut</option>
+                      <option data-title="Delaware" value="47">Delaware</option>
+                      <option data-title="District of Columbia" value="50">District of Columbia</option>
+                      <option data-title="Federated States Of Micronesia" value="53">Federated States Of Micronesia</option>
+                      <option data-title="Florida" value="56">Florida</option>
+                      <option data-title="Georgia" value="59">Georgia</option>
+                      <option data-title="Guam" value="62">Guam</option>
+                      <option data-title="Hawaii" value="65">Hawaii</option>
+                      <option data-title="Idaho" value="68">Idaho</option>
+                      <option data-title="Illinois" value="71">Illinois</option>
+                      <option data-title="Indiana" value="74">Indiana</option>
+                      <option data-title="Iowa" value="77">Iowa</option>
+                      <option data-title="Kansas" value="80">Kansas</option>
+                      <option data-title="Kentucky" value="83">Kentucky</option>
+                      <option data-title="Louisiana" value="86">Louisiana</option>
+                      <option data-title="Maine" value="89">Maine</option>
+                      <option data-title="Marshall Islands" value="92">Marshall Islands</option>
+                      <option data-title="Maryland" value="95">Maryland</option>
+                      <option data-title="Massachusetts" value="98">Massachusetts</option>
+                      <option data-title="Michigan" value="101">Michigan</option>
+                      <option data-title="Minnesota" value="104">Minnesota</option>
+                      <option data-title="Mississippi" value="107">Mississippi</option>
+                      <option data-title="Missouri" value="110">Missouri</option>
+                      <option data-title="Montana" value="113">Montana</option>
+                      <option data-title="Nebraska" value="116">Nebraska</option>
+                      <option data-title="Nevada" value="119">Nevada</option>
+                      <option data-title="New Hampshire" value="122">New Hampshire</option>
+                      <option data-title="New Jersey" value="125">New Jersey</option>
+                      <option data-title="New Mexico" value="128">New Mexico</option>
+                      <option data-title="New York" value="131">New York</option>
+                      <option data-title="North Carolina" value="134">North Carolina</option>
+                      <option data-title="North Dakota" value="137">North Dakota</option>
+                      <option data-title="Northern Mariana Islands" value="140">Northern Mariana Islands</option>
+                      <option data-title="Ohio" value="143">Ohio</option>
+                      <option data-title="Oklahoma" value="146">Oklahoma</option>
+                      <option data-title="Oregon" value="149">Oregon</option>
+                      <option data-title="Palau" value="152">Palau</option>
+                      <option data-title="Pennsylvania" value="155">Pennsylvania</option>
+                      <option data-title="Puerto Rico" value="158">Puerto Rico</option>
+                      <option data-title="Rhode Island" value="161">Rhode Island</option>
+                      <option data-title="South Carolina" value="164">South Carolina</option>
+                      <option data-title="South Dakota" value="167">South Dakota</option>
+                      <option data-title="Tennessee" value="170">Tennessee</option>
+                      <option data-title="Texas" value="173">Texas</option>
+                      <option data-title="Utah" value="176">Utah</option>
+                      <option data-title="Vermont" value="179">Vermont</option>
+                      <option data-title="Virgin Islands" value="182">Virgin Islands</option>
+                      <option data-title="Virginia" value="185">Virginia</option>
+                      <option data-title="Washington" value="188">Washington</option>
+                      <option data-title="West Virginia" value="191">West Virginia</option>
+                      <option data-title="Wisconsin" value="194">Wisconsin</option>
+                      <option data-title="Wyoming" value="197">Wyoming</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field" data-bind="visible: visible, attr: {'name': element.dataScope}, css: additionalClasses" name="shippingAddress.region" style="display:none">
+                  <label class="label" data-bind="attr: { for: element.uid }" for="DQW4WRT"><span data-bind="text: element.label">State/Province</span></label>
+                  <div class="control" data-bind="css: {'_with-tooltip': element.tooltip}">
+                    <input class="input-text" type="text" data-bind=" value: value, valueupdate: 'keyup', hasfocus: focused, attr: { name: inputname, placeholder: placeholder, 'aria-describedby': noticeid, id: uid, disabled: disabled }" name="region" placeholder="" aria-describedby="notice-DQW4WRT" id="DQW4WRT">
+                  </div>
+                </div>
+                <div class="field" data-bind="visible: visible, attr: {'name': element.dataScope}, css: additionalClasses" name="shippingAddress.postcode">
+                  <label class="label" data-bind="attr: { for: element.uid }" for="G6PG4BM"><span data-bind="text: element.label">Zip/Postal Code</span></label>
+                  <div class="control" data-bind="css: {'_with-tooltip': element.tooltip}">
+                    <input class="input-text" type="text" data-bind=" value: value, valueupdate: 'keyup', hasfocus: focused, attr: { name: inputname, placeholder: placeholder, 'aria-describedby': noticeid, id: uid, disabled: disabled }" name="postcode" placeholder="" aria-describedby="notice-G6PG4BM" id="G6PG4BM">
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+            <form id="co-shipping-method-form" data-bind="blockLoader: isLoading, visible: isVisible()" class="">
+              <p class="field note" data-bind="visible: (shippingRates().length <= 0)" style="display:none">
+                Sorry, no quotes are available for this order at this time
+              </p>
+              <fieldset class="fieldset rate" data-bind="visible: (shippingRates().length>
+                 0)" style="">
+                <dl class="items methods" data-bind="foreach: shippingRateGroups">
+                  <dt class="item-title"><span data-bind="text: $data">Standard (14 - 24 Business DAYS)</span></dt>
+                  <dd class="item-options" data-bind="foreach: $parent.getRatesForGroup($data)">
+                  <div data-bind="css: {'field choice item': available, 'message error': !available} " class="field choice item">
+                    <input type="radio" class="radio" data-bind=" click: $parents[1].selectshippingmethod, checked: $parents[1].selectedshippingmethod, attr: { value: carrier_code + '_' + method_code, id: 's_method_' + method_code } " value="freeshipping_freeshipping" id="s_method_freeshipping" name="ko_unique_3"><label class="label" data-bind="attr: {for: 's_method_' + method_code}" for="s_method_freeshipping">Shipping time is estimated by the courier services in each destination.$0.00</label>
+                  </div>
+                  </dd>
+                  <dt class="item-title"><span data-bind="text: $data">EXPRESS (2-3 BUSINESS DAYS)</span></dt>
+                  <dd class="item-options" data-bind="foreach: $parent.getRatesForGroup($data)">
+                  <div data-bind="css: {'field choice item': available, 'message error': !available} " class="field choice item">
+                    <input type="radio" class="radio" data-bind=" click: $parents[1].selectshippingmethod, checked: $parents[1].selectedshippingmethod, attr: { value: carrier_code + '_' + method_code, id: 's_method_' + method_code } " value="tablerate_bestway" id="s_method_bestway" name="ko_unique_4"><label class="label" data-bind="attr: {for: 's_method_' + method_code}" for="s_method_bestway">We offer express shipping to more than 30 countries worldwide.$20.00</label>
+                  </div>
+                  </dd>
+                </dl>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
+          <div class="table-wrapper" data-bind="blockLoader: isLoading">
+            <table class="data table totals">
+            <caption class="table-caption" data-bind="text: $t('Total')">Total</caption>
+            <tbody>
+            <tr class="totals sub">
+              <th data-bind="i18n: title" class="mark" scope="row">
+                <font style="vertical-align:inherit"><font style="vertical-align:inherit">小计</font></font>
+              </th>
+              <td class="amount">
+                <span class="price" data-bind="text: getValue(), attr: {'data-th': title}" data-th="Subtotal"><font style="vertical-align:inherit"><font style="vertical-align:inherit">$ 188.00</font></font></span>
+              </td>
+            </tr>
+            <tr class="totals-tax">
+              <th data-bind="text: title" class="mark" colspan="1" scope="row">
+                Tax
+              </th>
+              <td data-bind="attr: {'data-th': title}" class="amount" data-th="Tax">
+                <span class="price" data-bind="text: getValue()">$0.00</span>
+              </td>
+            </tr>
+            <tr class="grand totals">
+              <th class="mark" scope="row">
+                <strong data-bind="i18n: title"><font style="vertical-align:inherit"><font style="vertical-align:inherit">合计订单</font></font></strong>
+              </th>
+              <td data-bind="attr: {'data-th': title}" class="amount" data-th="Order Total">
+                <strong><span class="price" data-bind="text: getValue()"><font style="vertical-align:inherit"><font style="vertical-align:inherit">$ 188.00</font></font></span></strong>
+              </td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+        <img class="card_support" src="https://www.glassesgallery.com/media/acb/files/p/a/payment_support.png">
+        <div class="block discount" id="block-discount" data-collapsible="true" role="tablist">
+          <div class="title" data-role="title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">
+            <strong id="block-discount-heading" role="heading" aria-level="2">Apply Discount Code</strong>
+          </div>
+          <div class="content" data-role="content" aria-labelledby="block-discount-heading" role="tabpanel" aria-hidden="true" style="display:none">
+            <form id="discount-coupon-form" action="https://www.glassesgallery.com/checkout/cart/couponPost/" method="post">
+              <div class="fieldset coupon">
+                <input type="hidden" name="remove" id="remove-coupon" value="0">
+                <div class="field">
+                  <label for="coupon_code" class="label"><span>Enter discount code</span></label>
+                  <div class="control">
+                    <input type="text" class="input-text" id="coupon_code" name="coupon_code" value="" placeholder="Enter discount code">
+                  </div>
+                </div>
+                <div class="actions-toolbar">
+                  <div class="primary">
+                    <button class="action apply primary" type="button" value="Apply Discount"><span>Apply Discount</span></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="block giftcard" id="block-giftcard" data-collapsible="true" role="tablist">
+          <div data-role="title" class="title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">
+            <strong id="block-giftcard-heading" role="heading" aria-level="2">Gift Cards</strong>
+          </div>
+          <div data-role="content" class="content" aria-labelledby="block-giftcard-heading" role="tabpanel" aria-hidden="true" style="display:none">
+            <div id="giftcard-balance-lookup">
+            </div>
+            <span id="gc-please-wait" class="please-wait load indicator" style="display:none" data-text="This won't take long . . ."><span>This won't take long . . .</span></span>
+            <form class="form giftcard add" id="giftcard-form" action="https://www.glassesgallery.com/giftcard/cart/add/" method="post" novalidate>
+              <div class="fieldset">
+                <div class="field">
+                  <label class="label" for="giftcard-code"><span>Enter the gift card code</span></label>
+                  <div class="control">
+                    <input class="input-text" type="text" id="giftcard-code" name="giftcard_code" data-validate="{'required-entry':true}" value="" placeholder="Enter the gift card code">
+                  </div>
+                </div>
+                <div class="actions-toolbar">
+                  <div class="primary">
+                    <button class="action add primary" type="submit" value="Add Gift Card"><span>Add Gift Card</span></button>
+                  </div>
+                  <div class="secondary">
+                    <button class="action check" type="button" value="Check Gift Card status and balance"><span>Check Gift Card status and balance</span></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <ul class="checkout methods items checkout-methods-items">
+          <li class="item"><button type="button" data-role="proceed-to-checkout" title="进行结算" class="action primary checkout"><span class="hidden-m"><font style="vertical-align:inherit"><font style="vertical-align:inherit">进行结算</font></font></span><span class="hidden-l">Checkout</span></button>
+          <style>
+.side_prescription_text{margin-top:15px;line-height:1;font-size:20px;color:#0052CC;font-weight:700}
+          </style>
+          <div class="side_prescription_text">
+            <font style="vertical-align:inherit"><font style="vertical-align:inherit">付款后处方上传。</font></font>
+          </div>
+          </li>
+          <li class="item"></li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="cart main actions">
-    <a class="continue" href="{:U('Home/Index/index')}" title="Continue Shopping">
-      <span>继续购物</span></a>
-    <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""></div>
-</form>
+</div>
+</main>
+<div class="page-bottom">
+  <div class="content">
+    <a class="back-to-top"><h4 class="text-uppercase">Back to top</h4></a>
+  </div>
+</div>
+{:widget("cates/footer")}
+</body>
 <script type="text/javascript">
-    num=$(".qty-label").text();
-    prices=$(".prices").val();
-    nums= +num * +prices;
-    $(".minicart-price").children('span').html('总金额¥  &nbsp&nbsp&nbsp&nbsp' +nums);
-
-    $(".remove").click(function(){
-      id=$(".userid").val();
-      $.get('{:U('Home/Cart/del')}',{id:id},function(data){
-        if(data.status==0){
-          alert(1);
-        }
-      })
+    $('.package_details').click(function(){
+      $(this).parents('.table').parent().next('div').show();
     })
-
-    var pric;
-    
-    $(".package_details").each(function(){
-     ;
-      $(this).click(function(){
-
-        sku=$(".package_details").attr('data-sku');
-         $.get('{:U('Home/Cart/pric')}',{sku:sku},function(data){            
-         pric = data.result.shop_price;
-         pric = +nums - +pric;
-          $(".total-amount").html('¥' +pric);
-          
-          },'json')
-
-        $(".total-amount").parent('div').parent('div').parent('div').parent('div').show();
-        
-      })
-    })
-
-    $(".confirm").click(function(){
-
-     $(this).parent('div').hide();
+    $('.confirm').click(function(){
+      $(this).parent().hide();
     })
 </script>
-{:widget('Cates/header')}
+</html>

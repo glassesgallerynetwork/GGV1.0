@@ -141,6 +141,8 @@
           <div id="authenticationPopup" data-bind="scope:'authenticationPopup'" style="display: none;"></div>
           <p></p>
         </div>
+
+
         <div class="slider picked_product_list widget grid">
             <h4 class="title gg-title">
               <font style="vertical-align: inherit;">
@@ -149,272 +151,82 @@
             <div class="slick-slider picked-products slick-initialized">
               <div class="slick-list draggable">
                 <div class="slick-track" style="opacity: 1; width: 1176px; transform: translate3d(0px, 0px, 0px);">
-                  <div class="slider-item-container slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 294px;" tabindex="0">
-                    <a href="https://www.glassesgallery.com/tom-ford-ft5271" class="product-item-info" tabindex="0">
-                      <!--img src=" https://ggstatic.azureedge.net/product-frames/tom-ford-ft5271020-front.jpg" /-->
-                      <div class="product photo product-item-photo">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/tom-ford-ft5271020-cp-front.jpg">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/tom-ford-ft5271020-45deg.jpg"></div>
-                      <h3 class="gg-brand-name">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">汤姆·福特</font></font>
-                      </h3>
-                      <span class="gg-sku">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">FT5271</font></font>
-                      </span>
-                      <div class="price-box price-final_price" data-role="priceBox" data-product-id="37969">
-                        <span class="old-price sly-old-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
+                  <foreach name="result" item="val">
+                    <div class="slider-item-container slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 294px;" tabindex="0">
+                      <a href="{:U('Home/Goods/goodsInfo',array('id'=>$val['goods_id']))}" class="product-item-info" tabindex="0">
+                        <!--img src=" https://ggstatic.azureedge.net/product-frames/tom-ford-ft5271020-front.jpg" /-->                          
+                          <div class="product photo product-item-photo">
+                          <img src=" https://ggstatic.azureedge.net/product-frames/{$val.goods_name}-{$val.sku}-cp-front.jpg">
+                          <img src=" https://ggstatic.azureedge.net/product-frames/{$val.goods_name}-{$val.sku}-45deg.jpg"></div>
+                        <h3 class="gg-brand-name">
+                          <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">{$val['goods_name']}</font></font>
+                        </h3>
+                        <span class="gg-sku">
+                          <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">{$val['sku']}</font></font>
+                        </span>
+                        <div class="price-box price-final_price" data-role="priceBox" data-product-id="37969">
+                          <span class="old-price sly-old-price">
+                            <span class="price-container price-final_price tax weee">
+                              <span class="price-label">
+                                <font style="vertical-align: inherit;">
+                                  <font style="vertical-align: inherit;">市场价</font></font>
+                              </span>
                               <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">WAS</font></font>
-                            </span>
-                            <font style="vertical-align: inherit;">
+                                <span id="old-price-37969-widget-product-grid" data-price-amount="352" data-price-type="oldPrice" class="price-wrapper ">
+                                  <span class="price">
+                                    <font style="vertical-align: inherit;">{$val['market_price']}</font></span>
+                                </span>
+                              </font>
                               <span id="old-price-37969-widget-product-grid" data-price-amount="352" data-price-type="oldPrice" class="price-wrapper ">
                                 <span class="price">
-                                  <font style="vertical-align: inherit;">$ 352.00</font></span>
-                              </span>
-                            </font>
-                            <span id="old-price-37969-widget-product-grid" data-price-amount="352" data-price-type="oldPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
+                                  <font style="vertical-align: inherit;"></font>
+                                </span>
                               </span>
                             </span>
                           </span>
-                        </span>
-                        <font style="vertical-align: inherit;">
+                          <font style="vertical-align: inherit;">
+                            <span class="special-price">
+                              <span class="price-container price-final_price tax weee">
+                                <span class="price-label">
+                                  <font style="vertical-align: inherit;">现价</font></span>
+                              </span>
+                            </span>
+                            <span class="special-price">
+                              <span class="price-container price-final_price tax weee">
+                                <span id="old-price-37969-widget-product-grid" data-price-amount="121" data-price-type="finalPrice" class="price-wrapper ">
+                                  <span class="price">
+                                    <font style="vertical-align: inherit;">{$val['shop_price']}</font></span>
+                                </span>
+                              </span>
+                            </span>
+                          </font>
                           <span class="special-price">
                             <span class="price-container price-final_price tax weee">
                               <span class="price-label">
-                                <font style="vertical-align: inherit;">NOW</font></span>
-                            </span>
-                          </span>
-                          <span class="special-price">
-                            <span class="price-container price-final_price tax weee">
+                                <font style="vertical-align: inherit;"></font>
+                              </span>
                               <span id="old-price-37969-widget-product-grid" data-price-amount="121" data-price-type="finalPrice" class="price-wrapper ">
                                 <span class="price">
-                                  <font style="vertical-align: inherit;">$ 121.00</font></span>
+                                  <font style="vertical-align: inherit;"></font>
+                                </span>
                               </span>
                             </span>
                           </span>
-                        </font>
-                        <span class="special-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
-                              <font style="vertical-align: inherit;"></font>
-                            </span>
-                            <span id="old-price-37969-widget-product-grid" data-price-amount="121" data-price-type="finalPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
-                              </span>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="slider-item-container slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 294px;" tabindex="0">
-                    <a href="https://www.glassesgallery.com/carrera-ca5527" class="product-item-info" tabindex="0">
-                      <!--img src=" https://ggstatic.azureedge.net/product-frames/carrera-ca552799l-front.jpg" /-->
-                      <div class="product photo product-item-photo">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/carrera-ca552799l-cp-front.jpg">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/carrera-ca552799l-45deg.jpg"></div>
-                      <h3 class="gg-brand-name">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">CARRERA</font></font>
-                      </h3>
-                      <span class="gg-sku">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">CA5527</font></font>
-                      </span>
-                      <div class="price-box price-final_price" data-role="priceBox" data-product-id="37144">
-                        <span class="old-price sly-old-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
-                              <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">WAS</font></font>
-                            </span>
-                            <font style="vertical-align: inherit;">
-                              <span id="old-price-37144-widget-product-grid" data-price-amount="152" data-price-type="oldPrice" class="price-wrapper ">
-                                <span class="price">
-                                  <font style="vertical-align: inherit;">$ 152.00</font></span>
-                              </span>
-                            </font>
-                            <span id="old-price-37144-widget-product-grid" data-price-amount="152" data-price-type="oldPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
-                              </span>
-                            </span>
-                          </span>
-                        </span>
-                        <font style="vertical-align: inherit;">
-                          <span class="special-price">
-                            <span class="price-container price-final_price tax weee">
-                              <span class="price-label">
-                                <font style="vertical-align: inherit;">NOW</font></span>
-                            </span>
-                          </span>
-                          <span class="special-price">
-                            <span class="price-container price-final_price tax weee">
-                              <span id="old-price-37144-widget-product-grid" data-price-amount="69" data-price-type="finalPrice" class="price-wrapper ">
-                                <span class="price">
-                                  <font style="vertical-align: inherit;">$ 69.00</font></span>
-                              </span>
-                            </span>
-                          </span>
-                        </font>
-                        <span class="special-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
-                              <font style="vertical-align: inherit;"></font>
-                            </span>
-                            <span id="old-price-37144-widget-product-grid" data-price-amount="69" data-price-type="finalPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
-                              </span>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="slider-item-container slick-slide slick-active" data-slick-index="2" aria-hidden="false" style="width: 294px;" tabindex="0">
-                    <a href="https://www.glassesgallery.com/ray-ban-rx7047" class="product-item-info" tabindex="0">
-                      <!--img src=" https://ggstatic.azureedge.net/product-frames/ray-ban-rx70475196-front.jpg" /-->
-                      <div class="product photo product-item-photo">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/ray-ban-rx70475196-cp-front.jpg">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/ray-ban-rx70475196-45deg.jpg"></div>
-                      <h3 class="gg-brand-name">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">雷朋</font></font>
-                      </h3>
-                      <span class="gg-sku">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">RX7047</font></font>
-                      </span>
-                      <div class="price-box price-final_price" data-role="priceBox" data-product-id="36190">
-                        <span class="old-price sly-old-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
-                              <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">WAS</font></font>
-                            </span>
-                            <font style="vertical-align: inherit;">
-                              <span id="old-price-36190-widget-product-grid" data-price-amount="119" data-price-type="oldPrice" class="price-wrapper ">
-                                <span class="price">
-                                  <font style="vertical-align: inherit;">$ 119.00</font></span>
-                              </span>
-                            </font>
-                            <span id="old-price-36190-widget-product-grid" data-price-amount="119" data-price-type="oldPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
-                              </span>
-                            </span>
-                          </span>
-                        </span>
-                        <font style="vertical-align: inherit;">
-                          <span class="special-price">
-                            <span class="price-container price-final_price tax weee">
-                              <span class="price-label">
-                                <font style="vertical-align: inherit;">NOW</font></span>
-                            </span>
-                          </span>
-                          <span class="special-price">
-                            <span class="price-container price-final_price tax weee">
-                              <span id="old-price-36190-widget-product-grid" data-price-amount="103" data-price-type="finalPrice" class="price-wrapper ">
-                                <span class="price">
-                                  <font style="vertical-align: inherit;">$ 103.00</font></span>
-                              </span>
-                            </span>
-                          </span>
-                        </font>
-                        <span class="special-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
-                              <font style="vertical-align: inherit;"></font>
-                            </span>
-                            <span id="old-price-36190-widget-product-grid" data-price-amount="103" data-price-type="finalPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
-                              </span>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </a>
-                  </div>
-                  <div class="slider-item-container slick-slide slick-active" data-slick-index="3" aria-hidden="false" style="width: 294px;" tabindex="0">
-                    <a href="https://www.glassesgallery.com/marc-jacobs-mj540" class="product-item-info" tabindex="0">
-                      <!--img src=" https://ggstatic.azureedge.net/product-frames/marc-jacobs-mj540v81-front.jpg" /-->
-                      <div class="product photo product-item-photo">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/marc-jacobs-mj540v81-cp-front.jpg">
-                        <img src=" https://ggstatic.azureedge.net/product-frames/marc-jacobs-mj540v81-45deg.jpg"></div>
-                      <h3 class="gg-brand-name">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">Marc Jacobs</font></font>
-                      </h3>
-                      <span class="gg-sku">
-                        <font style="vertical-align: inherit;">
-                          <font style="vertical-align: inherit;">MJ540</font></font>
-                      </span>
-                      <div class="price-box price-final_price" data-role="priceBox" data-product-id="38587">
-                        <span class="old-price sly-old-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
-                              <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">WAS</font></font>
-                            </span>
-                            <font style="vertical-align: inherit;">
-                              <span id="old-price-38587-widget-product-grid" data-price-amount="296" data-price-type="oldPrice" class="price-wrapper ">
-                                <span class="price">
-                                  <font style="vertical-align: inherit;">$ 296.00</font></span>
-                              </span>
-                            </font>
-                            <span id="old-price-38587-widget-product-grid" data-price-amount="296" data-price-type="oldPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
-                              </span>
-                            </span>
-                          </span>
-                        </span>
-                        <font style="vertical-align: inherit;">
-                          <span class="special-price">
-                            <span class="price-container price-final_price tax weee">
-                              <span class="price-label">
-                                <font style="vertical-align: inherit;">NOW</font></span>
-                            </span>
-                          </span>
-                          <span class="special-price">
-                            <span class="price-container price-final_price tax weee">
-                              <span id="old-price-38587-widget-product-grid" data-price-amount="136" data-price-type="finalPrice" class="price-wrapper ">
-                                <span class="price">
-                                  <font style="vertical-align: inherit;">$ 136.00</font></span>
-                              </span>
-                            </span>
-                          </span>
-                        </font>
-                        <span class="special-price">
-                          <span class="price-container price-final_price tax weee">
-                            <span class="price-label">
-                              <font style="vertical-align: inherit;"></font>
-                            </span>
-                            <span id="old-price-38587-widget-product-grid" data-price-amount="136" data-price-type="finalPrice" class="price-wrapper ">
-                              <span class="price">
-                                <font style="vertical-align: inherit;"></font>
-                              </span>
-                            </span>
-                          </span>
-                        </span>
-                      </div>
-                    </a>
-                  </div>
+                        </div>
+                      </a>
+                    </div>
+                  </foreach>
                 </div>
               </div>
             </div>
           </div>
           <p></p>
         </div>
+
+
+
       </div>
     </main>
     <div class="page-bottom">

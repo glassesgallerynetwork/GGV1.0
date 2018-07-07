@@ -1,231 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+    <title></title>
 </head>
-<body>
+<body data-container="body" class="account page-multiple-wishlist wishlist-index-index page-layout-2columns-left" aria-busy="false">
 {:widget('Cates/header')}
-<div class="page messages">
-  <div data-placeholder="messages"></div>
-  <div data-bind="scope: 'messages'">
-    <div data-bind="foreach: { data: cookieMessages, as: 'message' }" class="messages">
-      <div data-bind="attr: {
-      class: 'message-' + message.type + ' ' + message.type + ' message',
-      'data-ui-id': 'message-' + message.type
-      }" class="message-success success message" data-ui-id="message-success">
-        <div data-bind="html: message.text">
-          <font style="vertical-align: inherit;">
-            <font style="vertical-align: inherit;">CARRERA CA5523已添加到您的愿望清单。</font>
-            <font style="vertical-align: inherit;">点击</font></font>
-          <a href="https://www.glassesgallery.com/men/eyeglasses">
-            <font style="vertical-align: inherit;">
-              <font style="vertical-align: inherit;">此处</font></font>
-          </a>
-          <font style="vertical-align: inherit;">
-            <font style="vertical-align: inherit;">继续购物。</font></font>
-        </div>
+  <div class="page messages">
+    <div data-placeholder="messages">
+    </div>
+    <div data-bind="scope: 'messages'">
+      <div data-bind="foreach: { data: cookieMessages, as: 'message' }" class="messages">
+      </div>
+      <div data-bind="foreach: { data: messages().messages, as: 'message' }" class="messages">
       </div>
     </div>
-    <div data-bind="foreach: { data: messages().messages, as: 'message' }" class="messages"></div>
   </div>
-</div>
-<main id="maincontent" class="page-main">
-  <a id="contentarea" tabindex="-1"></a>
+  <main id="maincontent" class="page-main"><a id="contentarea" tabindex="-1"></a>
   <div class="columns">
     <div class="column main">
       <div class="page-title-wrapper">
         <h1 class="page-title">
-          <span class="base" data-ui-id="page-title-wrapper">
-            <font style="vertical-align: inherit;">
-              <font style="vertical-align: inherit;">我最喜欢的</font></font>
-          </span>
-        </h1>
+        <span class="base" data-ui-id="page-title-wrapper"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我最喜欢的</font></font></span></h1>
       </div>
-      <input name="form_key" type="hidden" value="IxsVbTnzE9URD3mx">
+      <input name="form_key" type="hidden" value="NjOUcHc2OgNHk2ML">
       <div id="authenticationPopup" data-bind="scope:'authenticationPopup'" style="display: none;">
-        <!-- ko template: getTemplate() -->
-        <!-- /ko --></div>
-      <script type="text/javascript">(function e() {
-          var e = document.createElement("script");
-          e.type = "text/javascript",
-          e.async = true,
-          e.src = "//staticw2.yotpo.com/uInlpDPMxHnVGszqmEA0bBDDub335K8bTuHAM8b4 /widget.js ";
-          var t = document.getElementsByTagName("script")[0];
-          t.parentNode.insertBefore(e, t)
-        })();</script>
+      </div>
       <form class="form-wishlist-items" id="wishlist-view-form" action="https://www.glassesgallery.com/wishlist/index/update/wishlist_id/1087/" method="post" novalidate="novalidate">
-        <input name="form_key" type="hidden" value="IxsVbTnzE9URD3mx">
-        <div class="products wrapper grid products-grid wishlist">
-          <ol class="products list items product-items">
-          	<foreach name="res" item="val">
-          		<input type="hidden" name="sku" value="{$val['sku']}">
-	            <li data-row="product-item" class="item product product-item" id="item_1130">
-	              <div class="product-item-info" data-container="product-grid" data-productid="37237">
-	                <a class="product photo product-item-photo" href="https://www.glassesgallery.com/carrera-ca5523?sku=CA5523LYM" tabindex="-1" data-images=" https://ggstatic.azureedge.net/product-frames/carrera-ca5523-demo.jpg, https://ggstatic.azureedge.net/product-frames/carrera-ca5523-side.jpg, https://ggstatic.azureedge.net/product-frames/carrera-ca5523-45deg.jpg, https://ggstatic.azureedge.net/product-frames/carrera-ca5523-front.jpg,">
-	                  <span class="loading-gif" style="display: inline;">
-	                   <img src="https://www.glassesgallery.com/static/version1529578517/frontend/K2Digital/GlassesGallery/en_US/images/product/ring_grey.gif"></span>
-	                   <!-- 下面与45度图片 -->
-	                  <img src=" https://ggstatic.azureedge.net/product-frames/{$val['goods_name']}-{$val['sku']}-cp-front.jpg">
-	                  <img src=" https://ggstatic.azureedge.net/product-frames/{$val['goods_name']}-{$val['sku']}-45deg.jpg">
-	                  </a>
-	                <div class="product details product-item-details">
-	                  <div class="product name product-item-name">
-	                    <a class="product-item-link" href="https://www.glassesgallery.com/carrera-ca5523?sku=CA5523LYM" title="CARRERA CA5523">
-	                      <h3 class="gg-brand-name gg-title">
-	                        <font style="vertical-align: inherit;">
-	                          <font style="vertical-align: inherit;">{$val['goods_name']}</font></font>
-	                      </h3>
-	                      <div class="gg-sku sku">
-	                        <font style="vertical-align: inherit;">
-	                          <font style="vertical-align: inherit;">{$val['sku']}</font></font>
-	                      </div>
-	                    </a>
-	                  </div>
-	                  <div class="price-box price-final_price" data-role="priceBox" data-product-id="37237">
-	                    <span class="old-price sly-old-price">
-	                      <span class="price-container price-final_price tax weee">
-	                        <span class="price-label">
-	                          <font style="vertical-align: inherit;">
-	                            <font style="vertical-align: inherit;">原价</font></font>
-	                        </span>
-	                        <span id="old-price-37237" data-price-amount="" data-price-type="oldPrice" class="price-wrapper ">
-	                          <span class="price">
-	                            <font style="vertical-align: inherit;">
-	                              <font style="vertical-align: inherit;">¥ {$val['market_price']}</font></font>
-	                          </span>
-	                        </span>
-	                      </span>
-	                    </span>
-	                    <span class="special-price">
-	                      <span class="price-container price-final_price tax weee">
-	                        <span class="price-label">
-	                          <font style="vertical-align: inherit;">
-	                            <font style="vertical-align: inherit;">现价</font></font>
-	                        </span>
-	                        <span id="product-price-37237" data-price-amount="" data-price-type="finalPrice" class="price-wrapper ">
-	                          <span class="price">
-	                            <font style="vertical-align: inherit;">
-	                              <font style="vertical-align: inherit;">¥ {$val['shop_price']}</font></font>
-	                          </span>
-	                        </span>
-	                      </span>
-	                    </span>
-	                  </div>
-	                  <ul class="product-swatches">
-	                    <li class="">
-	                      <button type="button" class="product-swatch-item" data-swatch="{&quot;image&quot;:[&quot; https:\/\/ggstatic.azureedge.net\/product-frames\/carrera-ca5523eck-cp-front.jpg&quot;,&quot; https:\/\/ggstatic.azureedge.net\/product-frames\/carrera-ca5523eck-45deg.jpg&quot;],&quot;tryliveId&quot;:&quot;carrera-ca5523-eck&quot;,&quot;name&quot;:&quot;Black&quot;,&quot;sku&quot;:&quot;CA5523ECK&quot;,&quot;index&quot;:0,&quot;price&quot;:152,&quot;priceWithCurrency&quot;:&quot;$152.00&quot;,&quot;specialPrice&quot;:5,&quot;specialPriceWithCurrency&quot;:&quot;$5.00&quot;,&quot;finalPrice&quot;:5,&quot;rrp&quot;:null}">
-	                        <img src=" https://ggstatic.azureedge.net/product-frames/carrera-ca5523eck-cs.jpg" alt="[黑色]" title="黑色"></button>
-	                    </li>
-	                  </ul>
-	                  <div class="product-control">
-	                    <button type="button" class="gg-button gg-button-arrow gg-button--tryon tryon-button" data-default-trylive-id="carrera-ca5523-eck" style="display: none;">
-	                      <span>
-	                        <font style="vertical-align: inherit;">
-	                          <font style="vertical-align: inherit;">试一下</font></font>
-	                      </span>
-	                    </button>
-	                    <button type="button" class="action primary product-control-quickview">
-	                      <font style="vertical-align: inherit;">
-	                        <font style="vertical-align: inherit;">快速浏览</font></font>
-	                    </button>
-	                  </div>
-	                </div>
-	                <div class="product-item-inner">
-	                  <div class="product-item-actions">
-	                    <a href="#?sku=CA5523LYM" data-role="remove" data-post-remove="{&quot;action&quot;:&quot;https:\/\/www.glassesgallery.com\/wishlist\/index\/remove\/&quot;,&quot;data&quot;:{&quot;item&quot;:&quot;1130&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly93d3cuZ2xhc3Nlc2dhbGxlcnkuY29tL3dpc2hsaXN0L2luZGV4L2luZGV4L3dpc2hsaXN0X2lkLzEwODcv&quot;}}" title="除去项目" class="btn-remove action delete">
-	                      <span>
-	                        <font style="vertical-align: inherit;">
-	                          <font style="vertical-align: inherit;">去掉</font></font>
-	                      </span>
-	                    </a>
-	                  </div>
-	                </div>
-	              </div>
-	            </li>
-            </foreach>
-          </ol>
+        <div class="message info empty">
+          <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您的愿望清单中没有物品。</font></font></span>
+        </div>
+        <div class="actions-toolbar">
+          <div class="primary">
+          </div>
+          <div class="secondary">
+            <a href="https://www.glassesgallery.com/customer/account/" class="action back">
+            <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">返回</font></font></span>
+            </a>
+          </div>
         </div>
       </form>
-      <script id="form-tmpl" type="text/x-magento-template">< form id = "wishlist-hidden-form"method = "post"action = "<%- data.url %>"class = "no-display" > <%
-        if (data.qty) { % ><input name = "qty"value = "<%- data.qty %>" > <%
-        } % >
-
-        <%
-        if (data.item) { % ><input name = "item"value = "<%- data.item %>" > <%
-        } % >
-
-        <%
-        if (data.entity) { % ><input name = "entity"value = "<%- data.entity %>" > <%
-        } % ></form>
-  /</script>
     </div>
     <div class="sidebar sidebar-main">
       <div class="block account-nav custom-dropdown">
         <div class="custom-dropdown-wrapper">
           <div class="title custom-dropdown-title">
-            <strong>
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;">我的帐户</font></font>
-            </strong>
+            <strong><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我的帐户</font></font></strong>
           </div>
           <div class="content custom-dropdown-content">
             <nav class="account-nav">
-              <ul class="nav items">
-                <li class="nav item current">
-                  <strong>
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">我最喜欢的</font></font>
-                  </strong>
-                </li>
-                <li class="nav item">
-                  <a href="https://www.glassesgallery.com/customer/account/edit/">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">我的简历</font></font>
-                  </a>
-                </li>
-                <li class="nav item">
-                  <a href="https://www.glassesgallery.com/customer/address/">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">地址簿</font></font>
-                  </a>
-                </li>
-                <li class="nav item">
-                  <a href="https://www.glassesgallery.com/sales/order/history/">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">订单历史</font></font>
-                  </a>
-                </li>
-                <li class="nav item">
-                  <a href="https://www.glassesgallery.com/customer/prescription/">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">我的处方</font></font>
-                  </a>
-                </li>
-                <li class="nav item">
-                  <a href="https://www.glassesgallery.com/rma/returns/history/">
-                    <font style="vertical-align: inherit;">
-                      <font style="vertical-align: inherit;">我的退货</font></font>
-                  </a>
-                </li>
-              </ul>
+            <ul class="nav items">
+              <li class="nav item"><a href="{:U('Home/user/favourites')}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我的收藏</font></font></a></li>
+              <li class="nav item"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我的简历</font></font></a></li>
+              <li class="nav item"><a href="{:U('Home/user/address_list')}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">地址簿</font></font></a></li>
+              <li class="nav item"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">订单历史</font></font></a></li>
+              <li class="nav item"><a href="{:U('Home/user/prescriptionlist')}"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我的处方</font></font></a></li>
+              <li class="nav item"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我的回报</font></font></a></li>
+            </ul>
             </nav>
           </div>
         </div>
       </div>
     </div>
   </div>
-</main>
+  </main>
+  <div class="page-bottom">
+    <div class="content">
+      <a class="back-to-top">
+      <h4 class="text-uppercase"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回到顶部</font></font></h4>
+      </a>
+    </div>
+  </div>
+  <div id="tryon-overlay" class="tryon-overlay tryon-overlay--hidden">
+    <div class="tryon-body">
+      <button type="button" class="tryon-close close-button"></button>
+      <button type="button" class="button-mode button-mode--live"></button>
+      <button type="button" class="button-mode button-mode--photo"></button>
+      <div class="tryon-instruction">
+        <img class="tryon-instruction__image" src="https://www.glassesgallery.com/static/version1529578517/frontend/K2Digital/GlassesGallery/en_US/images/tryon/instruction-en.jpg">
+        <button type="button" class="tryon-instruction__ready" disabled=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">载入中...</font></font></button>
+      </div>
+      <div class="tryon-main">
+        <div class="tryon-main__reminder">
+          <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">请面对相机</font></font>
+        </div>
+        <div class="tryon-main__iframe-wrapper">
+          <iframe id="tryon-iframe" allow="camera" class="tryon-main__iframe">
+          </iframe>
+        </div>
+        <div class="tryon-main__images">
+          <img class="tryon-main__image tryon-main__image--preset" src="https://www.glassesgallery.com/static/version1529578517/frontend/K2Digital/GlassesGallery/en_US/images/tryon/model-1.jpg">
+          <img class="tryon-main__image tryon-main__image--preset" src="https://www.glassesgallery.com/static/version1529578517/frontend/K2Digital/GlassesGallery/en_US/images/tryon/model-2.jpg">
+          <img class="tryon-main__image tryon-main__image--upload" src="https://www.glassesgallery.com/static/version1529578517/frontend/K2Digital/GlassesGallery/en_US/images/tryon/model-3.jpg">
+        </div>
+        <input type="file" style="display: none">
+      </div>
+    </div>
+  </div>
 {:widget('Cates/footer')}
 </body>
 <script type="text/javascript">
-	$(".btn-remove").click(function(){
-		var sku=$(this).parent('div').parent('div').parent('div').parent('li').prev('input').val();
-		$.get('{:U('Home/user/del_favour')}',{sku:sku},function(data){
-			if(data!=1){
-				layer.msg('删除失败,请稍后再试' , {icon: 2});
-			}
-		})
-		$(this).parent('div').parent('div').parent('div').parent('li').remove();
-	})
+    $(".btn-remove").click(function(){
+        var sku=$(this).parent('div').parent('div').parent('div').parent('li').prev('input').val();
+        $.get('{:U('Home/user/del_favour')}',{sku:sku},function(data){
+            if(data!=1){
+                layer.msg('删除失败,请稍后再试' , {icon: 2});
+            }
+        })
+        $(this).parent('div').parent('div').parent('div').parent('li').remove();
+    })
 </script>
 </html>

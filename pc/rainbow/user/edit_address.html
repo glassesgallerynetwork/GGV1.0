@@ -2,91 +2,81 @@
 <html>
 <head>
 </head>
-<!-- <style type="text/css">
-.wi80-BFB{width:80%}
-.wi40-BFB{width:40%}
-.seauii{ padding:7px 10px; margin-right:10px}
-.he110{ height:110px}
-.di-bl{ display:inherit}
-.ner-reac{
-    width:1280px;
-    height:550px;
-    margin:0 auto;
-    position: absolute;
-}
-
-</style> -->
 <body>
-    {:widget('Cates/header')}
-<div class="adderss-add">
-    <div class="ner-reac ol_box_4" style="visibility: visible; position: fixed; z-index: 500;">
-        <div class="box-ct">
-            <div class="box-header">
-                <!-- <a href="" class="box-close"></a> -->
-                <span class="box-title">添加地址</span>
+{:widget('Cates/header')}
+<main id="maincontent" class="page-main" style="width: 1310px; height: 617.2px;">
+    <div class="adderss-add">
+        <div class="ner-reac ol_box_4" style="visibility: visible;position: fixed;z-index: 500;padding-left: 263px;padding-right: 263px;">
+            <div class="box-ct">
+                 <center>
+                    <div class="box-header">
+                        <!-- <a href="" class="box-close"></a> -->
+                        <h1><span class="box-title">添加地址</span></h1>
+                    </div>
+                </center>
+                <form action="" method="post" id="edit_address">
+                    <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td align="right"><span class="xh">*</span>收货人：&nbsp;</td>
+                            <td><input class="wi80-BFB" name="consignee" type="text" value="{$address.consignee}" maxlength="12" /></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><span class="xh">*</span>收货地址：&nbsp;</td>
+                            <td>
+                                <select class="di-bl fl seauii" name="province" id="province" onChange="get_city(this,0)">
+                                    <option value="0">请选择</option>
+                                    <volist name="province" id="p">
+                                        <option <if condition="$address['province'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
+                                    </volist>
+                                </select>
+
+                                <select class="di-bl fl seauii" name="city" id="city" onChange="get_area(this)">
+                                    <option  value="0">请选择</option>
+                                    <volist name="city" id="p">
+                                        <option <if condition="$address['city'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
+                                    </volist>
+                                </select>
+
+                                <select class="di-bl fl seauii" name="district" id="district" onChange="get_twon(this)">
+                                    <option  value="0">请选择</option>
+                                    <volist name="district" id="p">
+                                        <option <if condition="$address['district'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
+                                    </volist>
+                                </select>
+
+                                <select class="di-bl fl seauii" name="twon" id="twon" <if condition="$address['twon'] gt 0 ">style="display:block;"<else/>style="display:none;"</if>>
+                                	<volist name="twon" id="p">
+                                        <option <if condition="$address['twon'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
+                                    </volist>
+                                </select>
+                                <br>
+                            </td>
+                        </tr>
+                        <tr>
+                        	<td align="right" valign="top"><span class="xh">*</span>详细地址：&nbsp;</td>
+                        	<td><textarea class="he110 wi80-BFB re-no" name="address" id="address" placeholder="详细地址" maxlength="100">{$address.address}</textarea></td>
+                        </tr>
+                        <tr>
+                            <td align="right">邮编：&nbsp;</td>
+                            <td><input class="wi80-BFB" type="text" name="zipcode" value="{$address.zipcode}" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" maxlength="10"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><span class="xh">*</span>手机或固定电话：&nbsp;</td>
+                            <td><input class="wi40-BFB" type="text" name="mobile" value="{$address.mobile}"  maxlength="15"/>&nbsp;固话号码格式:xx-xx(例如: 0755-84975662)</td>
+                        </tr>
+                        <tr>
+                            <td class="pa-50-0">&nbsp;</td>
+                            <td align="right">
+                                <button type="button" class="box-ok ma-le--70" onclick="checkForm()"><span>保存收货地址</span></button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </form>
             </div>
-            <form action="" method="post" id="edit_address">
-                <table width="90%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td align="right"><span class="xh">*</span>收货人：&nbsp;</td>
-                        <td><input class="wi80-BFB" name="consignee" type="text" value="{$address.consignee}" maxlength="12" /></td>
-                    </tr>
-                    <tr>
-                        <td align="right"><span class="xh">*</span>收货地址：&nbsp;</td>
-                        <td>
-                            <select class="di-bl fl seauii" name="province" id="province" onChange="get_city(this,0)">
-                                <option value="0">请选择</option>
-                                <volist name="province" id="p">
-                                    <option <if condition="$address['province'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
-                                </volist>
-                            </select>
-
-                            <select class="di-bl fl seauii" name="city" id="city" onChange="get_area(this)">
-                                <option  value="0">请选择</option>
-                                <volist name="city" id="p">
-                                    <option <if condition="$address['city'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
-                                </volist>
-                            </select>
-
-                            <select class="di-bl fl seauii" name="district" id="district" onChange="get_twon(this)">
-                                <option  value="0">请选择</option>
-                                <volist name="district" id="p">
-                                    <option <if condition="$address['district'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
-                                </volist>
-                            </select>
-
-                            <select class="di-bl fl seauii" name="twon" id="twon" <if condition="$address['twon'] gt 0 ">style="display:block;"<else/>style="display:none;"</if>>
-                            	<volist name="twon" id="p">
-                                    <option <if condition="$address['twon'] eq $p['id']">selected</if>  value="{$p.id}">{$p.name}</option>
-                                </volist>
-                            </select>
-                            <br>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<td align="right" valign="top"><span class="xh">*</span>详细地址：&nbsp;</td>
-                    	<td><textarea class="he110 wi80-BFB re-no" name="address" id="address" placeholder="详细地址" maxlength="100">{$address.address}</textarea></td>
-                    </tr>
-                    <tr>
-                        <td align="right">邮编：&nbsp;</td>
-                        <td><input class="wi80-BFB" type="text" name="zipcode" value="{$address.zipcode}" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" maxlength="10"/></td>
-                    </tr>
-                    <tr>
-                        <td align="right"><span class="xh">*</span>手机或固定电话：&nbsp;</td>
-                        <td><input class="wi40-BFB" type="text" name="mobile" value="{$address.mobile}"  maxlength="15"/>&nbsp;固话号码格式:xx-xx(例如: 0755-86140485)</td>
-                    </tr>
-                    <tr>
-                        <td class="pa-50-0">&nbsp;</td>
-                        <td align="right">
-                            <button type="button" class="box-ok ma-le--70" onclick="checkForm()"><span>保存收货地址</span></button>
-                        </td>
-                    </tr>
-                </table>
-
-            </form>
         </div>
     </div>
-</div>
+</main>
 {:widget('Cates/footer')}
 </body>
 <script src="__PUBLIC__/js/global.js"></script>

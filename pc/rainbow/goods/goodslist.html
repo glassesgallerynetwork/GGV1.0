@@ -4,20 +4,30 @@
 <head></head>
     <body data-container="body" class="page-with-filter page-products categorypath-women category-women catalog-category-view page-layout-2columns-left" aria-busy="false">
     	{:widget('Cates/header')}
-<div class="page messages">
-	<div data-placeholder="messages">
-	</div>
-	<div data-bind="scope: &#39;messages&#39;">
-		<div data-bind="foreach: { data: cookieMessages, as: &#39;message&#39; }" class="messages">
+		<div class="page messages">
+			<div data-placeholder="messages">
+			</div>
+			<div data-bind="scope: &#39;messages&#39;">
+				<div data-bind="foreach: { data: cookieMessages, as: &#39;message&#39; }" class="messages">
+				</div>
+				<div data-bind="foreach: { data: messages().messages, as: &#39;message&#39; }" class="messages">
+				</div>
+			</div>
 		</div>
-		<div data-bind="foreach: { data: messages().messages, as: &#39;message&#39; }" class="messages">
-		</div>
-	</div>
-</div>
+
+		{$navigate_cat}
 <div class="breadcrumbs">
 	<ul class="items">
-		<li class="item home"><a href="#" title="Go to Home Page">Home</a></li>
-		<li class="item category9"><strong>Women</strong></li>
+		<li class="item home"><a href="{:U('/')}" title="去首页">首页</a></li>
+		<li class="item category6">
+            <a href="#" title="">{$navigate_cat[1]}</a>
+        </li>
+	    <li class="item category21">
+	       <a href="{:U('Home/Goods/list')}" title="">{$navigate_cat[2]}</a>
+	    </li>
+        <li class="item category21">
+            <a href="{:U('Home/Goods/list',array('id'=>$goods_names['cat_id']))}" title="">{$navigate_cat[3]}</a>
+        </li>
 	</ul>
 </div>
 <main id="maincontent" class="page-main">
@@ -73,7 +83,7 @@
 					</td>
 					<td>
 						<div style="font-size:1.2rem">
-							<span class="red-text">FREE</span> {$bann['desc']}
+							<span class="red-text">FREE</span>{$bann['desc']}
 						</div>
 					</td>
 				</tr>
@@ -116,19 +126,19 @@
     		</div>
         	<div class="products wrapper grid products-grid">
                 <ol class="products list items product-items">
-                	<foreach name="res" item="v">
-                    <li class="item product product-item">
+                	<foreach name="data" item="v">
+                    <li class="item product product-item commodityList">
                     	
                     	<div class="promo-icon">
                     		<img src="__STATIC__/images/banner-button-free-lens(1).png">
                     	</div>                
                     	<div class="product-item-info" data-container="product-grid">
-                    		<a href="https://www.glassesgallery.com/anson-benson-ab1004f?sku=AB1004F001" class="product photo product-item-photo">
+                    		<a onClick="location.href='{:U('Home/Goods/goodsInfo',array('id'=>$v['goods_id']))}'" class="product photo product-item-photo">
                         		<span class="loading-gif" style="display: none;">
                         			<img src="__STATIC__/images/ring_grey.gif">
                         		</span>
-	                            <img src="{$v['original_img']}">
-	                            <img src="{$v['original_img']}">
+	                            <img src=" https://ggstatic.azureedge.net/product-frames/{$v['brand']}-{$v['sku']}-cp-front.jpg">
+	                            <img src=" https://ggstatic.azureedge.net/product-frames/{$v['brand']}-{$v['sku']}-45deg.jpg">
                         	</a>
                     		<div class="product details product-item-details">
                     			
@@ -142,7 +152,7 @@
 	                            <div class="price-box price-final_price" data-role="priceBox" data-product-id="34798">
 									<span class="price-container price-final_price tax weee">
 										<span id="product-price-34798" data-price-amount="" data-price-type="finalPrice" class="price-wrapper">
-											<span class="price">{$v['shop_price']}</span>
+											<span class="price">￥ {$v['shop_price']}</span>
 										</span>
 									</span>
 								</div>           
@@ -202,6 +212,7 @@
 					<li class="item pages-item-next"><a class="next" href="#" title="Next"><span class="label">Page</span><span>Next</span></a></li>
 					<li class="item"><a class="page last" href="#"><span class="label">Page</span><span>42</span></a></li>
 				</ul>
+				<!-- {$page} -->
         	</div>
         </div>
     </div>
@@ -268,7 +279,6 @@
        	 				$(".accordion-content").hide(1000);
         			}  
     			}) 	 
-
 
 
 

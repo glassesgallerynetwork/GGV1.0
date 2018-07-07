@@ -4932,8 +4932,9 @@
 .loginsum_main {
     font-family: "微软雅黑";
     position: relative;
-    min-height: 486px;
-    max-height: 486px
+    min-height: 515px;
+    max-height: 516px;
+    top:36px;
 }
 
 .loginsum_main .advertisement {
@@ -4945,9 +4946,7 @@
     height: 475px
 }
 
-.loginsum_main .login_form {
-    float: right
-}
+.loginsum_main .login_form {clear: both;width: 351px;margin: 0 auto;}
 
 .loginsum_main .login_form .lo_intext {
     width: 346px;
@@ -4956,12 +4955,12 @@
 }
 
 .loginsum_main .login_form .lo_intext .layel1 {
-    color: #e23435;
+    color: #000;
     font-size: 18px;
     font-weight: bold;
     height: 54px;
     line-height: 54px;
-    text-align: center
+    text-align: center;
 }
 
 .loginsum_main .login_form .lo_intext .layel2 {
@@ -5056,13 +5055,14 @@
     width: 304px;
     height: 37px;
     line-height: 37px;
-    background: #e23435;
+    background: #000;
     text-align: center;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 .loginsum_main .login_form .lo_intext .layel2 .login_bnt a:hover {
-    background: rgba(226,52,53,0.92)
+    background: #646464;
+    text-decoration: none;
 }
 
 .loginsum_main .login_form .lo_intext .layel3 {

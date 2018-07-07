@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html> 
 	<head>
 		<meta charset="UTF-8">
 		<title>地址管理-{$tpshop_config['shop_info_store_title']}</title>
@@ -10,6 +10,7 @@
 	</head>
 	<body class="bg-f5">
 		{:widget('Cates/header')}
+		<main id="maincontent" class="page-main">
 		<div class="ri-menu fr" style="padding: 50px">
 						<div class="menumain p">
 							<div class="goodpiece">
@@ -103,6 +104,7 @@
 							<p class="gp_num2">已保存<em class="red">{$lists|count}</em>条地址，还可以保存<em class="red"><php>echo 20-count($lists);</php></em>条地址</php>
 						</div>
 		</div>
+	</main>
 		<!--footer-e-->
 		<script type="text/javascript">
 			$(function(){
