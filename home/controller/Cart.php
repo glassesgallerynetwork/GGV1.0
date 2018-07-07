@@ -61,11 +61,19 @@ class Cart extends Base {
     }
     //购物车详情
     public function index(){
-        $user_id= $_COOKIE["user_id"];
-        $cart=Db::name('shopping_cart')->where('user_id',$user_id)->select();
-       
-        $this->assign('cart',$cart);
-
+    	$Models = new \app\home\widget\Cates();
+        $Models->header();
+        $Models->footer();
+        $user_id=$this->user_id;
+        $res=Db::name('shopping_cart s')->field(['b.name','g.sku','s.user_id','s.goods_id','s.centents','s.func','s.store_names','s.price','s.num','g.shop_price'])->join('tp_goods g','g.sku=s.sku')->join('tp_brand b','g.brand_id=b.id')->where('s.user_id',$user_id)->select();
+       foreach($res as $val){
+        $name=strtolower($val['name']);
+        $brand_name=str_replace(" ","-","$name");
+        $price=$val['price'] * $val['num'];
+        $LensPrice=$val['price'] - $val['shop_price'];
+        $cart[]=Array('brand_name'=>"$brand_name",'sku'=>strtolower($val['sku']),'goods_id'=>$val['goods_id'],'centents'=>$val['centents'],'func'=>$val['func'],'store_names'=>$val['store_names'],'price'=>$price,'num'=>$val['num'],'LensPrice'=>"$LensPrice");
+       }
+       $this->assign('cart',$cart);
         return $this->fetch();
         // $cartLogic = new CartLogic();
         // $cartLogic->setUserId($this->user_id);

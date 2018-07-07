@@ -929,7 +929,84 @@ class Goods extends Base {
         }
         return $this->fetch();
     }
+    
+    //首页特色眼镜专栏
+    public function special_eye(){
+        $res=Db::name('special')->select();
+        $this->assign('res',$res);
+        return $this->fetch();
+    }
+    public function addEditSpecial(){
+        $request=request();
+        if($request->isAjax()){
+            $play=$request->param('res');
+            $sku=$request->param('sku');
+            $res=Db::name('goods')->where('sku',$sku)->select();
+            if(empty($res)){
+                $this->ajaxReturn(['status' => 0,'msg' => '请输入正确的sku']);
+            }else{
+                $this->ajaxReturn(['status' => 1,'msg' => '正确的sku']);
+            }
+            if(empty($play)){
+                $this->ajaxReturn(['status' => 0,'msg' => '请选择是否显示']);
+            }          
+        }
+        return $this->fetch();
+    }
 
+    public function addSpecial(){
+
+        $request=request();
+        if($request->isAjax()){
+            $data['status']=$request->param('res');
+            $data['sku']=$request->param('sku');
+            if(Db::name('special')->where('sku',$data['sku'])->select()){
+                $this->ajaxReturn(['status' => 0,'msg' => '数据已存在']);
+            }
+            $result=Db::name('special')->insert($data);
+            if($result){
+                $this->ajaxReturn(['status' => 0,'msg' => '插入成功']);
+            }
+        }
+    }
+
+    public function editSpecial(){
+        $request=request();
+        if($request->isAjax()){
+            $id=$request->param('id');
+            $res=Db::name('special')->where('special_id',$id)->select();
+            switch ($res[0]['status']) {
+                case '0':
+                   $data['special_id']=$id;
+                   $data['sku']=$res[0]['sku'];
+                   $data['status']=1;
+                   if(Db::name('special')->where('special_id',$id)->update($data)){
+                     $this->ajaxReturn(['status' => 0,'msg' => '修改成功']);
+                   }
+                    break;
+                
+                default:
+                    $data['special_id']=$id;
+                    $data['sku']=$res[0]['sku'];
+                    $data['status']=0;
+                    if(Db::name('special')->where('special_id',$id)->update($data)){
+                        $this->ajaxReturn(['status' => 0,'msg' => '修改成功']);
+                   }
+                    break;
+            }
+            
+        }
+    }
+
+    public function delSpecial(){
+        $request=request();
+        if($request->isAjax()){
+            $id=$request->param('id');
+            if(Db::name('special')->where('special_id',$id)->delete()){
+                $this->ajaxReturn(['status' => 0,'msg' => '删除成功']);
+            }
+        }
+    }
     //mf.leung 新增函數20180530
     /*file_open
     param $files 接受文件或文件路徑的參數
@@ -1065,7 +1142,7 @@ class Goods extends Base {
                     $post_parent_id = Db::query($search_brands_class); //獲得欄目父親下子iD
                     $cat_id = $post_parent_id[0]['id'];
                     $parent_cat_id = $search_classes["parent_id"];//欄目父親ID
-                    $goods_name = $result["brand"]." ".$results["sku"]; //商品名稱
+                    $goods_name = $results["brand"]." ".$results["sku"]; //商品名稱
                     if(strlen($results["short_description"]) > 240){
                         $goods_remark = substr($results["short_description"],0,240)."....";
                     }else
@@ -1109,7 +1186,7 @@ class Goods extends Base {
                     $cat_id = $post_field[0]['cat_id']; //獲得欄目父親下子iD
                     $parent_cat_id = $post_field[0]['extend_cat_id']; //欄目父親ID
                     $brands_id = $post_field[0]['brand_id']; //獲得品牌ID
-                    $goods_name = $result["brand"]." ".$results["sku"]; //商品名稱
+                    $goods_name = $results["brand"]." ".$results["sku"]; //商品名稱
                     if(strlen($results["short_description"]) > 240){
                         $goods_remark = substr($results["short_description"],0,240)."....";
                     }else
@@ -1311,7 +1388,7 @@ class Goods extends Base {
 
             foreach($result_datas as $results)
             {
-               $goods_name = $result["brand"]." ".$results["sku"]; //商品名稱
+               $goods_name = $results["brand"]." ".$results["sku"]; //商品名稱
                if(strlen($results["short_description"]) > 240){
                     $goods_remark = substr($results["short_description"],0,240)."....";
                }else

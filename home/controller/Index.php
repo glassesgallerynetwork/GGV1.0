@@ -97,6 +97,12 @@ class Index extends Base {
                 $goods_category_tree[] = $v;
             }
         }
+
+        //特色眼镜专栏
+        $res =Db::query("SELECT * FROM tp_goods as g, tp_special as s, tp_brand as b where s.status=0 and s.sku=g.sku and g.brand_id=b.id  LIMIT 4" );
+       foreach($res as $val){
+        $result[]=Array('goods_id'=>$val['goods_id'],'goods_name'=>strtolower($val['name']),'sku'=>strtolower($val['sku']),'market_price'=>$val['market_price'],'shop_price'=>$val['shop_price']);
+       }
         //按状态查询顶部导航
         $res = Db::name('navigation')->order('sort')->where('position','top')->where('is_show',1)->where('is_new',1)->select();
         $bottom=Db::name('navigation')->order('sort')->where('position','bottom')->where('is_show',1)->where('is_new',1)->select();
@@ -105,6 +111,7 @@ class Index extends Base {
         $service=Db::name('navigation')->where('url','like',"%Service%")->select();
         $this->assign('service',$service);
         $this->assign('bottom',$bottom);
+        $this->assign('result',$result);
         $this->assign('brand',$brand);
         $this->assign('bottom',$bottom);
         $this->assign('res',$res);
