@@ -14,82 +14,82 @@ class Color extends Model
 		switch ($res) {
 			case 'brown_transitions':
 				$url='lens-color/icon-tsc-brown.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'brown');
 				break;
 
 			case 'grey_transitions':
 				$url='lens-color/icon-tsc-grey.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'grey');
 				break;
 
 			case 'aston':
 				$url='lens-color/icon-mc-aston.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'aston');
 				break;
 
 			case 'dona':
 				$url='lens-color/icon-mc-dona.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'dona');
 				break;
 
 			case 'ocean_flash':
 				$url='lens-color/icon-mc-ocean-flash.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'ocean_flash');
 				break;
 			
 			case 'pine_green':
 				$url='lens-color/icon-mc-pine-green.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'pine_green');
 				break;
 
 			case 'pink_panther':
 				$url='lens-color/icon-mc-pink-panther.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'pink_panther');
 				break;
 
 			case 'tank':
 				$url='lens-color/icon-mc-tank.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'tank');
 				break;
 
 			case 'brown':
 				$url='lens-color/icon-ft-brown.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'brown');
 				break;
 
 			case 'green':
 				$url='lens-color/icon-ft-green.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'green');
 				break;
 
 			case 'grey':
 				$url='lens-color/icon-ft-grey.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'grey');
 				break;
 
 			case 'gradient_blue':
 				$url='lens-color/icon-gt-blue.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'gradient_blue');
 				break;
 
 			case 'gradient_brown':
 				$url='lens-color/icon-gt-brown.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'gradient_brown');
 				break;
 
 			case 'gradient_green':
 				$url='lens-color/icon-gt-green.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'gradient_green');
 				break;
 
 			case 'gradient_grey':
 				$url='lens-color/icon-gt-grey.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'gradient_grey');
 				break;
 
 			case 'gradient_violet':
 				$url='lens-color/icon-gt-violet.png';
-				$arr=array('url'=>$url);
+				$arr=array('url'=>$url,'lens_color'=>'gradient_violet');
 				break;
 
 			default:

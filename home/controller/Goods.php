@@ -36,29 +36,21 @@ class Goods extends Base {
 
         //C('TOKEN_ON',true);        
         $goodsLogic = new GoodsLogic();
-        $goods_id = I("get.id/d");
+        $widget = new \app\home\widget\Cates();
+        $widget->header();
+        $widget->footer();
+        
+        $goods_id = I("get.id/d");       
         //镜片属性
         $cat=Db::name('goods')->field('cat_id')->where('goods_id',$goods_id)->select();
         $cat_id=$cat[0]['cat_id'];
         $res=Db::name('goods_category')->field('name')->where('id',$cat_id)->select();
         $result=$res[0]['name'];
+        $new_array = Array();
         switch($result){
             case '眼镜':
             $name='Eyeglasses';
             $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
-            break;
-
-            case '墨镜':
-            $name='Eyeglasses';
-            $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
-            break;
-
-            case '运动':
-            $name='Eyeglasses';
-            $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
-            break;
-        }
-            $new_array = Array();
             foreach($results as $key=>$val){
                 $new_array[]=$val['lens_type'];
             }
@@ -78,12 +70,44 @@ class Goods extends Base {
                         break;
                 }
             }
-        //分配到前台
-        
-        $Models = new \app\home\widget\Cates();
-        $Models->header();
-        $Models->footer();
-        
+            break;
+
+            case '墨镜':
+            $name='Sunglasses';
+            $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
+            foreach($results as $key=>$val){
+                $new_array[]=$val['lens_type'];
+            }
+            $arr=Array();
+            foreach($new_array as $v){
+                switch($v){
+                    case 'single_vision':
+                        $arr[]=array('name'=>'单一视觉','centent'=>'所有年龄段的前所未有的清晰度和安全性','price'=>'');
+                        break;
+                    case 'progressive':
+                        $arr[]=array('name'=>'进步','centent'=>'40年后你解锁自然视力的关键。','price'=>'¥870.00');
+                        break;
+                }
+            }
+            break;
+
+            case '运动':
+            $name='Sports';
+            $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
+            foreach($results as $key=>$val){
+                $new_array[]=$val['lens_type'];
+            }
+            $arr=Array();
+            foreach($new_array as $v){
+                switch ($v) {
+                    case 'single_vision':
+                        $arr[]=array('name'=>'单一视觉','centent'=>'所有年龄段的前所未有的清晰度和安全性','price'=>'');
+                        break;
+                }
+            }
+            break;
+        }
+                    //分配到前台
         $this->assign('results',$arr);
         $Goods = new \app\common\model\Goods();
         $goods = $Goods::get($goods_id);
@@ -94,8 +118,6 @@ class Goods extends Base {
             $goodsLogic->add_visit_log(cookie('user_id'), $goods);
         }
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
-        $goods_image_id = ["images_item","images_item1","images_item2"];
-        $goods_image_id1 = ["images","images1","images2"];
         $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
         $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表
 	    $filter_spec = $goodsLogic->get_spec($goods_id);
@@ -104,29 +126,43 @@ class Goods extends Base {
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count'=>$goods['click_count']+1 )); //统计点击数
         $commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
         $point_rate = tpCache('shopping.point_rate');
-        $SEO_titles = M('Goods')->where("goods_id", $goods_id)->field('keywords,goods_remark')->find();
-        $goods_names = M('Goods')->where("goods_id", $goods_id)->field('*')->find();
-        // print_r($goods_names);
-        // return;
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price,true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods',navigate_goods($goods_id,1));// 面包屑导航
-        $this->assign('goods_names',$goods_names);
-        $this->assign('goods_image_id',$goods_image_id);
         $this->assign('commentStatistics',$commentStatistics);//评论概览
         $this->assign('goods_attribute',$goods_attribute);//属性值     
         $this->assign('goods_attr_list',$goods_attr_list);//属性列表
         $this->assign('filter_spec',$filter_spec);//规格参数
         $this->assign('goods_images_list',$goods_images_list);//商品缩略图
         $this->assign('siblings_cate',$goodsLogic->get_siblings_cate($goods['cat_id']));//相关分类
-        $this->assign('look_see',$goodsLogic->get_look_see($goods));//看了又看
+        $this->assign('look_see',$goodsLogic->get_look_see($goods));//看了又看      
         $this->assign('goods',$goods);
-        $this->assign('SEO_titles',$SEO_titles);
-        $this->assign("goods_image_id1",$goods_image_id1);
+        
+        //拿到图片需要的信息转为小写  2018-6-29
+        $brand_id=$goods['brand_id'];
+        $result=Db::name('brand')->field('name')->where(id,$brand_id)->find();
+        $brand=strtolower($result['name']);//转换为小写
+
+        $sku=strtolower($goods['sku']);
+        $images=Array('brand'=>str_replace(" ","-","$brand"),'sku'=>$sku);
+        $this->assign('images',$images);
+
         //构建手机端URL
         $ShareLink = urlencode("http://{$_SERVER['HTTP_HOST']}/index.php?m=Mobile&c=Goods&a=goodsInfo&id={$goods['goods_id']}");
         $this->assign('ShareLink',$ShareLink);
         $this->assign('point_rate',$point_rate);
+
+        //猜你喜欢
+        //根据品牌-眼镜类型-性别来，实现
+        // -- $like=Db::query("SELECT * FROM tp_goods as g, tp_brand as b where g.cat_id=$cat_id and g.brand_id=b.id LIMIT 4");
+        $counts=Db::name('goods g')->join('tp_brand b','b.id=g.brand_id')->where('g.cat_id',$cat_id)->count();
+        $page = new Page($counts,4);
+        if($counts > 0)
+        {
+            $like=Db::name('goods g')->join('tp_brand b','b.id=g.brand_id')->where('g.cat_id',$cat_id)->limit($page->firstRow.','.$page->listRows)->select();
+        }
+        $this->assign('page',$page);//赋值分页输出
+        $this->assign('like',$like);//猜你喜欢
         return $this->fetch('goods/info');
     }
 
@@ -594,6 +630,31 @@ class Goods extends Base {
         return $this->fetch();
     }
 
+    //首页选择品牌
+    public function brand(){
+       $name=I("get.name/S");
+       if(Db::name('goods')->where('goods_name','like',"%{$name}%")->select()){
+            $res=Db::name('goods')->field(['goods_id','goods_name','keywords','sku','market_price','shop_price'])->where('goods_name','like',"%{$name}%")->select();
+       }
+       if($res){
+           foreach($res as $val){
+                $brand_names=strtolower($val['goods_name']);
+                $sku=strtolower($val['sku']);
+                $length=mb_strlen($sku, 'GBK');
+                $nam=substr($brand_names,0,(0-$length)-1);
+                $name=str_replace(" ","-","$nam");
+                $arr[]=Array('brand_names'=>$name,'sku'=>$sku,'market_price'=>$val['market_price'],'price'=>$val['shop_price'],'goods_id'=>$val['goods_id']);
+           }
+       }
+       if(Db::name('brand')->select()){
+            $result=Db::name('brand')->where('name',$name)->select();
+       }
+        $this->assign('result',$result);
+        $this->assign('data',$arr);
+       
+       return $this->fetch();
+    }
+    
     //点击导航跳转到相应的商品
     public function list(){
         $request=request();
@@ -622,8 +683,8 @@ class Goods extends Base {
         $count = M("goods")->where("cat_id = ".$id."")->count(); //分页
         $navigate_cat = navigate_goods($id); // 面包屑导航
         $Page  = new Page($count,1);// 实例化分页类 传入总记录数和每页显示的记录数
-        $show  = $Page->custom_made_show();// 分页显示输出
-        $this->assign('page',$show);// 赋值分页输出
+        //$show  = $Page->custom_made_show();// 分页显示输出
+        //$this->assign('page',$show);// 赋值分页输出
         $this->assign('navigate_cat',$navigate_cat);
         $this->assign('data',$data);
         $this->assign('bann',$bann);
@@ -1297,13 +1358,83 @@ class Goods extends Base {
         $color=new Color();
         $arr=Array();
         $request=request();
-        if(empty($request->param('store'))){
-            if(empty($request->param('func'))){
-                $cent=$request->param('centents');
+        if(empty($request->param('store'))){ //鏡頭厚度
+            if(empty($request->param('func'))){ //鏡頭類型
+                $cent=$request->param('centents'); //内容
                 $id=$request->param('id');
                 $cat=Db::name('goods')->field('cat_id')->where('goods_id',$id)->select();
                 $cat_id=$cat[0]['cat_id'];
                 $result=Db::name('goods_category')->field('name')->where('id',$cat_id)->select();
+                $name=$result[0]['name'];
+                $result_lense = $result[0]['name'];
+                $new_array = Array();
+		        switch($result_lense){
+		            case '眼镜':
+		            $name='Eyeglasses';
+		            $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
+		            foreach($results as $key=>$val){
+		                $new_array[]=$val['lens_type'];
+		            }
+		            $arr=Array();
+		            foreach($new_array as $v){
+		                switch ($v) {
+		                    case 'single_vision':
+		                        $arr[]=array('name'=>'单一视觉','centent'=>'对于非处方','price'=>'');
+		                        break;
+
+		                    case 'bifocal':
+		                        $arr[]=array('name'=>'双光','centent'=>'独特个体的独特视角','price'=>'¥520.00');
+		                        break;
+
+		                    case 'progressive':
+		                        $arr[]=array('name'=>'进步','centent'=>'40岁以后解锁自然视力的钥匙。','price'=>'¥640.00');
+		                        break;
+		                }
+		            }
+		            break;
+
+		            case '墨镜':
+		            $name='Sunglasses';
+		            $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
+		            foreach($results as $key=>$val){
+		                $new_array[]=$val['lens_type'];
+		            }
+		            $arr=Array();
+		            foreach($new_array as $v){
+		                switch($v){
+		                    case 'single_vision':
+		                        $arr[]=array('name'=>'单一视觉','centent'=>'所有年龄段的前所未有的清晰度和安全性','price'=>'');
+		                        break;
+		                    case 'progressive':
+		                        $arr[]=array('name'=>'进步','centent'=>'40年后你解锁自然视力的关键。','price'=>'¥870.00');
+		                        break;
+		                }
+		            }
+		            break;
+
+		            case '运动':
+		            $name='Sports';
+		            $results=Db::name('lenses')->Distinct(true)->field('lens_type')->where('eyewear_type',$name)->select();
+		            foreach($results as $key=>$val){
+		                $new_array[]=$val['lens_type'];
+		            }
+		            $arr=Array();
+		            $arr1=Array();
+		            foreach($new_array as $v){
+		                switch ($v) {
+		                    case 'single_vision':
+		                        $arr[]=array('name'=>'单一视觉','centent'=>'所有年龄段的前所未有的清晰度和安全性','price'=>'');
+		                        break;
+		                }
+		            }
+		            break;
+		            $this->assign('results',$arr);
+		        }
+		        //分配到前台
+		        
+                $name=$result[0]['name'];
+                $cent=$request->param('centents');
+                
                 switch($name){
                     case '眼镜':
                     $name='Eyeglasses';
@@ -1320,23 +1451,23 @@ class Goods extends Base {
 
                                 switch($val['lens_func']){
                                     case 'clear':
-                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                        $arr1[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'免費');
                                     break;
 
                                     case 'computer':
-                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                        $arr1[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
                                     break;
 
                                     case 'transitions':
-                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                        $arr1[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'免費');
                                     break;
 
                                     case 'drivewear':
-                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                        $arr1[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960.00');
                                     break;
                                 }
                            }
-                          return json_encode($arr);
+                          $this->ajaxReturn($arr1);
                         break;
 
                         case '双光':
@@ -1346,23 +1477,23 @@ class Goods extends Base {
 
                                 switch($val['lens_func']){
                                     case 'clear':
-                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                        $arr1[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'免費');
                                     break;
 
                                     case 'computer':
-                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                        $arr1[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
                                     break;
 
                                     case 'transitions':
-                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                        $arr1[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'免費');
                                     break;
 
                                     case 'drivewear':
-                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                        $arr1[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960.00');
                                     break;
                                 }
                            }
-                          return json_encode($arr);
+                          $this->ajaxReturn($arr1);
                         break;
 
                         case '进步':
@@ -1371,23 +1502,23 @@ class Goods extends Base {
                          foreach($res as $val){
                                 switch($val['lens_func']){
                                     case 'clear':
-                                        $arr[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'自由');
+                                        $arr1[]=array('name'=>'清楚的','centent'=>'耐冲击，重量轻，非常清晰','price'=>'免費');
                                     break;
 
                                     case 'computer':
-                                        $arr[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
+                                        $arr1[]=array('name'=>'数字涂层','centent'=>'保护您的眼睛免受数字设备的排放','price'=>'¥192.00');
                                     break;
 
                                     case 'transitions':
-                                        $arr[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'自由');
+                                        $arr1[]=array('name'=>'转变','centent'=>'自动调整色彩以适应你周围的光线','price'=>'免費');
                                     break;
 
                                     case 'drivewear':
-                                        $arr[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960');
+                                        $arr1[]=array('name'=>'专业行驶','centent'=>'专门为驾驶而设计 - 唯一可以在挡风玻璃后面过渡的透镜','price'=>'¥960.00');
                                     break;
                                 }
                             }            
-                           return json_encode($arr);
+                           $this->ajaxReturn($arr1);
                         break;
                     }
                     break;
@@ -1407,23 +1538,23 @@ class Goods extends Base {
 
                                 switch($val['lens_func']){
                                     case 'sun_color':
-                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                        $arr1[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'免費');
                                     break;
 
                                     case 'sun_mirror':
-                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                        $arr1[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331.00');
                                     break;
 
                                     case 'nupolar_polarized':
-                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                        $arr1[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662.00');
                                     break;
 
                                     case 'nupolar_polarized_mirror':
-                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993');
+                                        $arr1[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993.00');
                                     break;
                                 }
                            }
-                          return json_encode($arr);
+                          $this->ajaxReturn($arr1);
                         break;
 
                         case '进步':
@@ -1432,23 +1563,23 @@ class Goods extends Base {
                          foreach($res as $val){
                                 switch($val['lens_func']){
                                     case 'sun_color':
-                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                        $arr1[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'免費');
                                     break;
 
                                     case 'sun_mirror':
-                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                        $arr1[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331.00');
                                     break;
 
                                     case 'nupolar_polarized':
-                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                        $arr1[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662.00');
                                     break;
 
                                     case 'nupolar_polarized_mirror':
-                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥960');
+                                        $arr1[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥960.00');
                                     break;
                                 }
                             }            
-                           return json_encode($arr);
+                           $this->ajaxReturn($arr1);
                         break;
                     }
                     break;
@@ -1468,27 +1599,28 @@ class Goods extends Base {
 
                                 switch($val['lens_func']){
                                     case 'sun_color':
-                                        $arr[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'自由');
+                                        $arr1[]=array('name'=>'彩色镜片','centent'=>'从我们选择的颜色中选择适合您个人口味的颜色','price'=>'免費');
                                     break;
 
                                     case 'sun_mirror':
-                                        $arr[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331');
+                                        $arr1[]=array('name'=>'彩色镜子','centent'=>'使用我们的各种彩色镜片，获得好莱坞的魅力','price'=>'¥331.00');
                                     break;
 
                                     case 'nupolar_polarized':
-                                        $arr[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662');
+                                        $arr1[]=array('name'=>'偏振','centent'=>'偏光镜片可阻挡有害的紫外线并增强物体对比度。','price'=>'¥662.00');
                                     break;
 
                                     case 'nupolar_polarized_mirror':
-                                        $arr[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993');
+                                        $arr1[]=array('name'=>'偏光镜','centent'=>'偏光镜片的所有优点加上镜面镜片，带来好莱坞魅力。','price'=>'¥993.00');
                                     break;
                                 }
                            }
-                          return json_encode($arr);
+                          $this->ajaxReturn($arr1);
                         break;
                     }
                     break;
                 }
+                $this->ajaxReturn('');
                 
                 
             }else{
@@ -1523,7 +1655,7 @@ class Goods extends Base {
                             $ress=Db::name('lenses')->Distinct(true)->field('lens_pkg')->where('lens_type',$cent)->where('eyewear_type',$name)->where('lens_func',$func)->select();
                             foreach($ress as $val){
                                 if($val['lens_pkg']=='standard'){
-                                    $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                    $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'免費');
                                 }
                             }                   
                         break;
@@ -1534,7 +1666,7 @@ class Goods extends Base {
                              foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1558,7 +1690,7 @@ class Goods extends Base {
                              foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thinner';
@@ -1578,7 +1710,7 @@ class Goods extends Base {
                                  foreach($ress as $val){
                                     switch($val['lens_pkg']){
                                         case 'standard';
-                                            $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'自由');
+                                            $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'优秀的光学镜头，最薄的镜头解决方案。','price'=>'免費');
                                         break;
 
                                         case 'thinner';
@@ -1614,7 +1746,7 @@ class Goods extends Base {
                             foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1635,7 +1767,7 @@ class Goods extends Base {
                              foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1657,7 +1789,7 @@ class Goods extends Base {
                              foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                    case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1678,7 +1810,7 @@ class Goods extends Base {
                                  foreach($ress as $val){
                                     switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1715,7 +1847,7 @@ class Goods extends Base {
                             foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1736,7 +1868,7 @@ class Goods extends Base {
                              foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1758,7 +1890,7 @@ class Goods extends Base {
                              foreach($ress as $val){
                                 switch($val['lens_pkg']){
                                    case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';
@@ -1779,7 +1911,7 @@ class Goods extends Base {
                                  foreach($ress as $val){
                                     switch($val['lens_pkg']){
                                     case 'standard';
-                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'自由');
+                                        $arr[]=array('image'=>'standard','name'=>'标准','centent'=>'卓越的光学，最薄的镜头解决方案。','price'=>'免費');
                                     break;
 
                                     case 'thin';

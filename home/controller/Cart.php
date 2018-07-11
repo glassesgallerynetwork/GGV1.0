@@ -61,7 +61,7 @@ class Cart extends Base {
     }
     //购物车详情
     public function index(){
-    	$Models = new \app\home\widget\Cates();
+        $Models = new \app\home\widget\Cates();
         $Models->header();
         $Models->footer();
         $user_id=$this->user_id;
@@ -73,7 +73,14 @@ class Cart extends Base {
         $LensPrice=$val['price'] - $val['shop_price'];
         $cart[]=Array('brand_name'=>"$brand_name",'sku'=>strtolower($val['sku']),'goods_id'=>$val['goods_id'],'centents'=>$val['centents'],'func'=>$val['func'],'store_names'=>$val['store_names'],'price'=>$price,'num'=>$val['num'],'LensPrice'=>"$LensPrice");
        }
-       $this->assign('cart',$cart);
+       //循环计算总价钱
+       if($cart){
+            foreach($cart as $v){
+               $Total  += $v['price'];
+            }
+        }
+        $this->assign('Total',$Total);
+        $this->assign('cart',$cart);
         return $this->fetch();
         // $cartLogic = new CartLogic();
         // $cartLogic->setUserId($this->user_id);
@@ -82,6 +89,39 @@ class Cart extends Base {
         // $this->assign('userCartGoodsTypeNum', $userCartGoodsTypeNum);
         // $this->assign('cartList', $cartList);//购物车列表
         
+    }
+    //点击结算
+    public function checkout(){
+        $request=request();
+        $request->post() ? $post=$request->post():$this->ajaxReturn(['status'=>1,'msg'=>'请稍后再试']);
+        $this->user_id ? $user_id=$this->user_id:$this->ajaxReturn(['status'=>1,'msg'=>'请先登录']);
+        if(Db::name('user_address')->where('user_id',$user_id)->select()){
+            $this->ajaxReturn(['status'=>0,'msg'=>'']);
+        }
+    }
+    //结账选择您的收货地址关联用户信息地址表
+    public function receiving_address(){
+        $address_lists = get_user_address_list($this->user_id);
+        $region_list = get_region_list();
+        $this->assign('region_list',$region_list);
+        $this->assign('lists',$address_lists);
+        $this->assign('active','address_list');
+         $user_id=$this->user_id;
+        $res=Db::name('shopping_cart s')->field(['b.name','g.sku','s.user_id','s.goods_id','s.centents','s.func','s.store_names','s.price','s.num','g.shop_price'])->join('tp_goods g','g.sku=s.sku')->join('tp_brand b','g.brand_id=b.id')->where('s.user_id',$user_id)->select();
+       foreach($res as $val){
+        $name=strtolower($val['name']);
+        $brand_name=str_replace(" ","-","$name");
+        $price=$val['price'] * $val['num'];
+        $LensPrice=$val['price'] - $val['shop_price'];
+        $cart[]=Array('brand_name'=>"$brand_name",'sku'=>strtolower($val['sku']),'goods_id'=>$val['goods_id'],'centents'=>$val['centents'],'func'=>$val['func'],'store_names'=>$val['store_names'],'price'=>$price,'num'=>$val['num'],'LensPrice'=>"$LensPrice");
+       }
+       //循环计算总价钱
+        foreach($cart as $v){
+           $Total  += $v['price'];
+        }
+        $this->assign('Total',$Total);
+        $this->assign('cart',$cart);
+        return $this->fetch();
     }
 
     public function pric(){
@@ -311,17 +351,17 @@ class Cart extends Base {
     public function ajaxAddress(){
         $address_list = Db::name('UserAddress')->where(['user_id'=>$this->user_id,'is_pickup'=>0])->order('is_default desc')->select();
         if($address_list){
-        	$area_id = array();
-        	foreach ($address_list as $val){
-        		$area_id[] = $val['province'];
+            $area_id = array();
+            foreach ($address_list as $val){
+                $area_id[] = $val['province'];
                         $area_id[] = $val['city'];
                         $area_id[] = $val['district'];
                         $area_id[] = $val['twon'];                        
-        	}    
+            }    
                 $area_id = array_filter($area_id);
-        	$area_id = implode(',', $area_id);
-        	$regionList = Db::name('region')->where("id", "in", $area_id)->getField('id,name');
-        	$this->assign('regionList', $regionList);
+            $area_id = implode(',', $area_id);
+            $regionList = Db::name('region')->where("id", "in", $area_id)->getField('id,name');
+            $this->assign('regionList', $regionList);
         }
         $address_where['is_default'] = 1;
         $c = Db::name('UserAddress')->where(['user_id'=>$this->user_id,'is_default'=>1,'is_pickup'=>0])->count(); // 看看有没默认收货地址
@@ -460,7 +500,7 @@ class Cart extends Base {
     }
     /**
      * ajax 获取订单商品价格 或者提交 订单
-	 * 已经用心方法 这个方法 cart9  准备作废
+     * 已经用心方法 这个方法 cart9  准备作废
      */
    
     /*
@@ -546,10 +586,10 @@ class Cart extends Base {
         $cartLogic->setUserId($this->user_id);
         $cartList = $cartLogic->getCartList();
         $cartPriceInfo = $cartLogic->getCartPriceInfo($cartList);
-    	$this->assign('cartList', $cartList); // 购物车的商品
-    	$this->assign('cartPriceInfo', $cartPriceInfo); // 总计
-        $template = I('template','header_cart_list');    	 
-        return $this->fetch($template);		 
+        $this->assign('cartList', $cartList); // 购物车的商品
+        $this->assign('cartPriceInfo', $cartPriceInfo); // 总计
+        $template = I('template','header_cart_list');        
+        return $this->fetch($template);      
     }
 
     /**
@@ -723,7 +763,7 @@ class Cart extends Base {
         $field=[          
             'invoice_title',
             'taxpayer',
-            'invoice_desc',	
+            'invoice_desc', 
         ];
 
         $info = M('user_extend')->field($field)->where($map)->find();
